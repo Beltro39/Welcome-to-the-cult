@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 78cdba789e0e797419dac7a32e77971a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - latinaSprite: {fileID: 21300000, guid: 3ad6cc2c8aa9eca4f9ba99779f8713d9, type: 3}
+  - japaneseSprite: {fileID: 21300000, guid: 4d6a160ba5cc99049adbcb206f1ae1cd, type: 3}
+  - americanSprite: {fileID: 21300000, guid: 72c230910c478ae4d8d1084e45d867bf, type: 3}
+  - blackSprite: {fileID: 21300000, guid: ac2b1e562fb6ea744ac7780254063083, type: 3}
+  - ukrainSprite: {fileID: 21300000, guid: 8644c23e83669fb42b9e4fad9e428c90, type: 3}
+  - mexicanSprite: {fileID: 21300000, guid: f8661fdcf707e144da2e4e565e66bad4, type: 3}
+  - ugandanSprite: {fileID: 21300000, guid: b192872867900f94ab6801d901898055, type: 3}
+  - bobSprite: {fileID: 21300000, guid: c3bab7283fa94f24ba75ec15cdb56f8c, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
