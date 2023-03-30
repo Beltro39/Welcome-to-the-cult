@@ -29,25 +29,27 @@ public class TurnOrderController : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    public void Begin(List<PlayerClass> PlayerClassList){
-        foreach (PlayerClass netPlayer in PlayerClassList)
+    public bool Run(Queue<Player> queuePlayer){
+        foreach (Player player in queuePlayer)
         {
-            if(netPlayer.getTurnOrder() == "1"){
-                FirstPlayerName.text = "FIRST: "+ netPlayer.getNickname();
-                setAvatarSprite.setImage(FirstPlayerImage, netPlayer.getAvatar());
-                SetImageColor.setColor(FirstTurnImage, netPlayer.getCompanyDimension());
+            Debug.Log(player.getNickname());
+            if(player.getTurnOrder() == "1"){
+                FirstPlayerName.text = "FIRST: "+ player.getNickname();
+                setAvatarSprite.setImage(FirstPlayerImage, player.getAvatar());
+                SetImageColor.setColor(FirstTurnImage, player.getCompanyDimension());
             }
-            if(netPlayer.getTurnOrder() == "2"){
-                SecondPlayerName.text = "SECOND: "+ netPlayer.getNickname();
-                setAvatarSprite.setImage(SecondPlayerImage, netPlayer.getAvatar());
-                SetImageColor.setColor(SecondTurnImage, netPlayer.getCompanyDimension());
+            if(player.getTurnOrder() == "2"){
+                SecondPlayerName.text = "SECOND: "+ player.getNickname();
+                setAvatarSprite.setImage(SecondPlayerImage, player.getAvatar());
+                SetImageColor.setColor(SecondTurnImage, player.getCompanyDimension());
             }
-             if(netPlayer.getTurnOrder() == "3"){
-                ThirdPlayerName.text = "THIRD: "+ netPlayer.getNickname();
-                setAvatarSprite.setImage(ThirdPlayerImage, netPlayer.getAvatar());
-                SetImageColor.setColor(ThirdTurnImage, netPlayer.getCompanyDimension());
+             if(player.getTurnOrder() == "3"){
+                ThirdPlayerName.text = "THIRD: "+ player.getNickname();
+                setAvatarSprite.setImage(ThirdPlayerImage, player.getAvatar());
+                SetImageColor.setColor(ThirdTurnImage, player.getCompanyDimension());
             }
         }
+        return true;
     }
 }
 }

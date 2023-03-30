@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 namespace Lean.Gui{
 public class SpawnCompany : MonoBehaviour
 {
@@ -9,34 +9,32 @@ public class SpawnCompany : MonoBehaviour
     [SerializeField] private GameObject companyModal;
     [SerializeField] private GameObject confirmModal;
     [SerializeField] private GameObject panel;
-    [SerializeField] private GameObject GameControllerGO;
-     [SerializeField] private GameObject companyPrefab;
+    [SerializeField] private GameObject companyPrefab;
+
     GameController GameController;
     GameObject company;
-    object[] myCustomInitData= new object[1];
+    SetImageColor SetImageColor;
    
     void Start(){
-        GameController= GameControllerGO.GetComponent<GameController>();
+        GameObject GameControllerGO= GameObject.Find("GameController"); 
+        GameObject UIControllerGO = GameObject.Find("UIController"); 
+        GameController = GameControllerGO.GetComponent<GameController>();
+        SetImageColor=  UIControllerGO.GetComponent<SetImageColor>();
     }
 
-
-    // Start is called ;before the first frame update
-   public void Begin(){
-       myCustomInitData[0]= "";
-       List<PlayerClass> ListPlayerClass= GameController.getPlayerClassList();
-       foreach(PlayerClass netPlayer in ListPlayerClass){
-            netPlayer.getCompanyDimension();
-            company = Instantiate(companyPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            company.transform.SetParent(companyModal.transform);
-            company.transform.localScale =  new Vector3(0.8f, 0.8f, 1f);
-            company.transform.position  = new Vector3(0,0.5f,0);
-           
-       }
-
-       LeanDrag comapanyLeanDrag= company.GetComponent<LeanDrag>();
+   public bool Run(Player player){
+        Debug.Log(player.getCompanyDimension());
+        LeanWindow companyModalLean= companyModal.GetComponent<LeanWindow>();
+        companyModalLean.TurnOn();
+        company = Instantiate(companyPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        company.transform.SetParent(companyModal.transform);
+        company.transform.localScale =  new Vector3(0.8f, 0.8f, 1f);
+        company.transform.position  = new Vector3(0,0.5f,0);
+        SetImageColor.setColor(company.gameObject.GetComponent<Image>(), player.getCompanyDimension());
+        LeanDrag comapanyLeanDrag= company.GetComponent<LeanDrag>();
        comapanyLeanDrag.OnBegin.AddListener(changeCompanyParent);
        comapanyLeanDrag.OnEnd.AddListener(OpenConfirmModal);
-
+        return true;
    }
 
      public void changeCompanyParent(){
@@ -48,6 +46,7 @@ public class SpawnCompany : MonoBehaviour
     public void OpenConfirmModal(){
        LeanWindow confirmModalLeanWindow= confirmModal.GetComponent<LeanWindow>();
        confirmModalLeanWindow.TurnOn();
+       //Destroy(company);
     }
 
       

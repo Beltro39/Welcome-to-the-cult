@@ -33,26 +33,27 @@ public class ShowResources : MonoBehaviour
     [SerializeField] private Sprite skillfulTechnology;
     [SerializeField] private Sprite barganingPower;
     [SerializeField] private Sprite researchProjects;
-    List<PlayerClass> ListPlayerClass;
+    Queue<Player> queuePlayer;
     
     private float x,y;                              //para posicion
     private string first, second, third, fourth;    //para cantidad o nivel
     Colors color;
 
-    public void Begin(List<PlayerClass> ListPlayerClass){
-       this.ListPlayerClass = ListPlayerClass;
+    public bool Begin(Queue<Player> queuePlayer){
+       this.queuePlayer = queuePlayer;
+       return true;
     }
 
-    public void movePanel(string resourceType, string targetPlayer)
+    public void movePanel(string resourceType, int targetPlayer)
     {
-        if(targetPlayer == "local")
+        if(targetPlayer == 1)
         {
             if(resourceType == "employees"){ x = -440; y = 180; }
             else if(resourceType == "technologies"){ x = -325; y = 180; }
             else if(resourceType == "abilities"){ x = -125; y = 180; }
             else{ x = 0; y = 0; }
         }
-        else if(targetPlayer == "left")
+        else if(targetPlayer == 2)
         {
             x = -340; y = 56;
         }
@@ -156,50 +157,47 @@ public class ShowResources : MonoBehaviour
     }
 
     //resourceType (employees, technologies, abilities) ; targetPlayer (local, left, right)
-    public void setTextResources(string resourceType, string targetPlayer)
+    public void setTextResources(string resourceType, int targetPlayer)
     {
         first= "";
         second= "";
         third= "";
         fourth= "";
-        foreach(PlayerClass netPlayer in ListPlayerClass){
-            Debug.Log("targetPlayer: "+ targetPlayer);
-            Debug.Log("netPlayer: "+ netPlayer.getPosition());
-            Debug.Log(ListPlayerClass.Count);
-            if(netPlayer.getPosition()== targetPlayer){
+        foreach(Player player in queuePlayer){
+            if(player.getPosition() == targetPlayer){
                if(resourceType == "employees"){ 
-                  first = netPlayer.getListEmployees().getJuniors().getCurrentAvailableResource().ToString() 
-                  +"/"+netPlayer.getListEmployees().getJuniors().getAmount().ToString();
+                  first = player.getListEmployees().getJuniors().getCurrentAvailableResource().ToString() 
+                  +"/"+player.getListEmployees().getJuniors().getAmount().ToString();
                   Debug.Log("first: "+first);
-                  second = netPlayer.getListEmployees().getSemiSeniors().getCurrentAvailableResource().ToString() 
-                  +"/"+netPlayer.getListEmployees().getSemiSeniors().getAmount().ToString();
+                  second = player.getListEmployees().getSemiSeniors().getCurrentAvailableResource().ToString() 
+                  +"/"+player.getListEmployees().getSemiSeniors().getAmount().ToString();
                    Debug.Log("second: "+second);
-                  third = netPlayer.getListEmployees().getSeniors().getCurrentAvailableResource().ToString() 
-                  +"/"+netPlayer.getListEmployees().getSeniors().getAmount().ToString();
+                  third = player.getListEmployees().getSeniors().getCurrentAvailableResource().ToString() 
+                  +"/"+player.getListEmployees().getSeniors().getAmount().ToString();
                   Debug.Log("third: "+third);
-                  fourth = netPlayer.getListEmployees().getArchitects().getCurrentAvailableResource().ToString() 
-                  +"/"+netPlayer.getListEmployees().getArchitects().getAmount().ToString();
+                  fourth = player.getListEmployees().getArchitects().getCurrentAvailableResource().ToString() 
+                  +"/"+player.getListEmployees().getArchitects().getAmount().ToString();
                   Debug.Log("fourth: "+fourth);
                } 
                if(resourceType == "technologies"){
-                   first = netPlayer.getListTechnologies().getServers().getCurrentAvailableResource().ToString()
-                   +"/"+netPlayer.getListTechnologies().getServers().getAmount().ToString();
-                   second =netPlayer.getListTechnologies().getSatellites().getCurrentAvailableResource().ToString()
-                   +"/"+netPlayer.getListTechnologies().getSatellites().getAmount().ToString(); 
-                   third = netPlayer.getListTechnologies().getIA().getCurrentAvailableResource().ToString()
-                   +"/"+netPlayer.getListTechnologies().getIA().getAmount();
-                   fourth= netPlayer.getListTechnologies().getHosting().getCurrentAvailableResource().ToString()
-                   +"/"+netPlayer.getListTechnologies().getHosting().getAmount().ToString();
+                   first = player.getListTechnologies().getServers().getCurrentAvailableResource().ToString()
+                   +"/"+player.getListTechnologies().getServers().getAmount().ToString();
+                   second =player.getListTechnologies().getSatellites().getCurrentAvailableResource().ToString()
+                   +"/"+player.getListTechnologies().getSatellites().getAmount().ToString(); 
+                   third = player.getListTechnologies().getIA().getCurrentAvailableResource().ToString()
+                   +"/"+player.getListTechnologies().getIA().getAmount();
+                   fourth= player.getListTechnologies().getHosting().getCurrentAvailableResource().ToString()
+                   +"/"+player.getListTechnologies().getHosting().getAmount().ToString();
                }
                if(resourceType == "abilities"){
-                   first = netPlayer.getListAbilities().getRecruitment().getCurrentAvailableResource().ToString()
-                   +"/"+netPlayer.getListAbilities().getRecruitment().getAmount().ToString();
-                   second = netPlayer.getListAbilities().getSkillful().getCurrentAvailableResource().ToString()
-                   +"/"+netPlayer.getListAbilities().getSkillful().getAmount().ToString();
-                   third = netPlayer.getListAbilities().getBargain().getCurrentAvailableResource().ToString()
-                   +"/"+netPlayer.getListAbilities().getBargain().getAmount().ToString();
-                   fourth = netPlayer.getListAbilities().getResearch().getCurrentAvailableResource().ToString()
-                   +"/"+netPlayer.getListAbilities().getResearch().getAmount().ToString();
+                   first = player.getListAbilities().getRecruitment().getCurrentAvailableResource().ToString()
+                   +"/"+player.getListAbilities().getRecruitment().getAmount().ToString();
+                   second = player.getListAbilities().getSkillful().getCurrentAvailableResource().ToString()
+                   +"/"+player.getListAbilities().getSkillful().getAmount().ToString();
+                   third = player.getListAbilities().getBargain().getCurrentAvailableResource().ToString()
+                   +"/"+player.getListAbilities().getBargain().getAmount().ToString();
+                   fourth = player.getListAbilities().getResearch().getCurrentAvailableResource().ToString()
+                   +"/"+player.getListAbilities().getResearch().getAmount().ToString();
                }
             }
         }
@@ -215,7 +213,7 @@ public class ShowResources : MonoBehaviour
     {
         string[] splitted = resourceAndTarget.Split('_');
         string resourceType = splitted[0];
-        string targetPlayer = splitted[1];
+        int targetPlayer = int.Parse(splitted[1]);
         movePanel(resourceType, targetPlayer);
         changeImage(resourceType);
         changeTextColor(resourceType);
