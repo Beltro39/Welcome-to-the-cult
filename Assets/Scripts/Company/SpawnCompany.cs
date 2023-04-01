@@ -23,7 +23,6 @@ public class SpawnCompany : MonoBehaviour
     }
 
    public bool Run(Player player){
-        Debug.Log(player.getCompanyDimension());
         LeanWindow companyModalLean= companyModal.GetComponent<LeanWindow>();
         companyModalLean.TurnOn();
         company = Instantiate(companyPrefab, new Vector3(0, 0, 0), Quaternion.identity);
@@ -47,6 +46,12 @@ public class SpawnCompany : MonoBehaviour
        LeanWindow confirmModalLeanWindow= confirmModal.GetComponent<LeanWindow>();
        confirmModalLeanWindow.TurnOn();
        //Destroy(company);
+    }
+
+    public void destroyCompany(){
+        Destroy(company);
+        LeanWindow confirmModalLeanWindow= confirmModal.GetComponent<LeanWindow>();
+        confirmModalLeanWindow.TurnOff();
     }
 
       

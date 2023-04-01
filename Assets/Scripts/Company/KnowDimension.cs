@@ -7,15 +7,15 @@ public class KnowDimension : MonoBehaviour
 {
     private GameObject confirmModal;
     private Text modalText;
-    GameObject GameControllerGO;
+    GameObject uiControllerGO;
     ModalEnteringDimensionController ModalEnteringDimensionController;
     // Start is called before the first frame update
     void Start()
     {
         confirmModal= GameObject.Find("Modal Confirm Dimension"); 
         modalText = GameObject.Find("Modal Confirm Text").GetComponent<Text>();
-        GameControllerGO= GameObject.Find("GameController");
-        ModalEnteringDimensionController= GameControllerGO.GetComponent<ModalEnteringDimensionController>();
+        uiControllerGO = GameObject.Find("UIController");
+        ModalEnteringDimensionController= uiControllerGO.GetComponent<ModalEnteringDimensionController>();
     }
 
     // Update is called once per frame

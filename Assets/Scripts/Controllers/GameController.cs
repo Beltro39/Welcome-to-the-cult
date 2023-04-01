@@ -5,13 +5,15 @@ namespace Lean.Gui{
 public class GameController : MonoBehaviour
 {
     private List<string> listaDimensiones = new List<string>(){"Organization and people", "Information and technology", "Partners and suppliers", "Value streams and processes"};
-    private List<int> listaOrder = new List<int>(){1,2,3};
+    private List<int> listaOrder;
+    private List<Player> listPlayer = new List<Player>();
     System.Random random = new System.Random();
-    private Queue<Player> queuePlayer;
+    private Queue<Player> queuePlayer = new Queue<Player>();
     private Player currentPlayer;
     private int currentCycle = 1;
-    private enum Stage { CreatingPlayers, Initiative, Planning, Buying, ProjectRealization, Exchange }
+    private enum Stage { CreatingPlayers, Initiative, Planning, ProjectRealization}
     private Stage currentStage; 
+    
     SetProperties setPropertiesComponent;
     TurnOrderController turnOrderControllerComponent;
     ShowResources showResourcesComponent;
@@ -20,9 +22,12 @@ public class GameController : MonoBehaviour
     DisableButtons disableButtonsComponent;
     SetResources setResourcesComponent;
 
+    LeanWindow initiativeAssignmentModalLeanWindow;
+
     void Start()
     {
-        GameObject UIControllerGO = GameObject.Find("UIController");  
+        GameObject UIControllerGO = GameObject.Find("UIController");
+        GameObject initiativeAssignmentGO = GameObject.Find("Modal Initiative Assignment");  
         setPropertiesComponent = UIControllerGO.GetComponent<SetProperties>();
         turnOrderControllerComponent = gameObject.GetComponent<TurnOrderController>();
         showResourcesComponent = UIControllerGO.GetComponent<ShowResources>();
@@ -30,8 +35,9 @@ public class GameController : MonoBehaviour
         buyResourcesComponent= gameObject.GetComponent<BuyResources>();
         disableButtonsComponent = UIControllerGO.GetComponent<DisableButtons>();
         setResourcesComponent = UIControllerGO.GetComponent<SetResources>();
+        initiativeAssignmentModalLeanWindow = initiativeAssignmentGO.GetComponent<LeanWindow>();
+
         currentStage = Stage.CreatingPlayers;
-        queuePlayer = new Queue<Player>();
         StartCoroutine(GameLoop());
     }
 
@@ -42,7 +48,6 @@ public class GameController : MonoBehaviour
             // Execute the current stage logic
             yield return StartCoroutine(ExecuteStage());
             // Advance to the next player
-            Debug.Log("no deberia");
             AdvanceToNextPlayer();
         }
 
@@ -57,23 +62,26 @@ public class GameController : MonoBehaviour
         {
            
             case Stage.CreatingPlayers:
-                yield return new WaitUntil(() => createPlayers()); 
+                yield return new WaitUntil(() => createPlayers());
                 break;
             case Stage.Initiative:
+                yield return new WaitUntil(() => resetTurnOrder()); 
+                Debug.Log("Initiative");
+                Debug.Log(currentCycle);
                 yield return new WaitUntil(() => turnOrderControllerComponent.Run(queuePlayer)); 
-                yield return new WaitUntil(() => showResourcesComponent.Begin(queuePlayer));
+                initiativeAssignmentModalLeanWindow.TurnOn();
                 break;
             case Stage.Planning:
+                yield return new WaitUntil(() => showResourcesComponent.Begin(queuePlayer));
                 yield return new WaitUntil(() => setPropertiesComponent.Run(queuePlayer)); 
                 yield return new WaitUntil(() => spawnCompanyComponent.Run(currentPlayer)); 
                 yield return new WaitUntil(() => currentPlayer.getIsActionComplete()); 
+                spawnCompanyComponent.destroyCompany();
+                changePosition();
                 break;
-            /*
-            case Stage.Buying:
-                // Buying stage logic
-                yield return StartCoroutine(BuyingStage());
+            case Stage.ProjectRealization:
+                changeAllPlayerIsActionComplete();
                 break;
-            */
         }
     }
 
@@ -81,8 +89,7 @@ public class GameController : MonoBehaviour
 
     public void AdvanceToNextPlayer()
     {
-        if((currentStage == Stage.CreatingPlayers)  || (currentStage == Stage.Initiative)){
-            Debug.Log("tamales");
+        if((currentStage == Stage.CreatingPlayers)  || (currentStage == Stage.Initiative)  || (currentStage == Stage.ProjectRealization)){
             AdvanceToNextStage();
         }else{
             currentPlayer = queuePlayer.Dequeue(); 
@@ -93,6 +100,8 @@ public class GameController : MonoBehaviour
                     suma++;
                 }
             }
+            Debug.Log("Suma");
+            Debug.Log(suma);
             if(suma==3){
                 AdvanceToNextStage();
             }
@@ -103,9 +112,7 @@ public class GameController : MonoBehaviour
     void AdvanceToNextStage()
     {
         currentStage++;
-        Debug.Log("xd");
-        Debug.Log(currentStage);
-        if (currentStage > Stage.Exchange)
+        if (currentStage > Stage.ProjectRealization)
         {
             currentStage = Stage.Initiative;
             currentCycle++;
@@ -142,35 +149,28 @@ public class GameController : MonoBehaviour
         currentPlayer.setIsActionComplete(true);
     }
 
+    public void changeAllPlayerIsActionComplete(){
+        foreach(Player player in queuePlayer){
+            player.setIsActionComplete(false);
+        }
+    }
 
-    public bool createPlayers(){
-        string dimension;      
-        int turn_order;
-        List<Player> listPlayer = new List<Player>();
-        for(int i = 0; i < 3; i++){
-            ListEmployees ListEmployees = new ListEmployees();   
-            ListTechnologies ListTechnologies = new ListTechnologies();
-            ListAbilities ListAbilities = new ListAbilities();
-            Itilianos Itilianos = new Itilianos();
-            dimension = GetRandomDimension(); 
-            turn_order = GetRandomPlayer();
-            int j = turn_order - 1;
-            ListEmployees = setResourcesComponent.setInitialValuesEmployees(dimension);
-            ListTechnologies = setResourcesComponent.setInitialValuesTechnologies(dimension);
-            ListAbilities = setResourcesComponent.setInitialValuesAbilities(dimension);
-            Itilianos= setResourcesComponent.setInitialValuesItilianos(dimension); 
+    public void changePosition(){
+        foreach(Player player in queuePlayer){
+            if(player.getPosition() == 1){
+                player.setPosition(3);
+            }
+            else {
+                player.setPosition(player.getPosition()-1);
+            }
+        }
+    }
 
-            Player playerObj = new Player(
-                    ListEmployees, 
-                    ListTechnologies,
-                    ListAbilities, 
-                    Itilianos, 
-                    turn_order.ToString(), 
-                    dimension, 
-                    PlayerPrefs.GetString($"P{j}AvatarName"),
-                    PlayerPrefs.GetInt($"P{j}AvatarSprite")
-            );
-            listPlayer.Add(playerObj); 
+    public bool resetTurnOrder(){
+        listaOrder = new List<int>(){1,2,3};
+        foreach(Player player in queuePlayer){
+            int turn_order = GetRandomPlayer();
+            player.setTurnOrder(turn_order.ToString());
         }
         int k = 0; 
         while(true){
@@ -192,7 +192,36 @@ public class GameController : MonoBehaviour
             }
             k++;
         }
-        currentPlayer = queuePlayer.Peek();
+        currentPlayer = queuePlayer.Dequeue();
+        queuePlayer.Enqueue(currentPlayer);
+        return true;
+    }
+
+    public bool createPlayers(){
+        string dimension;      
+        for(int i = 0; i < 3; i++){
+            ListEmployees ListEmployees = new ListEmployees();   
+            ListTechnologies ListTechnologies = new ListTechnologies();
+            ListAbilities ListAbilities = new ListAbilities();
+            Itilianos Itilianos = new Itilianos();
+            dimension = GetRandomDimension(); 
+            ListEmployees = setResourcesComponent.setInitialValuesEmployees(dimension);
+            ListTechnologies = setResourcesComponent.setInitialValuesTechnologies(dimension);
+            ListAbilities = setResourcesComponent.setInitialValuesAbilities(dimension);
+            Itilianos= setResourcesComponent.setInitialValuesItilianos(dimension); 
+
+            Player playerObj = new Player(
+                    ListEmployees, 
+                    ListTechnologies,
+                    ListAbilities, 
+                    Itilianos, 
+                    dimension, 
+                    PlayerPrefs.GetString($"P{i}AvatarName"),
+                    PlayerPrefs.GetInt($"P{i}AvatarSprite")
+            );
+            listPlayer.Add(playerObj); 
+ 
+        }
         return true;
     }
     

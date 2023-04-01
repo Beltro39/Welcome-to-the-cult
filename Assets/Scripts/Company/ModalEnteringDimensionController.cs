@@ -48,6 +48,25 @@ public class ModalEnteringDimensionController : MonoBehaviour
           modalValueStreamsAndProcessesLeanWindow.TurnOn(); 
         }
     }
+
+    public void TurnOff(){
+      Debug.Log("Dimension");
+      Debug.Log(myDimensionSelected);
+      if(myDimensionSelected== "Organization and people"){
+           modalOrganizationAndPeopleLeanWindow.TurnOff();
+        }
+        if(myDimensionSelected== "Information and technology"){
+          modalInformationAndTechnologyLeanWindow.TurnOff();
+        }
+        /*
+        if(myDimensionSelected== "Partners and suppliers"){
+          modalPartnersAndSuppliersLeanWindow.TurnOn();  
+        }
+        */
+        if(myDimensionSelected== "Value streams and processes"){
+          modalValueStreamsAndProcessesLeanWindow.TurnOff(); 
+        }
+    }
     
 }
 }

@@ -168,16 +168,13 @@ public class ShowResources : MonoBehaviour
                if(resourceType == "employees"){ 
                   first = player.getListEmployees().getJuniors().getCurrentAvailableResource().ToString() 
                   +"/"+player.getListEmployees().getJuniors().getAmount().ToString();
-                  Debug.Log("first: "+first);
                   second = player.getListEmployees().getSemiSeniors().getCurrentAvailableResource().ToString() 
                   +"/"+player.getListEmployees().getSemiSeniors().getAmount().ToString();
-                   Debug.Log("second: "+second);
                   third = player.getListEmployees().getSeniors().getCurrentAvailableResource().ToString() 
                   +"/"+player.getListEmployees().getSeniors().getAmount().ToString();
-                  Debug.Log("third: "+third);
                   fourth = player.getListEmployees().getArchitects().getCurrentAvailableResource().ToString() 
                   +"/"+player.getListEmployees().getArchitects().getAmount().ToString();
-                  Debug.Log("fourth: "+fourth);
+        
                } 
                if(resourceType == "technologies"){
                    first = player.getListTechnologies().getServers().getCurrentAvailableResource().ToString()

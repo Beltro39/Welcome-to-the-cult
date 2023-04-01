@@ -17,12 +17,11 @@ public class Player
     private bool actionComplete;
 
     public Player(ListEmployees ListEmployees, ListTechnologies ListTechnologies, 
-    ListAbilities ListAbilities, Itilianos Itilianos, string TurnOrder, string CompanyDimension, string Nickname, int avatar){
+    ListAbilities ListAbilities, Itilianos Itilianos, string CompanyDimension, string Nickname, int avatar){
         this.ListEmployees = ListEmployees;
         this.ListTechnologies = ListTechnologies;
         this.ListAbilities = ListAbilities;
         this.Itilianos = Itilianos;
-        this.TurnOrder = TurnOrder;
         this.CompanyDimension = CompanyDimension;
         this.Nickname = Nickname;
         this.avatar = avatar;
@@ -40,5 +39,7 @@ public class Player
     public void setPosition(int position){this.position = position;}
     public bool getIsActionComplete(){return actionComplete;}
     public void setIsActionComplete(bool v){this.actionComplete = v;}
+    public void setTurnOrder(string TurnOrder){this.TurnOrder = TurnOrder;}
+    
 }
 }

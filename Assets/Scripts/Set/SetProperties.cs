@@ -55,10 +55,12 @@ public class SetProperties : MonoBehaviour{
     
     public bool Run(Queue<Player> queuePlayer)
     { 
-        Debug.Log("Por aca tambien");
         foreach (Player player in queuePlayer)
         {
-        if(player.getTurnOrder() == "1"){
+        if(player.getPosition() == 1){
+            Debug.Log("Central");
+            Debug.Log(player.getPosition());
+            Debug.Log(player.getNickname());
             //Avatar nombre
             centerPlayerName.text= player.getNickname();
             //Avatar sprite
@@ -73,7 +75,7 @@ public class SetProperties : MonoBehaviour{
             centerAbilityText.text= "LEVEL "+player.getListAbilities().getAverageAvailableAbilities() + "/"+ player.getListAbilities().getAverageAbilities();
             centerItilianos.text= "$"+player.getItilianos().getAmount().ToString();            
         }
-        else if (player.getTurnOrder() == "2"){
+        else if (player.getPosition() == 2){
             leftPlayerName.text = player.getNickname();
             setAvatarSpriteComponent.setImage(leftPlayerImage, player.getAvatar());
             setImageColorComponent.setColor(leftTurnImage, player.getCompanyDimension());

@@ -32,18 +32,17 @@ public class TurnOrderController : MonoBehaviour
     public bool Run(Queue<Player> queuePlayer){
         foreach (Player player in queuePlayer)
         {
-            Debug.Log(player.getNickname());
-            if(player.getTurnOrder() == "1"){
+            if(player.getPosition() == 1){
                 FirstPlayerName.text = "FIRST: "+ player.getNickname();
                 setAvatarSprite.setImage(FirstPlayerImage, player.getAvatar());
                 SetImageColor.setColor(FirstTurnImage, player.getCompanyDimension());
             }
-            if(player.getTurnOrder() == "2"){
+            if(player.getPosition() == 2){
                 SecondPlayerName.text = "SECOND: "+ player.getNickname();
                 setAvatarSprite.setImage(SecondPlayerImage, player.getAvatar());
                 SetImageColor.setColor(SecondTurnImage, player.getCompanyDimension());
             }
-             if(player.getTurnOrder() == "3"){
+             if(player.getPosition() == 3){
                 ThirdPlayerName.text = "THIRD: "+ player.getNickname();
                 setAvatarSprite.setImage(ThirdPlayerImage, player.getAvatar());
                 SetImageColor.setColor(ThirdTurnImage, player.getCompanyDimension());
