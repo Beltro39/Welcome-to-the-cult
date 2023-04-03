@@ -23,7 +23,7 @@ public class ModalEnteringDimensionController : MonoBehaviour
         modalOrganizationAndPeopleLeanWindow= modalOrganizationAndPeople.GetComponent<LeanWindow>();
         modalInformationAndTechnologyLeanWindow= modalInformationAndTechnology.GetComponent<LeanWindow>();
         modalValueStreamsAndProcessesLeanWindow= modalValueStreamsAndProcesses.GetComponent<LeanWindow>();
-        //modalPartnersAndSuppliersLeanWindow= modalPartnersAndSuppliers.GetComponent<LeanWindow>();
+        modalPartnersAndSuppliersLeanWindow= modalPartnersAndSuppliers.GetComponent<LeanWindow>();
        
         
     }
@@ -39,30 +39,28 @@ public class ModalEnteringDimensionController : MonoBehaviour
         if(myDimensionSelected== "Information and technology"){
           modalInformationAndTechnologyLeanWindow.TurnOn();
         }
-        /*
+        
         if(myDimensionSelected== "Partners and suppliers"){
           modalPartnersAndSuppliersLeanWindow.TurnOn();  
         }
-        */
+      
         if(myDimensionSelected== "Value streams and processes"){
           modalValueStreamsAndProcessesLeanWindow.TurnOn(); 
         }
     }
 
     public void TurnOff(){
-      Debug.Log("Dimension");
-      Debug.Log(myDimensionSelected);
       if(myDimensionSelected== "Organization and people"){
            modalOrganizationAndPeopleLeanWindow.TurnOff();
         }
         if(myDimensionSelected== "Information and technology"){
           modalInformationAndTechnologyLeanWindow.TurnOff();
         }
-        /*
+        
         if(myDimensionSelected== "Partners and suppliers"){
-          modalPartnersAndSuppliersLeanWindow.TurnOn();  
+          modalPartnersAndSuppliersLeanWindow.TurnOff();  
         }
-        */
+        
         if(myDimensionSelected== "Value streams and processes"){
           modalValueStreamsAndProcessesLeanWindow.TurnOff(); 
         }

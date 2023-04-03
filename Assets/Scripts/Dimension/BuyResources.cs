@@ -5,7 +5,6 @@ using UnityEngine.UI;
 namespace Lean.Gui{
     public class BuyResources : MonoBehaviour
     {
-        [SerializeField] GameObject UIControllerGO;
         [SerializeField] private Text JuniorsTextAvailable;
         [SerializeField] private Text SemiSeniorsTextAvailable;
         [SerializeField] private Text SeniorsTextAvailable;
@@ -97,6 +96,7 @@ namespace Lean.Gui{
         DisableButtons DisableButtons;
 
         public void Start(){
+            GameObject UIControllerGO = GameObject.Find("UIController");
             DisableButtons= UIControllerGO.GetComponent<DisableButtons>();
         }
 

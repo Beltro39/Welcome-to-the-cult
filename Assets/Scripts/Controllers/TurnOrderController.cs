@@ -20,6 +20,9 @@ public class TurnOrderController : MonoBehaviour
     [SerializeField] private Image SecondTurnImage;
     [SerializeField] private Image ThirdTurnImage;
 
+    [SerializeField] private Text CurrentCycle;
+    [SerializeField] private Text CurrentCycleBoard;
+
     SetImageColor SetImageColor;
     SetAvatarSprite setAvatarSprite;
 
@@ -29,7 +32,7 @@ public class TurnOrderController : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    public bool Run(Queue<Player> queuePlayer){
+    public bool Run(Queue<Player> queuePlayer, int currentCycle){
         foreach (Player player in queuePlayer)
         {
             if(player.getPosition() == 1){
@@ -48,6 +51,8 @@ public class TurnOrderController : MonoBehaviour
                 SetImageColor.setColor(ThirdTurnImage, player.getCompanyDimension());
             }
         }
+        CurrentCycle.text = currentCycle.ToString();
+        CurrentCycleBoard.text = currentCycle.ToString();
         return true;
     }
 }

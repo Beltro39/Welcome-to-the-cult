@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
     BuyResources buyResourcesComponent;
     DisableButtons disableButtonsComponent;
     SetResources setResourcesComponent;
+    SetCircleCompany setCircleCompanyComponent;
 
     LeanWindow initiativeAssignmentModalLeanWindow;
 
@@ -35,6 +36,7 @@ public class GameController : MonoBehaviour
         buyResourcesComponent= gameObject.GetComponent<BuyResources>();
         disableButtonsComponent = UIControllerGO.GetComponent<DisableButtons>();
         setResourcesComponent = UIControllerGO.GetComponent<SetResources>();
+        setCircleCompanyComponent = UIControllerGO.GetComponent<SetCircleCompany>();
         initiativeAssignmentModalLeanWindow = initiativeAssignmentGO.GetComponent<LeanWindow>();
 
         currentStage = Stage.CreatingPlayers;
@@ -64,14 +66,15 @@ public class GameController : MonoBehaviour
             case Stage.CreatingPlayers:
                 yield return new WaitUntil(() => createPlayers());
                 break;
+            
             case Stage.Initiative:
                 yield return new WaitUntil(() => resetTurnOrder()); 
-                Debug.Log("Initiative");
-                Debug.Log(currentCycle);
-                yield return new WaitUntil(() => turnOrderControllerComponent.Run(queuePlayer)); 
+                yield return new WaitUntil(() => turnOrderControllerComponent.Run(queuePlayer, currentCycle)); 
                 initiativeAssignmentModalLeanWindow.TurnOn();
                 break;
+            
             case Stage.Planning:
+                setCircleCompanyComponent.Run(currentPlayer.getCompanyDimension());
                 yield return new WaitUntil(() => showResourcesComponent.Begin(queuePlayer));
                 yield return new WaitUntil(() => setPropertiesComponent.Run(queuePlayer)); 
                 yield return new WaitUntil(() => spawnCompanyComponent.Run(currentPlayer)); 
@@ -82,6 +85,7 @@ public class GameController : MonoBehaviour
             case Stage.ProjectRealization:
                 changeAllPlayerIsActionComplete();
                 break;
+            
         }
     }
 
@@ -100,8 +104,6 @@ public class GameController : MonoBehaviour
                     suma++;
                 }
             }
-            Debug.Log("Suma");
-            Debug.Log(suma);
             if(suma==3){
                 AdvanceToNextStage();
             }
@@ -116,6 +118,9 @@ public class GameController : MonoBehaviour
         {
             currentStage = Stage.Initiative;
             currentCycle++;
+            Debug.Log("CurrentCycle");
+            Debug.Log(currentCycle);
+
         }
     }
 
@@ -168,7 +173,8 @@ public class GameController : MonoBehaviour
 
     public bool resetTurnOrder(){
         listaOrder = new List<int>(){1,2,3};
-        foreach(Player player in queuePlayer){
+        queuePlayer.Clear();
+        foreach(Player player in listPlayer){
             int turn_order = GetRandomPlayer();
             player.setTurnOrder(turn_order.ToString());
         }

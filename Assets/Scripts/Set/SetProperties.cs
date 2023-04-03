@@ -58,9 +58,6 @@ public class SetProperties : MonoBehaviour{
         foreach (Player player in queuePlayer)
         {
         if(player.getPosition() == 1){
-            Debug.Log("Central");
-            Debug.Log(player.getPosition());
-            Debug.Log(player.getNickname());
             //Avatar nombre
             centerPlayerName.text= player.getNickname();
             //Avatar sprite
