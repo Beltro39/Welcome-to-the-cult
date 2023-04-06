@@ -10,25 +10,25 @@ public class Login : MonoBehaviour
     [SerializeField] private Text[] avatarNameText;
     private string avatarName;
 
-    [SerializeField] private GameObject[] cambiarPersonaje;
+    [SerializeField] private GameObject[] personajes;
 
-    private GameObject[][] cambiarPersonajesArray;
+    private GameObject[][] personajesArray;
     private int[] index_array;
 
     void Start()
     { 
-        cambiarPersonajesArray  = new GameObject[cambiarPersonaje.Length][];
-        index_array = new int[cambiarPersonaje.Length];
-        for(int i = 0; i < cambiarPersonaje.Length; i++){
+        personajesArray  = new GameObject[personajes.Length][];
+        index_array = new int[personajes.Length];
+        for(int i = 0; i < personajes.Length; i++){
             index_array[i] = 0;
-            cambiarPersonajesArray[i] = new GameObject[cambiarPersonaje[i].transform.childCount];
-            for(int j = 0; j < cambiarPersonajesArray[i].Length; j++){
-                cambiarPersonajesArray[i][j] = cambiarPersonaje[i].transform.GetChild(j).gameObject;
+            personajesArray[i] = new GameObject[personajes[i].transform.childCount];
+            for(int j = 0; j < personajesArray[i].Length; j++){
+                personajesArray[i][j] = personajes[i].transform.GetChild(j).gameObject;
                 if(j == index_array[i]){
-                     cambiarPersonajesArray[i][j].SetActive(true);
+                     personajesArray[i][j].SetActive(true);
                 }
                 else{
-                    GameObject objX =  cambiarPersonajesArray[i][j];
+                    GameObject objX =  personajesArray[i][j];
                     objX.SetActive(false);
                 }
             }
@@ -38,21 +38,21 @@ public class Login : MonoBehaviour
       
 
     public void btnLeft(int i){ 
-        cambiarPersonajesArray[i][index_array[i]].SetActive(false);
+        personajesArray[i][index_array[i]].SetActive(false);
         index_array[i]--;
         if(index_array[i] <0){
-            index_array[i] = cambiarPersonajesArray[i].Length -1;
+            index_array[i] = personajesArray[i].Length -1;
         }
-        cambiarPersonajesArray[i][index_array[i]].SetActive(true);
+        personajesArray[i][index_array[i]].SetActive(true);
     }
 
     public void btnRight(int i){ 
-        cambiarPersonajesArray[i][index_array[i]].SetActive(false);
+        personajesArray[i][index_array[i]].SetActive(false);
         index_array[i]++;
-        if(index_array[i]==cambiarPersonajesArray[i].Length ){
+        if(index_array[i]==personajesArray[i].Length ){
             index_array[i] = 0;
         }
-        cambiarPersonajesArray[i][index_array[i]].SetActive(true);
+        personajesArray[i][index_array[i]].SetActive(true);
     }
 
     public void btnOK(){  

@@ -14705,6 +14705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b8a53c0d5c7ee6ceb902eb6119a19f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cambiarPartner: []
 --- !u!114 &589575494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20647,7 +20648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4fd146527b61614a96da3a84e74ad78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  on: 1
+  on: 0
   turnOffSiblings: 0
   onTransitions:
     speed: 5
@@ -20695,9 +20696,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 855008989}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1001 &857758749
 PrefabInstance:
@@ -22316,7 +22317,7 @@ MonoBehaviour:
   onNonInteractable:
     m_PersistentCalls:
       m_Calls: []
-  expectedInteractable: 1
+  expectedInteractable: 0
   requiredButtons: -1
   multiDown: 0
   dragThreshold: 10
@@ -23781,6 +23782,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901e3b381c5cc1a4b94f7317a22ccc27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PanelEasy: {fileID: 0}
+  PanelMedio: {fileID: 0}
+  PanelHard: {fileID: 0}
 --- !u!114 &945249848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32590,7 +32594,7 @@ RectTransform:
   m_GameObject: {fileID: 1317544909}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0.01, z: 1}
   m_Children:
   - {fileID: 538683499}
   - {fileID: 1251524778}
