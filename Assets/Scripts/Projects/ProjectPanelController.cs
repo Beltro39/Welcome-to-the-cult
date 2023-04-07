@@ -115,113 +115,30 @@ public class ProjectPanelController : MonoBehaviour
         panel.transform.GetChild(new_indice).gameObject.SetActive(true);
         diccionario[panel_active]["actual_index"] = new_indice; 
     }
-/*
-    public void scrollProjectCards(string direction)
-    {
-
-
-        // Look for the actual active card and the target card, then switches between
-        for (int i = inicio; i <= final; i++)
-        {
-            actualProjectCard = activeProjectsGroup.transform.GetChild(i).gameObject;
-            if(actualProjectCard.activeSelf)
-            {
-                if(direction == "left")
-                {
-                    int indexBefore = i-1;
-
-                    // If out of range
-                    if(indexBefore < inicio)
-                    {
-                        indexBefore = final;
-                    }
-                    targetProjectCard = activeProjectsGroup.transform.GetChild(indexBefore).gameObject;
-                    actualProjectCard.SetActive(false);
-                    targetProjectCard.SetActive(true);
-                } else 
-                {
-                    int indexAfter = i+1;
-                    
-                    // If out of range
-                    if(indexAfter > final)
-                    {
-                        indexAfter = inicio;
-                    }
-                    targetProjectCard = activeProjectsGroup.transform.GetChild(indexAfter).gameObject;
-                    actualProjectCard.SetActive(false);
-                    targetProjectCard.SetActive(true);
-                }
-                break;
-            }
-        }
-          
-    }
 
     public void changeRanges()
     {
-        // change easy index to next max range
-        firstIndexEasy = firstIndexEasy + maxEasy;
-        lastIndexEasy = firstIndexEasy + maxEasy-1;
-        if(firstIndexEasy >= PanelEasy.transform.childCount || lastIndexEasy >= PanelEasy.transform.childCount){
-            firstIndexEasy = 0;
-            lastIndexEasy = firstIndexEasy + maxEasy -1;
+        int indice = (int)diccionario[panel_active]["actual_index"];
+        GameObject panel = (GameObject) diccionario[panel_active]["panel"];
+        panel.transform.GetChild(indice).gameObject.SetActive(false);
+        foreach (KeyValuePair<string, Dictionary<string, object>> entrada in diccionario) {
+            string dificulty = entrada.Key;
+            int first_index = (int)diccionario[dificulty]["first_index"];
+            int max = (int) diccionario[dificulty]["max"];
+            int last_index = (int) diccionario[dificulty]["last_index"];
+            first_index += max;
+            last_index = first_index+max-1;
+            if(first_index >= ((GameObject)diccionario[dificulty]["panel"]).transform.childCount || last_index >= ((GameObject)diccionario[dificulty]["panel"]).transform.childCount){
+                first_index = 0;
+                last_index = first_index + max - 1;
+            }
+            diccionario[dificulty]["first_index"] = first_index;
+            diccionario[dificulty]["last_index"] = last_index;
         }
-
-        // change medio index to next max range
-        firstIndexMedio = firstIndexMedio + maxMedio;
-        lastIndexMedio = firstIndexMedio + maxMedio -1;
-        if(firstIndexMedio >= PanelMedio.transform.childCount || lastIndexMedio >= PanelMedio.transform.childCount){
-            firstIndexMedio = 0;
-            lastIndexMedio = firstIndexMedio + maxMedio -1;
-        }
-
-        // change hard index to next max range
-        firstIndexHard = firstIndexHard + maxHard;
-        lastIndexHard = firstIndexHard + maxHard-1;
-        if(firstIndexHard >= PanelHard.transform.childCount || lastIndexHard >= PanelHard.transform.childCount){
-            firstIndexHard = 0;
-            lastIndexHard = firstIndexHard + maxHard-1;
-        }
-
-        setFirstProjects();
+        panel.transform.GetChild((int)diccionario[panel_active]["first_index"]).gameObject.SetActive(true);
+        diccionario[panel_active]["actual_index"] = diccionario[panel_active]["first_index"];
     }
 
-    public void setFirstProjects(){
 
-        // Disable all cards
-        List<GameObject> childsPanel = GetAllChilds(PanelEasy);
-        foreach (GameObject card in childsPanel)
-        {
-            card.gameObject.SetActive(false);
-        }
-        childsPanel.Clear();
-        childsPanel = GetAllChilds(PanelMedio);
-        foreach (GameObject card in childsPanel)
-        {
-            card.gameObject.SetActive(false);
-        }
-        childsPanel.Clear();
-        childsPanel = GetAllChilds(PanelHard);
-        foreach (GameObject card in childsPanel)
-        {
-            card.gameObject.SetActive(false);
-        }
-        childsPanel.Clear();
 
-        // Enable first card of range
-        PanelEasy.transform.GetChild(firstIndexEasy).gameObject.SetActive(true);
-        PanelMedio.transform.GetChild(firstIndexMedio).gameObject.SetActive(true);
-        PanelHard.transform.GetChild(firstIndexHard).gameObject.SetActive(true);
-    }
-
-    public void projectsActived()
-    {
-        Debug.Log("Easy projects are: ");
-        Debug.Log(PanelEasy.activeSelf);
-        Debug.Log("Medio projects are: ");
-        Debug.Log(PanelMedio.activeSelf);
-        Debug.Log("Hard projects are: ");
-        Debug.Log(PanelHard.activeSelf);
-    }
-    */
 }
