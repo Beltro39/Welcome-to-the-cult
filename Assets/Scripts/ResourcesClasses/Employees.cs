@@ -3,32 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Employees : Resources{
-    public Employees(int limitResourcePerRound, int amount, int cost) : base(limitResourcePerRound, amount, cost, 1000){
-    }
-
-    public void updateCost(){
-    }
-
-    public int getCostUpdated(){
-        updateCost();
-        return getCost();
+    public Employees(int amount) : base(amount, 1000){
     }
 }
 
 public class Juniors: Employees{
-    public Juniors(int amount) : base(25, amount, 1){
+    public Juniors(int amount) : base(amount){
     }
 }
 public class SemiSeniors: Employees{
-    public SemiSeniors(int amount) : base(9, amount, 3){
+    public SemiSeniors(int amount) : base(amount){
     }
 }
 public class Seniors: Employees{
-    public Seniors(int amount) : base(5, amount, 5){
+    public Seniors(int amount) : base(amount){
     }
 }
 public class Architects: Employees{
-    public Architects(int amount) : base(2, amount, 10){
+    public Architects(int amount) : base(amount){
     }
 }
 
@@ -44,20 +36,19 @@ public class Architects: Employees{
         this.SemiSeniors = SemiSeniors;
         this.Seniors = Seniors;
         this.Architects = Architects;
-        AddEmployees(this.Juniors); AddEmployees(this.SemiSeniors); AddEmployees(this.Seniors); AddEmployees(this.Architects);
     }
     public ListEmployees(){
     }
-     public void AddEmployees(Employees employees)
-    {   int amount = employees.getAmount();
-        countEmployees+= amount;
-        countAvailableEmployees+= amount;
-    }
-     public int getCountEmployees() {
-        return countEmployees;
+
+    public int getCountEmployees() {
+        int total = Juniors.getAmount() + SemiSeniors.getAmount()
+        + Seniors.getAmount() + Architects.getAmount();
+        return total;
     }
     public int getCountAvailableEmployees() {
-        return countAvailableEmployees;
+        int total = Juniors.getCurrentAvailableResource() + SemiSeniors.getCurrentAvailableResource()
+        + Seniors.getCurrentAvailableResource() + Architects.getCurrentAvailableResource();
+        return total;
     }
     public Juniors getJuniors() { return Juniors;}
     public SemiSeniors getSemiSeniors() { return SemiSeniors;}

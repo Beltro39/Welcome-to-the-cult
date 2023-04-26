@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,7 +27,8 @@ public class Itilianos
     public void RemoveAmount(int amount){
         this.amount -= amount;
         if(this.amount < 0){
-           this.amount = 0;
+            this.amount += amount;
+            throw new ArgumentException("Resulting amount cannot be less than 0.");
         }
     }  
    

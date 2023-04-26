@@ -7,28 +7,35 @@ public class DisableButtons : MonoBehaviour
 {
     [SerializeField] Button ButtonMinusSeniors;
     [SerializeField] Button ButtonMinusArchitects;
-   // [SerializeField] Button ButtonMinusServers;
-   // [SerializeField] Button ButtonMinusSatellites;
-  //  [SerializeField] Button ButtonMinusIA;
-  //  [SerializeField] Button ButtonMinusHosting;
-
     [SerializeField] Button ButtonPlusSeniors;
     [SerializeField] Button ButtonPlusArchitects;
- //   [SerializeField] Button ButtonPlusServers;
-  //  [SerializeField] Button ButtonPlusSatellites;
-  //  [SerializeField] Button ButtonPlusIA;
-  //  [SerializeField] Button ButtonPlusHosting;
+
+    [SerializeField] Button ButtonMinusServers;
+    [SerializeField] Button ButtonMinusSatellites;
+    [SerializeField] Button ButtonMinusIA;
+    [SerializeField] Button ButtonMinusHosting;
+
+    [SerializeField] Button ButtonPlusServers;
+    [SerializeField] Button ButtonPlusSatellites;
+    [SerializeField] Button ButtonPlusIA;
+    [SerializeField] Button ButtonPlusHosting;
 
     [SerializeField] Button ButtonBuyEmployees;
     [SerializeField] Button ButtonBuyTechnologies;
     [SerializeField] Button ButtonBuyAbilities;
+
+    [SerializeField] Button ButtonSkipEmployees;
+    [SerializeField] Button ButtonSkipTechnologies;
+    [SerializeField] Button ButtonSkipPartnersSuppliers;
+    [SerializeField] Button ButtonSkipAbilities;
+    
 
     private Recruitment Recruitment;
     private Skillful Skillful;
     private Bargain Bargain;
     private Research Research;
 
-    public void Begin(Player player){
+    public bool Run(Player player){
         Recruitment= player.getListAbilities().getRecruitment();
         Skillful= player.getListAbilities().getSkillful();
         Bargain= player.getListAbilities().getBargain();
@@ -41,9 +48,8 @@ public class DisableButtons : MonoBehaviour
                 ButtonPlusSeniors.interactable= false;
             }
         }
-        if(Skillful.getAmount() < 2){
-            
-        }
+        
+        return true;
     }
 
     public void BuyEmployeesDimensionEnabled(){
@@ -69,5 +75,39 @@ public class DisableButtons : MonoBehaviour
         ButtonBuyAbilities.interactable= false;
     }
 
+
+    public void SkipEmployeesDimensionEnabled(){
+        ButtonSkipEmployees.interactable= true;
+    }
+
+    public void SkipEmployeesDimensionDisabled(){
+        ButtonSkipEmployees.interactable= false;
+    }
+
+    public void SkipTechnologiesDimensionEnabled(){
+        ButtonSkipTechnologies.interactable= true;
+    }
+
+    public void SkipTechnologiesDimensionDisabled(){
+        ButtonSkipTechnologies.interactable= false;
+    }
+
+    public void SkipPartnersSuppliersDimensionDisabled(){
+        ButtonSkipPartnersSuppliers.interactable= false;
+    }
+
+    public void SkipPartnersSuppliersDimensionEnabled(){
+        ButtonSkipPartnersSuppliers.interactable= true;
+    }
+
+    public void SkipAbilitiesDimensionDisabled(){
+        ButtonSkipAbilities.interactable= false;
+    }
+
+    public void SkipAbilitiesDimensionEnabled(){
+        ButtonSkipAbilities.interactable= true;
+    }
+
+    
 }
 }

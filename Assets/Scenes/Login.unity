@@ -305,7 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   avatarNameText: []
-  cambiarPersonaje: []
+  personajes: []
 --- !u!114 &78324995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2449,7 +2449,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   avatarNameText: []
-  cambiarPersonaje: []
+  personajes: []
 --- !u!114 &892435519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3827,7 +3827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   avatarNameText: []
-  cambiarPersonaje: []
+  personajes: []
 --- !u!114 &1468084787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4444,7 +4444,7 @@ MonoBehaviour:
   - {fileID: 662599042}
   - {fileID: 664292823}
   - {fileID: 955676361}
-  cambiarPersonaje:
+  personajes:
   - {fileID: 892435517}
   - {fileID: 1468084785}
   - {fileID: 78324993}

@@ -31,9 +31,6 @@ public class ProjectPanelController : MonoBehaviour
         }}
     };
 
-
-    
-
      void Start()
     { 
         int i = 0;
@@ -43,45 +40,6 @@ public class ProjectPanelController : MonoBehaviour
             i++;
         }
     }
-
-/*
-    public void debugProperties()
-    {
-        Debug.Log("Funciona?");
-    }
-
-    public List<GameObject> GetAllChilds(GameObject Go)
-    {
-        List<GameObject> list = new List<GameObject>();
-        for (int i = 0; i< Go.transform.childCount; i++)
-        {
-            list.Add(Go.transform.GetChild(i).gameObject);
-        }
-        return list;
-    }
-
-    public void showChilds(){
-        List<GameObject> childsPanel = GetAllChilds(PanelEasy);
-        foreach (GameObject child in childsPanel)
-          {
-              //sirven:
-              //child.gameObject.SetActive(false);
-              //Debug.Log(child.name);  
-
-              //hace lo mismo xdd:
-              //ProjectCardDisplay cardDisplay = child.GetComponent<ProjectCardDisplay>();
-              //Debug.Log(cardDisplay.name);
-
-                // funca
-              //ProjectCardDisplay cardDisplay = child.GetComponent<ProjectCardDisplay>();
-              //Debug.Log(cardDisplay.nameStakeholder.text);
-            // Asi se accede a las propiedades del GameObject
-            //ProjectCardDisplay cardDisplay = child.GetComponent<ProjectCardDisplay>();
-            //Debug.Log(cardDisplay.projectCard.resource2Type);
-
-          }
-    }
-*/
     public void changeDisplayedProjects(string dificulty)
     {
         ((GameObject)diccionario["easy"]["panel"]).SetActive(false);
@@ -90,7 +48,6 @@ public class ProjectPanelController : MonoBehaviour
         ((GameObject)diccionario[dificulty]["panel"]).SetActive(true);
         this.panel_active = dificulty;
     }
-
 
     public void leftBtn(){
         int indice = (int)diccionario[panel_active]["actual_index"];
@@ -138,7 +95,5 @@ public class ProjectPanelController : MonoBehaviour
         panel.transform.GetChild((int)diccionario[panel_active]["first_index"]).gameObject.SetActive(true);
         diccionario[panel_active]["actual_index"] = diccionario[panel_active]["first_index"];
     }
-
-
 
 }

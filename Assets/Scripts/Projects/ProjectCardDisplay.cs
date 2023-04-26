@@ -5,20 +5,12 @@ using UnityEngine.UI;
 
 public class ProjectCardDisplay : MonoBehaviour
 {
-
-
     public ProjectCard projectCard;
-
     public Text nameStakeholder;
     public Image fondo;
     public Image imageStakeholder;
     public Image fondoTitulo;
     public Image description;
-    public Image circulo1;
-    public Image circulo2;
-    public Image circulo3;
-    public Image circulo4;
-    public Image circulo5;
     public Image resource1;
     public Image resource2;
     public Image resource3;
@@ -39,11 +31,6 @@ public class ProjectCardDisplay : MonoBehaviour
         imageStakeholder.sprite = projectCard.imageStakeholder;
         fondoTitulo.sprite = projectCard.fondoTitulo;
         description.sprite = projectCard.description;
-        circulo1.sprite = projectCard.circulo;
-        circulo2.sprite = projectCard.circulo;
-        circulo3.sprite = projectCard.circulo;
-        circulo4.sprite = projectCard.circulo;
-        circulo5.sprite = projectCard.circulo;
         resource1.sprite = projectCard.resource1;
         resource2.sprite = projectCard.resource2;
         resource3.sprite = projectCard.resource3;

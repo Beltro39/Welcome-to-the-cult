@@ -4,23 +4,9 @@ using UnityEngine;
 
 public class Abilities : Resources
 {
-    public Abilities(int amount) : base(2, amount, 12, 4){
+    public Abilities(int amount) : base(amount, 4){
     }    
 
-    public void updateCost(){
-        if(getAmount() <= 2){
-            setCost(12);
-        }else if(getAmount()==3){
-            setCost(20);
-        }else{
-            setCost(25);
-        }
-    }
-
-    public int getCostUpdated(){
-        updateCost();
-        return getCost();
-    }
 }
 
 public class Recruitment : Abilities{

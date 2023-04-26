@@ -33,7 +33,7 @@ public class GameController : MonoBehaviour
         turnOrderControllerComponent = gameObject.GetComponent<TurnOrderController>();
         showResourcesComponent = UIControllerGO.GetComponent<ShowResources>();
         spawnCompanyComponent = UIControllerGO.GetComponent<SpawnCompany>();
-        buyResourcesComponent= gameObject.GetComponent<BuyResources>();
+        buyResourcesComponent = gameObject.GetComponent<BuyResources>();
         disableButtonsComponent = UIControllerGO.GetComponent<DisableButtons>();
         setResourcesComponent = UIControllerGO.GetComponent<SetResources>();
         setCircleCompanyComponent = UIControllerGO.GetComponent<SetCircleCompany>();
@@ -68,22 +68,30 @@ public class GameController : MonoBehaviour
                 break;
             
             case Stage.Initiative:
+                changeAllPlayerIsActionCompleteToFalse();
                 yield return new WaitUntil(() => resetTurnOrder()); 
+                // Setting UI resources in the modal initiative
                 yield return new WaitUntil(() => turnOrderControllerComponent.Run(queuePlayer, currentCycle)); 
                 initiativeAssignmentModalLeanWindow.TurnOn();
                 break;
             
             case Stage.Planning:
                 setCircleCompanyComponent.Run(currentPlayer.getCompanyDimension());
+                // Setting UI resources, the ones when you click in the top, left or right of the gameboard
                 yield return new WaitUntil(() => showResourcesComponent.Begin(queuePlayer));
+                // Setting UI resources, the ones from the top, left or right of the gameboard 
                 yield return new WaitUntil(() => setPropertiesComponent.Run(queuePlayer)); 
+                // Setting script with the player information for buying logic 
+                yield return new WaitUntil(() => buyResourcesComponent.Run(currentPlayer));
+                // Disabling buttons (Gameboard images turn gray, or some buttons become not interactable)
+                yield return new WaitUntil(() => disableButtonsComponent.Run(currentPlayer));
                 yield return new WaitUntil(() => spawnCompanyComponent.Run(currentPlayer)); 
                 yield return new WaitUntil(() => currentPlayer.getIsActionComplete()); 
                 spawnCompanyComponent.destroyCompany();
-                changePosition();
+                changePlayerPosition();
                 break;
             case Stage.ProjectRealization:
-                changeAllPlayerIsActionComplete();
+                changeAllPlayerIsActionCompleteToFalse();
                 break;
             
         }
@@ -118,9 +126,6 @@ public class GameController : MonoBehaviour
         {
             currentStage = Stage.Initiative;
             currentCycle++;
-            Debug.Log("CurrentCycle");
-            Debug.Log(currentCycle);
-
         }
     }
 
@@ -154,13 +159,13 @@ public class GameController : MonoBehaviour
         currentPlayer.setIsActionComplete(true);
     }
 
-    public void changeAllPlayerIsActionComplete(){
+    public void changeAllPlayerIsActionCompleteToFalse(){
         foreach(Player player in queuePlayer){
             player.setIsActionComplete(false);
         }
     }
 
-    public void changePosition(){
+    public void changePlayerPosition(){
         foreach(Player player in queuePlayer){
             if(player.getPosition() == 1){
                 player.setPosition(3);

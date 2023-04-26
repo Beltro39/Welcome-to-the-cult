@@ -11,7 +11,6 @@ public class ProjectCard : ScriptableObject
     public Sprite imageStakeholder;
     public Sprite fondoTitulo;
     public Sprite description;
-    public Sprite circulo;
     public Sprite resource1;
     public Sprite resource2;
     public Sprite resource3;
@@ -27,6 +26,4 @@ public class ProjectCard : ScriptableObject
     public string amount3;
     public string amount4;
     public string amount5;
-
-
 }
