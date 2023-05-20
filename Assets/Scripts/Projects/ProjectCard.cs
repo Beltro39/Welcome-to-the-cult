@@ -10,6 +10,7 @@ public class ProjectCard : ScriptableObject
     public Sprite fondo;
     public Sprite imageStakeholder;
     public Sprite fondoTitulo;
+    public string titulo;
     public Sprite description;
     public Sprite circulo;
     public Sprite resource1;
