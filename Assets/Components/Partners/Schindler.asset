@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d302ce4f380182d8ebeb93b53995b041, type: 3}
+  m_Name: Schindler
+  m_EditorClassIdentifier: 
+  _stakeHolderType: SUPPLIER
+  _nameStakeholder: SCHINDLER
+  _difficulty: 2
+  _imageStakeholder: {fileID: 21300000, guid: 261ac81c67a80e64b80d67f6c64661b6, type: 3}
+  _resourceImagesGiven: []
+  _resourceTypesGiven: []
+  _resourceAmountsGiven: 
+  _resourceImagesReceived:
+  - {fileID: 21300000, guid: af9e6fc04a4d1504890dafc182993c2d, type: 3}
+  - {fileID: 21300000, guid: 879d70ed52d7a85448e6837982e8b4aa, type: 3}
+  - {fileID: 21300000, guid: 79f376bb736d6aa47a7af8e247f9279f, type: 3}
+  _resourceTypesReceived:
+  - EMPLOYEE RECRUITMENT
+  - HOSTING
+  - SEMI SENIOR
+  _resourceAmountsReceived: 020000000200000003000000
+  _resourceAmountsGivenExtra: 27
+  _resourceAmountsReceivedExtra: 0

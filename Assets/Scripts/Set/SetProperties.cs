@@ -46,6 +46,27 @@ public class SetProperties : MonoBehaviour{
     [SerializeField] private Text leftItilianos;
     [SerializeField] private Text rightItilianos;
 
+    [SerializeField] private Image centerPartner;
+    [SerializeField] private Image leftPartner;
+    [SerializeField] private Image rightPartner;
+
+    [SerializeField] private Image centerSupplier;
+    [SerializeField] private Image leftSupplier;
+    [SerializeField] private Image rightSupplier;
+
+    [SerializeField] private Image[] centerPartnerStars = new Image[3];
+    [SerializeField] private Image[] leftPartnerStars = new Image[3];
+    [SerializeField] private Image[] rightPartnerStars = new Image[3];
+
+    [SerializeField] private Image[] centerSupplierStars = new Image[3];
+    [SerializeField] private Image[] leftSupplierStars = new Image[3];
+    [SerializeField] private Image[] rightSupplierStars = new Image[3];
+
+    [SerializeField] private Text[] descriptionPartnerArray = new Text[3];
+    [SerializeField] private Text[] descriptionSupplierArray = new Text[3];
+
+    [SerializeField] private Sprite unknownPartnerOrSupplier;
+
     
     void Start(){
         uiControllerGO = GameObject.Find("UIController");  
@@ -70,7 +91,23 @@ public class SetProperties : MonoBehaviour{
             centerEmployeeText.text= player.getListEmployees().getCountAvailableEmployees() + "/"+ player.getListEmployees().getCountEmployees();
             centerTechnologyText.text= "LEVEL "+ player.getListTechnologies().getAverageAvailableTechnologies() + "/"+ player.getListTechnologies().getAverageTechnologies();
             centerAbilityText.text= "LEVEL "+player.getListAbilities().getAverageAvailableAbilities() + "/"+ player.getListAbilities().getAverageAbilities();
-            centerItilianos.text= "$"+player.getItilianos().getAmount().ToString();            
+            centerItilianos.text= "$"+player.getItilianos().getAmount().ToString();   
+
+            if(player.GetPartner() != null){
+                centerPartner.sprite = player.GetPartner().ImageStakeholder;
+                SetStars(centerPartnerStars, player.GetPartner().Difficulty);
+            }else{
+                centerPartner.sprite = unknownPartnerOrSupplier;
+                SetStars(centerPartnerStars, 0);
+            }     
+            if(player.GetSupplier() != null){
+                centerSupplier.sprite = player.GetSupplier().ImageStakeholder;
+                SetStars(centerSupplierStars, player.GetSupplier().Difficulty);
+            }else{
+                centerSupplier.sprite = unknownPartnerOrSupplier;
+                SetStars(centerSupplierStars, 0);
+            } 
+
         }
         else if (player.getPosition() == 2){
             leftPlayerName.text = player.getNickname();
@@ -81,6 +118,20 @@ public class SetProperties : MonoBehaviour{
             leftTechnologyText.text= "LVL " +player.getListTechnologies().getAverageAvailableTechnologies() + "/"+ player.getListTechnologies().getAverageTechnologies();
             leftAbilityText.text= "LVL " +player.getListAbilities().getAverageAvailableAbilities() + "/"+ player.getListAbilities().getAverageAbilities();
             leftItilianos.text= "$"+player.getItilianos().getAmount().ToString(); 
+            if(player.GetPartner() != null){
+                leftPartner.sprite = player.GetPartner().ImageStakeholder;
+                SetStars(leftPartnerStars, player.GetPartner().Difficulty);
+            }else{
+                leftPartner.sprite = unknownPartnerOrSupplier;
+                SetStars(leftPartnerStars, 0);
+            }
+            if(player.GetSupplier() != null){
+                leftSupplier.sprite = player.GetSupplier().ImageStakeholder;
+                SetStars(leftSupplierStars, player.GetSupplier().Difficulty);
+            }else{
+                leftSupplier.sprite = unknownPartnerOrSupplier;
+                SetStars(leftSupplierStars, 0);
+            } 
         }
         else{
             rightPlayerName.text= player.getNickname();
@@ -91,15 +142,59 @@ public class SetProperties : MonoBehaviour{
             rightTechnologyText.text= "LVL "+player.getListTechnologies().getAverageAvailableTechnologies() + "/"+ player.getListTechnologies().getAverageTechnologies();
             rightAbilityText.text= "LVL " +player.getListAbilities().getAverageAvailableAbilities() + "/"+ player.getListAbilities().getAverageAbilities();
             rightItilianos.text= "$"+player.getItilianos().getAmount().ToString(); 
+            if(player.GetPartner() != null){
+                rightPartner.sprite = player.GetPartner().ImageStakeholder;
+                SetStars(rightPartnerStars, player.GetPartner().Difficulty);
+            }else{
+                rightPartner.sprite = unknownPartnerOrSupplier;
+                SetStars(rightPartnerStars, 0);
+            }
+            if(player.GetSupplier() != null){
+                rightSupplier.sprite = player.GetSupplier().ImageStakeholder;
+                SetStars(rightSupplierStars, player.GetSupplier().Difficulty);
+            }else{
+                rightSupplier.sprite = unknownPartnerOrSupplier;
+                SetStars(rightSupplierStars, 0);
+            } 
         }
+
+        if(player.GetPartner() != null){
+            descriptionPartnerArray[player.getPosition()-1].text = $"P-LVL{player.GetPartner().Difficulty}";
+        }else{
+            descriptionPartnerArray[player.getPosition()-1].text = $"LOCKED";
+        }
+
+        if(player.GetSupplier() != null){
+            descriptionSupplierArray[player.getPosition()-1].text = $"S-LVL{player.GetSupplier().Difficulty}";
+        }else{
+            descriptionSupplierArray[player.getPosition()-1].text = $"LOCKED";
+        }
+
         }
         return true;
         
     }  
-        
 
-    
+     public void SetStars(Image[] starArray,int difficulty){
+        if(difficulty == 0){
+            starArray[0].enabled = false;
+            starArray[1].enabled = false;
+            starArray[2].enabled = false; 
+        }
+        else if(difficulty == 1){
+            starArray[0].enabled = true;
+            starArray[1].enabled = false;
+            starArray[2].enabled = false;
+        }else if(difficulty == 2){
+            starArray[0].enabled = false;
+            starArray[1].enabled = true;
+            starArray[2].enabled = true;
+        }else{
+            starArray[0].enabled = true;
+            starArray[1].enabled = true;
+            starArray[2].enabled = true;
+        }
 
-    
+    }
 }
 }

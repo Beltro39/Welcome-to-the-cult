@@ -120,6 +120,8 @@ namespace Lean.Gui{
         private Dictionary<string, Resources> diccionarioResources;
         private Dictionary<string, int> dictResourcesQuantityToBuy; 
 
+        Colors color;
+
 
         string[] typesEmployees = { "Juniors", "SemiSeniors", "Seniors", "Architects"};
         string[] typesTechnologies = { "Servers", "Satellites", "IA", "Hosting"};
@@ -145,7 +147,6 @@ namespace Lean.Gui{
             TechnologiesTotal.text= "$"+TotalTechnologiesCost.ToString();
             AbilitiesTotal.text= "$"+TotalAbilitiesCost.ToString();
 
-            this.player= player;
             Itilianos= player.getItilianos();
             Juniors= player.getListEmployees().getJuniors();
             SemiSeniors= player.getListEmployees().getSemiSeniors();
@@ -315,7 +316,6 @@ namespace Lean.Gui{
             }else{
                 DisableButtons.SkipEmployeesDimensionDisabled();
                 DisableButtons.SkipTechnologiesDimensionDisabled();
-                DisableButtons.SkipPartnersSuppliersDimensionEnabled();
                 DisableButtons.SkipAbilitiesDimensionDisabled();
 
             }

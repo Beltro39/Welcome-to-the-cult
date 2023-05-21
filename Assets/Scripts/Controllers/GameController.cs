@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 namespace Lean.Gui{
 public class GameController : MonoBehaviour
 {
@@ -22,8 +23,11 @@ public class GameController : MonoBehaviour
     DisableButtons disableButtonsComponent;
     SetResources setResourcesComponent;
     SetCircleCompany setCircleCompanyComponent;
+    SelectPartnerAndSupplier selectPartnerAndSupplierComponent; 
 
     LeanWindow initiativeAssignmentModalLeanWindow;
+
+    [SerializeField] Text currentTurn;
 
     void Start()
     {
@@ -36,6 +40,7 @@ public class GameController : MonoBehaviour
         buyResourcesComponent = gameObject.GetComponent<BuyResources>();
         disableButtonsComponent = UIControllerGO.GetComponent<DisableButtons>();
         setResourcesComponent = UIControllerGO.GetComponent<SetResources>();
+        selectPartnerAndSupplierComponent = gameObject.GetComponent<SelectPartnerAndSupplier>();
         setCircleCompanyComponent = UIControllerGO.GetComponent<SetCircleCompany>();
         initiativeAssignmentModalLeanWindow = initiativeAssignmentGO.GetComponent<LeanWindow>();
 
@@ -76,6 +81,7 @@ public class GameController : MonoBehaviour
                 break;
             
             case Stage.Planning:
+                currentTurn.text = $"{currentPlayer.getTurnOrder()}/3";
                 setCircleCompanyComponent.Run(currentPlayer.getCompanyDimension());
                 // Setting UI resources, the ones when you click in the top, left or right of the gameboard
                 yield return new WaitUntil(() => showResourcesComponent.Begin(queuePlayer));
@@ -83,6 +89,10 @@ public class GameController : MonoBehaviour
                 yield return new WaitUntil(() => setPropertiesComponent.Run(queuePlayer)); 
                 // Setting script with the player information for buying logic 
                 yield return new WaitUntil(() => buyResourcesComponent.Run(currentPlayer));
+                if (currentCycle%2!=0 && currentPlayer.getTurnOrder() == "1"){
+                    yield return new WaitUntil(() => selectPartnerAndSupplierComponent.PartnerSupplierRotation());
+                }
+                yield return new WaitUntil(() => selectPartnerAndSupplierComponent.Run(currentPlayer));
                 // Disabling buttons (Gameboard images turn gray, or some buttons become not interactable)
                 yield return new WaitUntil(() => disableButtonsComponent.Run(currentPlayer));
                 yield return new WaitUntil(() => spawnCompanyComponent.Run(currentPlayer)); 

@@ -32,13 +32,11 @@ public class DisableButtons : MonoBehaviour
 
     private Recruitment Recruitment;
     private Skillful Skillful;
-    private Bargain Bargain;
     private Research Research;
 
     public bool Run(Player player){
         Recruitment= player.getListAbilities().getRecruitment();
         Skillful= player.getListAbilities().getSkillful();
-        Bargain= player.getListAbilities().getBargain();
         Research= player.getListAbilities().getResearch();
         if(Recruitment.getAmount() < 2){
             ButtonMinusArchitects.interactable= false;
@@ -47,6 +45,11 @@ public class DisableButtons : MonoBehaviour
                 ButtonMinusSeniors.interactable= false;
                 ButtonPlusSeniors.interactable= false;
             }
+        }else{
+            ButtonMinusArchitects.interactable= true;
+            ButtonPlusArchitects.interactable= true;
+            ButtonMinusSeniors.interactable= true;
+            ButtonPlusSeniors.interactable= true;
         }
         
         return true;
@@ -90,14 +93,6 @@ public class DisableButtons : MonoBehaviour
 
     public void SkipTechnologiesDimensionDisabled(){
         ButtonSkipTechnologies.interactable= false;
-    }
-
-    public void SkipPartnersSuppliersDimensionDisabled(){
-        ButtonSkipPartnersSuppliers.interactable= false;
-    }
-
-    public void SkipPartnersSuppliersDimensionEnabled(){
-        ButtonSkipPartnersSuppliers.interactable= true;
     }
 
     public void SkipAbilitiesDimensionDisabled(){
