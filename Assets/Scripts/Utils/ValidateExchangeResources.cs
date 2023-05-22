@@ -49,7 +49,19 @@ public class ValidateExchangeResources
 
     public void TakeResourcesFromPlayer(string className, int amount){
         if(ValidatePlayerHasResources(className, amount)){
-            diccionarioResources[className].RemoveAmount(amount);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+            if (className == "ITILIANOS"){
+                 player.getItilianos().RemoveAmount(amount); 
+            }else{
+                diccionarioResources[className].RemoveAmount(amount);   
+            }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+        }
+    }
+
+    public void GiveResourcesToPlayer(string className, int amount){
+        if (className == "ITILIANOS"){
+            player.getItilianos().AddAmount(amount); 
+        }else{
+            diccionarioResources[className].AddAmount(amount); 
         }
     }
 }

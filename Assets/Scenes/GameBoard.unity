@@ -26988,7 +26988,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: FINALIZE
+  m_Text: ALLY
 --- !u!222 &1066641086
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -42980,7 +42980,7 @@ GameObject:
   - component: {fileID: 1660979035}
   - component: {fileID: 1660979034}
   m_Layer: 0
-  m_Name: Button Finalize
+  m_Name: Button Ally
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

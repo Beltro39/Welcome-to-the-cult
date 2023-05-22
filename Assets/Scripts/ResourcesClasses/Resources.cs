@@ -41,6 +41,7 @@ public class Resources
          
     public void RemoveAmount(int amount){
         this.amount -= amount;
+        RemoveCurrentAvailableResource(amount);
         if(this.amount < 0){
            this.amount = 0;
         }

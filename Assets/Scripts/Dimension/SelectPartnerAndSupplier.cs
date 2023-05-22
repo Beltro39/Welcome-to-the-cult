@@ -111,10 +111,30 @@ public class SelectPartnerAndSupplier : MonoBehaviour
         PartnersAndSuppliers partnerSupplier =  partnerSupplierArray[index];
         if(partnerSupplier.StakeHolderType == "PARTNER"){
             player.SetPartner(partnerSupplier);
+            string[] requirementList = partnerSupplier.ResourceTypesGiven;
+            int[] amountList = partnerSupplier.ResourceAmountsGiven;
+            for (int i = 0; i < requirementList.Length; i++)
+            {
+                validateExchangeResources.TakeResourcesFromPlayer(
+                    requirementList[i], amountList[i]
+                );
+            }
+            validateExchangeResources.GiveResourcesToPlayer("ITILIANOS", partnerSupplier.ResourceAmountsReceivedExtra);
         }
         else{
             player.SetSupplier(partnerSupplier);
+            string[] requirementList = partnerSupplier.ResourceTypesReceived;
+            int[] amountList = partnerSupplier.ResourceAmountsReceived;
+            for (int i = 0; i < requirementList.Length; i++)
+            {
+                validateExchangeResources.GiveResourcesToPlayer(
+                    requirementList[i], amountList[i]
+                );
+            }
+            validateExchangeResources.TakeResourcesFromPlayer("ITILIANOS", partnerSupplier.ResourceAmountsGivenExtra);
+
         }
+        
         partnerSupplierArray.RemoveAt(index);
     }
 
