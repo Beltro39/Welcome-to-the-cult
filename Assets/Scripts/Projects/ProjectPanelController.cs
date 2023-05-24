@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
 public class ProjectPanelController : MonoBehaviour
 {
     [SerializeField] private GameObject[] panels;
@@ -97,3 +98,4 @@ public class ProjectPanelController : MonoBehaviour
     }
 
 }
+*/
