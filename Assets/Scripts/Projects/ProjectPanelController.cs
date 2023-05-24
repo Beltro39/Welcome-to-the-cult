@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
 public class ProjectPanelController : MonoBehaviour
 {
     [SerializeField] private GameObject[] panels;
@@ -44,44 +45,6 @@ public class ProjectPanelController : MonoBehaviour
         }
     }
 
-/*
-    public void debugProperties()
-    {
-        Debug.Log("Funciona?");
-    }
-
-    public List<GameObject> GetAllChilds(GameObject Go)
-    {
-        List<GameObject> list = new List<GameObject>();
-        for (int i = 0; i< Go.transform.childCount; i++)
-        {
-            list.Add(Go.transform.GetChild(i).gameObject);
-        }
-        return list;
-    }
-
-    public void showChilds(){
-        List<GameObject> childsPanel = GetAllChilds(PanelEasy);
-        foreach (GameObject child in childsPanel)
-          {
-              //sirven:
-              //child.gameObject.SetActive(false);
-              //Debug.Log(child.name);  
-
-              //hace lo mismo xdd:
-              //ProjectCardDisplay cardDisplay = child.GetComponent<ProjectCardDisplay>();
-              //Debug.Log(cardDisplay.name);
-
-                // funca
-              //ProjectCardDisplay cardDisplay = child.GetComponent<ProjectCardDisplay>();
-              //Debug.Log(cardDisplay.nameStakeholder.text);
-            // Asi se accede a las propiedades del GameObject
-            //ProjectCardDisplay cardDisplay = child.GetComponent<ProjectCardDisplay>();
-            //Debug.Log(cardDisplay.projectCard.resource2Type);
-
-          }
-    }
-*/
     public void changeDisplayedProjects(string dificulty)
     {
         ((GameObject)diccionario["easy"]["panel"]).SetActive(false);
@@ -142,3 +105,4 @@ public class ProjectPanelController : MonoBehaviour
 
 
 }
+*/
