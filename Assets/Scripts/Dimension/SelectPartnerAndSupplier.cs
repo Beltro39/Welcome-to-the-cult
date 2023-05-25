@@ -7,13 +7,13 @@ using System.Linq;
 namespace Lean.Gui{
 public class SelectPartnerAndSupplier : MonoBehaviour
 {
-    [SerializeField] private List<PartnersAndSuppliers>  partnerLevel1;
-    [SerializeField] private List<PartnersAndSuppliers>  partnerLevel2;
-    [SerializeField] private List<PartnersAndSuppliers>  partnerLevel3;
-    [SerializeField] private List<PartnersAndSuppliers>  supplierLevel1;
-    [SerializeField] private List<PartnersAndSuppliers>  supplierLevel2;
-    [SerializeField] private List<PartnersAndSuppliers>  supplierLevel3;    
-    private List<PartnersAndSuppliers>  partnerSupplierArray;
+    [SerializeField] private List<Ally>  partnerLevel1;
+    [SerializeField] private List<Ally>  partnerLevel2;
+    [SerializeField] private List<Ally>  partnerLevel3;
+    [SerializeField] private List<Ally>  supplierLevel1;
+    [SerializeField] private List<Ally>  supplierLevel2;
+    [SerializeField] private List<Ally>  supplierLevel3;    
+    private List<Ally>  allies;
 
     [SerializeField] private Text nameStakeholder;
     [SerializeField] private Text difficulty;
@@ -53,7 +53,7 @@ public class SelectPartnerAndSupplier : MonoBehaviour
     void Start() {
         GameObject UIControllerGO = GameObject.Find("UIController");
         colors = UIControllerGO.GetComponent<Colors>();
-        partnerSupplierArray = new List<PartnersAndSuppliers>(); ;
+        allies = new List<Ally>(); ;
     }
 
     public bool Run(Player player){
@@ -65,35 +65,45 @@ public class SelectPartnerAndSupplier : MonoBehaviour
     }
 
     public bool PartnerSupplierRotation(){
-        //for (int i = 0; i < 1; i++){
-            partnerSupplierArray.Add(GetRandomPartnerOrSupplier(partnerLevel1));
-             partnerSupplierArray.Add(GetRandomPartnerOrSupplier(supplierLevel1));
-            partnerSupplierArray.Add(GetRandomPartnerOrSupplier(partnerLevel2));
-            partnerSupplierArray.Add(GetRandomPartnerOrSupplier(supplierLevel2));
-        //}
-        partnerSupplierArray.Add(GetRandomPartnerOrSupplier(partnerLevel3));
-        partnerSupplierArray.Add(GetRandomPartnerOrSupplier(supplierLevel3));
+        if(partnerLevel1.Count >0){
+            allies.Add(GetRandomAlly(partnerLevel1));
+        }
+        if(supplierLevel1.Count >0){
+            allies.Add(GetRandomAlly(supplierLevel1));
+        }
+        if(partnerLevel2.Count >0){
+            allies.Add(GetRandomAlly(partnerLevel2));
+        }
+        if(supplierLevel2.Count >0){
+            allies.Add(GetRandomAlly(supplierLevel2));
+        }
+        if(partnerLevel3.Count >0){
+            allies.Add(GetRandomAlly(partnerLevel3));
+        }
+        if(supplierLevel3.Count >0){
+            allies.Add(GetRandomAlly(supplierLevel3));
+        }
         return true;
     }
 
-    public PartnersAndSuppliers GetRandomPartnerOrSupplier(List<PartnersAndSuppliers> partnerSupplierArray)
+    public Ally GetRandomAlly(List<Ally> allies)
     {
-        if (partnerSupplierArray.Count == 0)
+        if (allies.Count == 0)
         {
             Debug.LogError("No more available objects!");
             return null;
         }
 
-        int randomIndex = Random.Range(0, partnerSupplierArray.Count);
-        PartnersAndSuppliers selectedObject = partnerSupplierArray[randomIndex];
-        partnerSupplierArray.RemoveAt(randomIndex);
+        int randomIndex = Random.Range(0, allies.Count);
+        Ally selectedObject = allies[randomIndex];
+        allies.RemoveAt(randomIndex);
         return selectedObject;
     }
     
     public void btnLeft(){
         index--;
         if(index <0){
-            index = partnerSupplierArray.Count -1;
+            index = allies.Count -1;
         }
         DisplayPartnerSupplier(index);
         
@@ -101,41 +111,43 @@ public class SelectPartnerAndSupplier : MonoBehaviour
 
     public void btnRight(){
         index++;
-        if(index == partnerSupplierArray.Count){
+        if(index == allies.Count){
             index = 0;
         }
         DisplayPartnerSupplier(index);
     }
 
-    public void Ally(){
-        PartnersAndSuppliers partnerSupplier =  partnerSupplierArray[index];
-        if(partnerSupplier.StakeHolderType == "PARTNER"){
-            player.SetPartner(partnerSupplier);
-            string[] requirementList = partnerSupplier.ResourceTypesGiven;
-            int[] amountList = partnerSupplier.ResourceAmountsGiven;
+    public void Alliance(){
+        Ally ally =  allies[index];
+        if(ally is Partner){
+            Partner partner = (Partner) ally; 
+            player.SetPartner(partner);
+            string[] requirementList = partner.ResourceTypesGiven;
+            int[] amountList = partner.ResourceAmountsGiven;
             for (int i = 0; i < requirementList.Length; i++)
             {
                 validateExchangeResources.TakeResourcesFromPlayer(
                     requirementList[i], amountList[i]
                 );
             }
-            validateExchangeResources.GiveResourcesToPlayer("ITILIANOS", partnerSupplier.ResourceAmountsReceivedExtra);
+            validateExchangeResources.GiveResourcesToPlayer("ITILIANOS", partner.ResourceAmountsReceivedExtra);
         }
         else{
-            player.SetSupplier(partnerSupplier);
-            string[] requirementList = partnerSupplier.ResourceTypesReceived;
-            int[] amountList = partnerSupplier.ResourceAmountsReceived;
+            Supplier supplier = (Supplier) ally;
+            player.SetSupplier(supplier);
+            string[] requirementList = supplier.ResourceTypesReceived;
+            int[] amountList = supplier.ResourceAmountsReceived;
             for (int i = 0; i < requirementList.Length; i++)
             {
                 validateExchangeResources.GiveResourcesToPlayer(
                     requirementList[i], amountList[i]
                 );
             }
-            validateExchangeResources.TakeResourcesFromPlayer("ITILIANOS", partnerSupplier.ResourceAmountsGivenExtra);
+            validateExchangeResources.TakeResourcesFromPlayer("ITILIANOS", supplier.ResourceAmountsGivenExtra);
 
         }
         
-        partnerSupplierArray.RemoveAt(index);
+        allies.RemoveAt(index);
     }
 
     
@@ -143,52 +155,68 @@ public class SelectPartnerAndSupplier : MonoBehaviour
     {
         TurnOffEverything();
 
-        PartnersAndSuppliers partnerSupplier = partnerSupplierArray[index];
+        Ally ally = allies[index];
 
-        nameStakeholder.text = partnerSupplier.NameStakeholder;
-        difficulty.text = $"{partnerSupplier.StakeHolderType}: LEVEL {partnerSupplier.Difficulty}";
-        imageStakeholder.sprite = partnerSupplier.ImageStakeholder;
+        nameStakeholder.text = ally.NameStakeholder;
+        imageStakeholder.sprite = ally.ImageStakeholder;
 
-        bool isPartner = partnerSupplier.StakeHolderType == "PARTNER";
+        // UI elements
+        bool isPartner = ally is Partner;
         Image[] resources = isPartner ? resourceGive : resourceGet;
-        Image resourcesExtra = isPartner ? resourceGetExtra : resourceGiveExtra ;
-        Text[] resourceDescriptions = isPartner ? resourceGiveDescriptions : resourceGetDescriptions;
+        Text[] resourcesDescriptions = isPartner ? resourceGiveDescriptions : resourceGetDescriptions;
+        Image resourceExtra = isPartner ? resourceGetExtra : resourceGiveExtra ;
         Text resourceExtraDescription = isPartner ? resourceGetDescriptionExtra : resourceGiveDescriptionExtra;
-        int resourceExtraAmount = isPartner ? partnerSupplier.ResourceAmountsReceivedExtra: partnerSupplier.ResourceAmountsGivenExtra;
+        
+        // Atributes
+        int resourceExtraAmount;
+        Sprite[] resourcesSprite;
+        string[] resourcesType;
+        int[] resourcesAmount;
 
-        Sprite[] resourcesPartnersAndSuppliers = isPartner ? partnerSupplier.ResourceImagesGiven : partnerSupplier.ResourceImagesReceived ;
-        for (int i = 0; i < resourcesPartnersAndSuppliers.Length; i++)
+        if(isPartner){
+            Partner partner = (Partner) ally;
+            resourcesSprite = partner.ResourceImagesGiven;
+            resourcesType = partner.ResourceTypesGiven;
+            resourcesAmount = partner.ResourceAmountsGiven;
+            resourceExtraAmount = partner.ResourceAmountsReceivedExtra;
+            difficulty.text = $"PARTNER LEVEL {ally.Difficulty+1}";
+        }else{
+            Supplier supplier = (Supplier) ally;
+            resourcesSprite = supplier.ResourceImagesReceived;
+            resourcesType = supplier.ResourceTypesReceived;
+            resourcesAmount = supplier.ResourceAmountsReceived;
+            resourceExtraAmount = supplier.ResourceAmountsGivenExtra;
+            difficulty.text = $"SUPPLIER LEVEL {ally.Difficulty+1}";
+        }
+        
+        for (int i = 0; i < resourcesType.Length; i++)
         {
-            Sprite resourceSprite = isPartner ? partnerSupplier.ResourceImagesGiven[i] : partnerSupplier.ResourceImagesReceived[i];
-            string resourceType = isPartner ? partnerSupplier.ResourceTypesGiven[i] : partnerSupplier.ResourceTypesReceived[i];
-            int resourceAmount = isPartner ? partnerSupplier.ResourceAmountsGiven[i] : partnerSupplier.ResourceAmountsReceived[i];
-
             Color color;
-            if (typesEmployees.Contains(resourceType)){
+            if (typesEmployees.Contains(resourcesType[i])){
                 color = colors.naranja;
             }
-            else if(typesTechnologies.Contains(resourceType)){
+            else if(typesTechnologies.Contains(resourcesType[i])){
                 color = colors.azul;
             }else{
                 color = colors.morado;
             }
 
-            if (resourceSprite != null && !string.IsNullOrEmpty(resourceType) && resourceAmount > 0)
+            if (resourcesSprite[i] != null && !string.IsNullOrEmpty(resourcesType[i]) && resourcesAmount[i] > 0)
             {
                 resources[i].enabled = true;
-                resources[i].sprite = resourceSprite;
-                resourceDescriptions[i].enabled = true;
-                resourceDescriptions[i].text = $"{resourceType}\n{resourceAmount}";
-                resourceDescriptions[i].color = color;
+                resources[i].sprite = resourcesSprite[i];
+                resourcesDescriptions[i].enabled = true;
+                resourcesDescriptions[i].text = $"{resourcesType[i]}\n{resourcesAmount[i]}";
+                resourcesDescriptions[i].color = color;
             }
         }
 
         resourceExtraDescription.enabled = true;
         resourceExtraDescription.text = $"ITILIANOS ${resourceExtraAmount}";
-        resourcesExtra.enabled = true;
+        resourceExtra.enabled = true;
 
-        SetStars(partnerSupplier.Difficulty);
-        if(validatePartnerSupplierIsAvailable(player, partnerSupplier)){
+        SetStars(ally.Difficulty);
+        if(validateAllyIsAvailable(player, ally)){
             buttonBuyPartnersSuppliers.interactable = true;
         }else{
             buttonBuyPartnersSuppliers.interactable = false;
@@ -197,11 +225,11 @@ public class SelectPartnerAndSupplier : MonoBehaviour
 
     public void SetStars(int difficulty){
 
-        if(difficulty == 1){
+        if(difficulty == 0){
             starsImage[0].enabled = true;
             starsImage[1].enabled = false;
             starsImage[2].enabled = false;
-        }else if(difficulty == 2){
+        }else if(difficulty == 1){
             starsImage[0].enabled = false;
             starsImage[1].enabled = true;
             starsImage[2].enabled = true;
@@ -226,17 +254,18 @@ public class SelectPartnerAndSupplier : MonoBehaviour
         }
     }
 
-    private bool validatePartnerSupplierIsAvailable(Player player, PartnersAndSuppliers partnerSupplier){
-        int level = partnerSupplier.Difficulty;
-        bargain= player.getListAbilities().getBargain();
-        if(bargain.getAmount() +1 >= level){
+    private bool validateAllyIsAvailable(Player player, Ally ally){
+        int level = ally.Difficulty;
+        bargain = player.getListAbilities().getBargain();
+        if(bargain.getAmount() >= level){
             bool[] boolArray;
             string[] requirementList;
             int[] amountList;
-            if(partnerSupplier.StakeHolderType == "PARTNER"){
-                boolArray = new bool[partnerSupplier.ResourceTypesGiven.Length];
-                requirementList = partnerSupplier.ResourceTypesGiven;
-                amountList = partnerSupplier.ResourceAmountsGiven;
+            if(ally is Partner){
+                Partner partner = (Partner)ally;
+                boolArray = new bool[partner.ResourceTypesGiven.Length];
+                requirementList = partner.ResourceTypesGiven;
+                amountList = partner.ResourceAmountsGiven;
                 for (int i = 0; i < requirementList.Length; i++)
                 {
                     boolArray[i] =  validateExchangeResources.ValidatePlayerHasResources(
@@ -246,8 +275,9 @@ public class SelectPartnerAndSupplier : MonoBehaviour
                 bool allTrue = boolArray.All(value => value);
                 return allTrue ? true : false;
             }else{
+                Supplier supplier = (Supplier) ally;
                 return validateExchangeResources.ValidatePlayerHasResources(
-                    "ITILIANOS", partnerSupplier.ResourceAmountsGivenExtra
+                    "ITILIANOS", supplier.ResourceAmountsGivenExtra
                 );
             }
         }

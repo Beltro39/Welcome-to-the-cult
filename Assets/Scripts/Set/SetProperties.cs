@@ -98,14 +98,14 @@ public class SetProperties : MonoBehaviour{
                 SetStars(centerPartnerStars, player.GetPartner().Difficulty);
             }else{
                 centerPartner.sprite = unknownPartnerOrSupplier;
-                SetStars(centerPartnerStars, 0);
+                SetStars(centerPartnerStars, -1);
             }     
             if(player.GetSupplier() != null){
                 centerSupplier.sprite = player.GetSupplier().ImageStakeholder;
                 SetStars(centerSupplierStars, player.GetSupplier().Difficulty);
             }else{
                 centerSupplier.sprite = unknownPartnerOrSupplier;
-                SetStars(centerSupplierStars, 0);
+                SetStars(centerSupplierStars, -1);
             } 
 
         }
@@ -123,14 +123,14 @@ public class SetProperties : MonoBehaviour{
                 SetStars(leftPartnerStars, player.GetPartner().Difficulty);
             }else{
                 leftPartner.sprite = unknownPartnerOrSupplier;
-                SetStars(leftPartnerStars, 0);
+                SetStars(leftPartnerStars, -1);
             }
             if(player.GetSupplier() != null){
                 leftSupplier.sprite = player.GetSupplier().ImageStakeholder;
                 SetStars(leftSupplierStars, player.GetSupplier().Difficulty);
             }else{
                 leftSupplier.sprite = unknownPartnerOrSupplier;
-                SetStars(leftSupplierStars, 0);
+                SetStars(leftSupplierStars, -1);
             } 
         }
         else{
@@ -147,25 +147,25 @@ public class SetProperties : MonoBehaviour{
                 SetStars(rightPartnerStars, player.GetPartner().Difficulty);
             }else{
                 rightPartner.sprite = unknownPartnerOrSupplier;
-                SetStars(rightPartnerStars, 0);
+                SetStars(rightPartnerStars, -1);
             }
             if(player.GetSupplier() != null){
                 rightSupplier.sprite = player.GetSupplier().ImageStakeholder;
                 SetStars(rightSupplierStars, player.GetSupplier().Difficulty);
             }else{
                 rightSupplier.sprite = unknownPartnerOrSupplier;
-                SetStars(rightSupplierStars, 0);
+                SetStars(rightSupplierStars, -1);
             } 
         }
 
         if(player.GetPartner() != null){
-            descriptionPartnerArray[player.getPosition()-1].text = $"P-LVL{player.GetPartner().Difficulty}";
+            descriptionPartnerArray[player.getPosition()-1].text = $"P-LVL{player.GetPartner().Difficulty+1}";
         }else{
             descriptionPartnerArray[player.getPosition()-1].text = $"LOCKED";
         }
 
         if(player.GetSupplier() != null){
-            descriptionSupplierArray[player.getPosition()-1].text = $"S-LVL{player.GetSupplier().Difficulty}";
+            descriptionSupplierArray[player.getPosition()-1].text = $"S-LVL{player.GetSupplier().Difficulty+1}";
         }else{
             descriptionSupplierArray[player.getPosition()-1].text = $"LOCKED";
         }
@@ -176,16 +176,16 @@ public class SetProperties : MonoBehaviour{
     }  
 
      public void SetStars(Image[] starArray,int difficulty){
-        if(difficulty == 0){
+        if(difficulty == -1){
             starArray[0].enabled = false;
             starArray[1].enabled = false;
             starArray[2].enabled = false; 
         }
-        else if(difficulty == 1){
+        else if(difficulty == 0){
             starArray[0].enabled = true;
             starArray[1].enabled = false;
             starArray[2].enabled = false;
-        }else if(difficulty == 2){
+        }else if(difficulty == 1){
             starArray[0].enabled = false;
             starArray[1].enabled = true;
             starArray[2].enabled = true;

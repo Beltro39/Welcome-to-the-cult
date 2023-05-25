@@ -9,8 +9,8 @@ public class Player
     private ListTechnologies ListTechnologies;
     private ListAbilities ListAbilities;
     private Itilianos Itilianos;
-    private PartnersAndSuppliers partner;
-    private PartnersAndSuppliers supplier;
+    private Partner partner;
+    private Supplier supplier;
     private string TurnOrder;
     private string CompanyDimension;
     private string Nickname;
@@ -36,14 +36,14 @@ public class Player
     public string getCompanyDimension(){return CompanyDimension;}
     public string getNickname(){return Nickname;}
     public int getAvatar(){return avatar;}
-    public PartnersAndSuppliers GetPartner(){return this.partner;}
+    public Partner GetPartner(){return this.partner;}
     public int getPosition(){return position;}
-    public PartnersAndSuppliers GetSupplier(){return this.supplier;}
+    public Supplier GetSupplier(){return this.supplier;}
     public void setPosition(int position){this.position = position;}
     public bool getIsActionComplete(){return actionComplete;}
     public void setIsActionComplete(bool v){this.actionComplete = v;}
     public void setTurnOrder(string TurnOrder){this.TurnOrder = TurnOrder;}
-    public void SetPartner(PartnersAndSuppliers partner){this.partner = partner;}
-    public void SetSupplier(PartnersAndSuppliers supplier){this.supplier = supplier;}
+    public void SetPartner(Partner partner){this.partner = partner;}
+    public void SetSupplier(Supplier supplier){this.supplier = supplier;}
     }
 }
