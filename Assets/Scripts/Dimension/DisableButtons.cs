@@ -5,8 +5,13 @@ using UnityEngine.UI;
 namespace Lean.Gui{
 public class DisableButtons : MonoBehaviour
 {
+    [SerializeField] Button ButtonMinusJuniors;
+    [SerializeField] Button ButtonMinusSemiSeniors;
     [SerializeField] Button ButtonMinusSeniors;
     [SerializeField] Button ButtonMinusArchitects;
+    
+    [SerializeField] Button ButtonPlusJuniors;
+    [SerializeField] Button ButtonPlusSemiSeniors;
     [SerializeField] Button ButtonPlusSeniors;
     [SerializeField] Button ButtonPlusArchitects;
 
@@ -20,6 +25,16 @@ public class DisableButtons : MonoBehaviour
     [SerializeField] Button ButtonPlusIA;
     [SerializeField] Button ButtonPlusHosting;
 
+    [SerializeField] Button ButtonMinusRecruitment;
+    [SerializeField] Button ButtonMinusSkillful;
+    [SerializeField] Button ButtonMinusBargain;
+    [SerializeField] Button ButtonMinusResearch;
+
+    [SerializeField] Button ButtonPlusRecruitment;
+    [SerializeField] Button ButtonPlusSkillful;
+    [SerializeField] Button ButtonPlusBargain;
+    [SerializeField] Button ButtonPlusResearch;
+
     [SerializeField] Button ButtonBuyEmployees;
     [SerializeField] Button ButtonBuyTechnologies;
     [SerializeField] Button ButtonBuyAbilities;
@@ -29,10 +44,33 @@ public class DisableButtons : MonoBehaviour
     [SerializeField] Button ButtonSkipPartnersSuppliers;
     [SerializeField] Button ButtonSkipAbilities;
     
+    private Dictionary<string, Dictionary<string, Button>> diccionarioButtons = new Dictionary<string, Dictionary<string, Button>>();
+
+    void Start(){
+        diccionarioButtons = new Dictionary<string, Dictionary<string, Button>>
+            {
+                { "Juniors", new Dictionary<string, Button> { { "Plus", ButtonPlusJuniors }, {"Minus", ButtonMinusJuniors}}},
+                { "SemiSeniors", new Dictionary<string, Button> { { "Plus", ButtonPlusSemiSeniors }, { "Minus", ButtonMinusSemiSeniors}}},
+                { "Seniors", new Dictionary<string, Button> { { "Plus", ButtonPlusSeniors }, { "Minus", ButtonMinusSeniors}}},
+                { "Architects", new Dictionary<string, Button> { { "Plus", ButtonPlusArchitects }, { "Minus", ButtonMinusArchitects}}},
+                { "Servers", new Dictionary<string, Button> { { "Plus", ButtonPlusServers }, { "Minus", ButtonMinusServers}}},
+                { "Satellites", new Dictionary<string, Button> { { "Plus", ButtonPlusSatellites }, { "Minus", ButtonMinusSatellites}}},
+                { "IA", new Dictionary<string, Button> { { "Plus", ButtonPlusIA }, { "Minus", ButtonMinusIA}}},
+                { "Hosting", new Dictionary<string, Button> { { "Plus", ButtonPlusHosting }, { "Minus", ButtonMinusHosting}}},
+                { "Recruitment", new Dictionary<string, Button> { { "Plus", ButtonPlusRecruitment }, { "Minus", ButtonMinusRecruitment}}},
+                { "Skillful", new Dictionary<string, Button> { { "Plus", ButtonPlusSkillful }, { "Minus", ButtonMinusSkillful}}},
+                { "Bargain", new Dictionary<string, Button> { { "Plus", ButtonPlusBargain }, { "Minus", ButtonMinusBargain}}},
+                { "Research", new Dictionary<string, Button> { { "Plus", ButtonPlusResearch }, { "Minus", ButtonMinusResearch}}}
+            };
+    }
+
+    
 
     private Recruitment Recruitment;
     private Skillful Skillful;
     private Research Research;
+
+    
 
     public bool Run(Player player){
         Recruitment= player.getListAbilities().getRecruitment();
@@ -101,6 +139,45 @@ public class DisableButtons : MonoBehaviour
 
     public void SkipAbilitiesDimensionEnabled(){
         ButtonSkipAbilities.interactable= true;
+    }
+
+
+
+
+    public void ButtonPlusServersDisable(){
+        ButtonPlusServers.interactable = false;
+    }
+
+    public void ButtonPlusSatellitesDisable(){
+        ButtonPlusSatellites.interactable = false;
+    }
+
+    public void ButtonPlusIADisable(){
+        ButtonPlusIA.interactable = false;
+    }
+
+    public void ButtonPlusHostingDisable(){
+        ButtonPlusHosting.interactable = false;
+    }
+
+     public void ButtonPlusServersEnable(){
+        ButtonPlusServers.interactable = true;
+    }
+
+    public void ButtonPlusSatellitesEnable(){
+        ButtonPlusSatellites.interactable = true;
+    }
+
+    public void ButtonPlusIAEnable(){
+        ButtonPlusIA.interactable = true;
+    }
+
+    public void ButtonPlusHostingEnable(){
+        ButtonPlusHosting.interactable = true;
+    }
+
+    public void InteractButton(string resource, string property, bool enable){
+        diccionarioButtons[resource][property].interactable = enable;
     }
 
     

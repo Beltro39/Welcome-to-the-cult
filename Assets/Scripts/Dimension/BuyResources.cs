@@ -214,12 +214,12 @@ namespace Lean.Gui{
             {
                 int resourceQuantity = diccionarioResources[outerPair.Key].getAmount() + dictResourcesQuantityToBuy[outerPair.Key];
                 if (typesEmployees.Contains(outerPair.Key)){
-                     diccionarioText[outerPair.Key]["TextAvailable"].text = market.getResourceAvailabilityCopy(outerPair.Key).ToString() + " APPLICANTS";
+                     diccionarioText[outerPair.Key]["TextAvailable"].text = market.getResourceAvailability(outerPair.Key).ToString() + " APPLICANTS";
                      diccionarioText[outerPair.Key]["LevelsToBuy"].text = resourceQuantity.ToString();
                     diccionarioText[outerPair.Key]["Price"].text = "$"+market.getResourcesCost(outerPair.Key, player).ToString();
                 }
                 if (typesTechnologies.Contains(outerPair.Key) || typesAbilities.Contains(outerPair.Key)){
-                     diccionarioText[outerPair.Key]["TextAvailable"].text = market.getResourceAvailabilityCopy(outerPair.Key).ToString() + " LEVELS";
+                     diccionarioText[outerPair.Key]["TextAvailable"].text = market.getResourceAvailability(outerPair.Key).ToString() + " LEVELS";
                      diccionarioText[outerPair.Key]["LevelsToBuy"].text = "LEVEL "+resourceQuantity.ToString();
                 }
 
@@ -279,7 +279,7 @@ namespace Lean.Gui{
                 dictResourcesQuantityToBuy[resource] -= 1;
             }
             int resourceQuantity = diccionarioResources[resource].getAmount() + dictResourcesQuantityToBuy[resource];
-            diccionarioText[resource]["TextAvailable"].text = market.getResourceAvailabilityCopy(resource).ToString() + units;
+            diccionarioText[resource]["TextAvailable"].text = market.getResourceAvailability(resource).ToString() + units;
             diccionarioText[resource]["LevelsToBuy"].text = units2+resourceQuantity.ToString();
             DisableUIButtons();
         }
@@ -319,9 +319,92 @@ namespace Lean.Gui{
                 DisableButtons.SkipAbilitiesDimensionDisabled();
 
             }
+            
+            int recruitmentAmount = player.getListAbilities().getRecruitment().getAmount();
+            foreach (string resource in typesEmployees)
+            {   
+                if(dictResourcesQuantityToBuy[resource] == 0){
+                    DisableButtons.InteractButton(resource, "Minus", false);
+                }else{
+                    DisableButtons.InteractButton(resource, "Minus", true);
+                }
 
-            Debug.Log(TotalAbilitiesCost);
+                if (resource == "Juniors" || resource == "SemiSeniors"){
+                    continue;
+                }
+                int resourceQuantity = diccionarioResources[resource].getAmount() + dictResourcesQuantityToBuy[resource];
+                switch (recruitmentAmount)
+                {
+                    case int amount when amount < 1 && resource == "Seniors":
+                        DisableButtons.InteractButton(resource, "Plus", false);
+                        break;
+                    case int amount when amount < 2 && resource == "Architects":
+                        DisableButtons.InteractButton(resource, "Plus", false);
+                        break;
+                    default:
+                        DisableButtons.InteractButton(resource, "Plus", true);
+                        break;
+                }
 
+            }
+            
+            int skillfulAmount = player.getListAbilities().getSkillful().getAmount();
+            foreach (string resource in typesTechnologies)
+            {
+                int resourceQuantity = diccionarioResources[resource].getAmount() + dictResourcesQuantityToBuy[resource];
+                switch (skillfulAmount)
+                {
+                    case int amount when amount < 1 && resourceQuantity >= 5:
+                        DisableButtons.InteractButton(resource, "Plus", false);
+                        break;
+                    case int amount when amount < 2 && resourceQuantity >= 8:
+                        DisableButtons.InteractButton(resource, "Plus", false);
+                        break;
+                    case int amount when resourceQuantity >= 10:
+                        DisableButtons.InteractButton(resource, "Plus", false);
+                        break;
+                    case int amount when market.getResourceAvailability(resource) <= 0:
+                        DisableButtons.InteractButton(resource, "Plus", false);
+                        break;
+                    default:
+                        DisableButtons.InteractButton(resource, "Plus", true);
+                        break;
+                }
+
+                if(dictResourcesQuantityToBuy[resource] == 0){
+                    DisableButtons.InteractButton(resource, "Minus", false);
+                }else{
+                    DisableButtons.InteractButton(resource, "Minus", true);
+                }
+
+            }
+
+            int researchAmount = player.getListAbilities().getResearch().getAmount();
+            foreach (string resource in typesAbilities)
+            {
+                int resourceQuantity = diccionarioResources[resource].getAmount() + dictResourcesQuantityToBuy[resource];
+                switch (researchAmount)
+                {
+                    case int amount when amount < 1 && resourceQuantity >= 2:
+                        DisableButtons.InteractButton(resource, "Plus", false);
+                        break;
+                    case int amount when amount < 2 && resourceQuantity >= 3:
+                        DisableButtons.InteractButton(resource, "Plus", false);
+                        break;
+                    case int amount when resourceQuantity >= 4:
+                        DisableButtons.InteractButton(resource, "Plus", false);
+                        break;
+                    default:
+                        DisableButtons.InteractButton(resource, "Plus", true);
+                        break;
+                }
+
+                if(dictResourcesQuantityToBuy[resource] == 0){
+                    DisableButtons.InteractButton(resource, "Minus", false);
+                }else{
+                    DisableButtons.InteractButton(resource, "Minus", true);
+                }
+            }
         }
 
         public void Buy(){
