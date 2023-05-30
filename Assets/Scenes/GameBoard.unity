@@ -15991,9 +15991,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d56b60b5025cd3d389226d9ea180e800, type: 2}
   partnerLevel3:
   - {fileID: 11400000, guid: d89b6fc387127cabc82a3e704c3022a6, type: 2}
-  supplierLevel1: []
-  supplierLevel2: []
-  supplierLevel3: []
+  supplierLevel1:
+  - {fileID: 11400000, guid: 577e6b5ad996cd76b9ca51082da85a4b, type: 2}
+  supplierLevel2:
+  - {fileID: 11400000, guid: 69110e2653f32ac2ba7a593205c32231, type: 2}
+  supplierLevel3:
+  - {fileID: 11400000, guid: 5309d82c5b09c60898fce173e1e06775, type: 2}
   nameStakeholder: {fileID: 1221796660}
   difficulty: {fileID: 1106102422}
   imageStakeholder: {fileID: 801619094}
@@ -50306,8 +50309,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c84a4bb2aecaf5e48b10bc7db2a087ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ButtonMinusJuniors: {fileID: 1289824484}
+  ButtonMinusSemiSeniors: {fileID: 2120801724}
   ButtonMinusSeniors: {fileID: 406482344}
   ButtonMinusArchitects: {fileID: 403586639}
+  ButtonPlusJuniors: {fileID: 789848438}
+  ButtonPlusSemiSeniors: {fileID: 461403641}
   ButtonPlusSeniors: {fileID: 206202406}
   ButtonPlusArchitects: {fileID: 912707669}
   ButtonMinusServers: {fileID: 29533504}

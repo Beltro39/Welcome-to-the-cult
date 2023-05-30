@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 362aa34ed2009dada9bc2d889ad9679e, type: 3}
+  m_Name: INDIRA
+  m_EditorClassIdentifier: 
+  _nameStakeholder: INDIRA
+  _difficulty: 0
+  _imageStakeholder: {fileID: 21300000, guid: 73f80fe1d05a8404b8d92ae454ccf07f, type: 3}
+  _resourceImagesReceived:
+  - {fileID: 21300000, guid: 879d70ed52d7a85448e6837982e8b4aa, type: 3}
+  - {fileID: 21300000, guid: 879d70ed52d7a85448e6837982e8b4aa, type: 3}
+  _resourceTypesReceived:
+  - HOSTING
+  - HOSTING
+  _resourceAmountsReceived: 0100000001000000
+  _resourceAmountsGivenExtra: 10
