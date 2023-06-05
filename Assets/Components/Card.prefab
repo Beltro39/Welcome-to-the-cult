@@ -1332,7 +1332,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7107964950411979036}
-  - component: {fileID: 4543536427292986988}
+  - component: {fileID: 6363548942087122455}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -1367,7 +1367,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 435, y: 678}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4543536427292986988
+--- !u!114 &6363548942087122455
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1380,26 +1380,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectCard: {fileID: 0}
+  projectDescription: {fileID: 3110549287614488173}
   nameStakeholder: {fileID: 8438771568902635199}
-  fondo: {fileID: 4625882828528246661}
   imageStakeholder: {fileID: 7356703424722031861}
-  fondoTitulo: {fileID: 1761226164527517131}
-  description: {fileID: 3110549287614488173}
-  circulo1: {fileID: 159594638657913218}
-  circulo2: {fileID: 1920351209798413616}
-  circulo3: {fileID: 3685236463318907856}
-  circulo4: {fileID: 1522520286664612937}
-  circulo5: {fileID: 6902506017226821083}
-  resource1: {fileID: 6535853527056941566}
-  resource2: {fileID: 2927996755940804954}
-  resource3: {fileID: 7757132353315183788}
-  resource4: {fileID: 8992070217775154911}
-  resource5: {fileID: 7578264680367725898}
-  amount1: {fileID: 1655481198872922244}
-  amount2: {fileID: 105113107848875886}
-  amount3: {fileID: 4623062215101379829}
-  amount4: {fileID: 6990261877497779178}
-  amount5: {fileID: 137815765006538933}
+  circulos:
+  - {fileID: 5176440823154642277}
+  - {fileID: 6490051700958263292}
+  - {fileID: 7598167966683268239}
+  - {fileID: 8717825179553822475}
+  - {fileID: 8054024391295974649}
+  resources:
+  - {fileID: 6535853527056941566}
+  - {fileID: 2927996755940804954}
+  - {fileID: 7757132353315183788}
+  - {fileID: 8992070217775154911}
+  - {fileID: 7578264680367725898}
+  amounts:
+  - {fileID: 1655481198872922244}
+  - {fileID: 105113107848875886}
+  - {fileID: 4623062215101379829}
+  - {fileID: 6990261877497779178}
+  - {fileID: 137815765006538933}
+  BackgroundBox: {fileID: 4625882828528246661}
+  titleBox: {fileID: 1761226164527517131}
+  titles:
+  - {fileID: 21300000, guid: 0cd0d76246d471d4380cf62306ef5317, type: 3}
+  - {fileID: 21300000, guid: 3d7b9bfec2ef5f148aac452fa5d11e07, type: 3}
+  - {fileID: 21300000, guid: 38dc5fc756afb15409b04e185e4982e4, type: 3}
+  Backgrounds:
+  - {fileID: 21300000, guid: 06c53abc2ccb3d445aefd1dc7f982175, type: 3}
+  - {fileID: 21300000, guid: 4d5dcf0171c93c24c98f9c2c7d56a78a, type: 3}
+  - {fileID: 21300000, guid: a31030a6554255d44bbc1745347ae42f, type: 3}
 --- !u!1 &8054024391295974649
 GameObject:
   m_ObjectHideFlags: 0

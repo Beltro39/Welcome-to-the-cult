@@ -421,7 +421,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 761906372041768656, guid: 7f2a07fa637cefa4092aad8f6583e90a, type: 3}
       propertyPath: m_Name
-      value: Modal Confirm Dimension
+      value: Modal Confirm Dimension Variant
       objectReference: {fileID: 0}
     - target: {fileID: 761906372041768658, guid: 7f2a07fa637cefa4092aad8f6583e90a, type: 3}
       propertyPath: on

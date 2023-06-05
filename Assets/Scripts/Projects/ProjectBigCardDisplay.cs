@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
+namespace Lean.Gui{
 public class ProjectBigCardDisplay : MonoBehaviour
 {
     public ProjectCard projectCard;
@@ -20,8 +21,12 @@ public class ProjectBigCardDisplay : MonoBehaviour
     public Sprite[] requirements;
     public Sprite[] stakeholderBackgrounds;
     public Color[] colorBackgrounds;
+    public Color[] colorSelect;
 
      // Start is called before the first frame updat
+
+
+ 
     
     public void Build()
     {
@@ -57,4 +62,26 @@ public class ProjectBigCardDisplay : MonoBehaviour
         stakeholderBox.sprite = stakeholderBackgrounds[projectCard.Difficulty];
         gameObject.GetComponent<Image>().color = colorBackgrounds[projectCard.Difficulty];
     }
+
+
+       public void selectCardButton(){
+
+        if(ProjectController.selectedCard == this.projectCard){
+            ProjectController.selectedCard = null;
+        }else{
+            ProjectController.selectedCard = this.projectCard;            
+        }
+
+        ProjectController.checkSelectedCard();
+        
+    }
+
+    public void selectCard(){
+        gameObject.GetComponent<Outline>().effectColor = colorSelect[projectCard.Difficulty];
+    }
+
+    public void unselectCard(){
+        gameObject.GetComponent<Outline>().effectColor = Color.clear;
+    }
+}
 }

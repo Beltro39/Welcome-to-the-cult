@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 1492798794332449592}
   - component: {fileID: 8821353509548988362}
   m_Layer: 0
-  m_Name: Panel (1)
+  m_Name: Panel 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -509,7 +509,7 @@ GameObject:
   - component: {fileID: 7996577707047707789}
   - component: {fileID: 4138772610251425250}
   m_Layer: 0
-  m_Name: Image Circle 1
+  m_Name: Image Circle 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -816,7 +816,7 @@ GameObject:
   - component: {fileID: 6193042117320324848}
   - component: {fileID: 6781898341674364495}
   m_Layer: 0
-  m_Name: Image Circle 1
+  m_Name: Image Circle 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -968,7 +968,7 @@ GameObject:
   - component: {fileID: 1273455867917045258}
   - component: {fileID: 7119851415047300760}
   m_Layer: 0
-  m_Name: Image Resource 1
+  m_Name: Image Resource 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1042,9 +1042,11 @@ GameObject:
   - component: {fileID: 2039923668651093947}
   - component: {fileID: 3359967137058926354}
   - component: {fileID: 5428271423344035647}
+  - component: {fileID: 5491209441359612260}
   - component: {fileID: 5392657664216935781}
+  - component: {fileID: 926826843827454438}
   m_Layer: 0
-  m_Name: easyProjects (1)
+  m_Name: Projects big
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1113,6 +1115,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5491209441359612260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4775304400603702003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.4666667, g: 0.4666667, b: 0.4666667, a: 1}
+  m_EffectDistance: {x: 7, y: 7}
+  m_UseGraphicAlpha: 1
 --- !u!114 &5392657664216935781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1161,6 +1178,66 @@ MonoBehaviour:
   - {r: 0.88235295, g: 0.9019608, b: 0.105882354, a: 1}
   - {r: 0.3647059, g: 0.78039217, b: 0.80784315, a: 1}
   - {r: 0.5294118, g: 0.105882354, b: 0.14901961, a: 1}
+  colorSelect:
+  - {r: 0.5294118, g: 0.4666667, b: 0.4666667, a: 1}
+  - {r: 0.5294118, g: 0.4666667, b: 0.4666667, a: 1}
+  - {r: 0.5294118, g: 0.4666667, b: 0.4666667, a: 1}
+--- !u!114 &926826843827454438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4775304400603702003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 5428271423344035647}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5392657664216935781}
+        m_TargetAssemblyTypeName: ProjectBigCardDisplay, Assembly-CSharp
+        m_MethodName: selectCardButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4964377510342731162
 GameObject:
   m_ObjectHideFlags: 0
@@ -1173,7 +1250,7 @@ GameObject:
   - component: {fileID: 1837549343389907387}
   - component: {fileID: 4058130278432281777}
   m_Layer: 0
-  m_Name: Image Resource 1
+  m_Name: Image Resource 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1248,7 +1325,7 @@ GameObject:
   - component: {fileID: 1869035484116825962}
   - component: {fileID: 8203974280986428308}
   m_Layer: 0
-  m_Name: Image Circle 1
+  m_Name: Image Circle 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1324,7 +1401,7 @@ GameObject:
   - component: {fileID: 8748429811140104590}
   - component: {fileID: 2640235096976251939}
   m_Layer: 0
-  m_Name: Panel (3)
+  m_Name: Panel 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1496,7 +1573,7 @@ GameObject:
   - component: {fileID: 2853536586287332646}
   - component: {fileID: 149484402690475504}
   m_Layer: 0
-  m_Name: Panel (4)
+  m_Name: Panel 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1573,7 +1650,7 @@ GameObject:
   - component: {fileID: 3402980891790291400}
   - component: {fileID: 3431085415554093153}
   m_Layer: 0
-  m_Name: Image Resource 1
+  m_Name: Image Resource 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1648,7 +1725,7 @@ GameObject:
   - component: {fileID: 5086764703220338906}
   - component: {fileID: 4737327909090970575}
   m_Layer: 0
-  m_Name: Image Circle 1
+  m_Name: Image Circle 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1724,7 +1801,7 @@ GameObject:
   - component: {fileID: 2628754616842761102}
   - component: {fileID: 8518491161792123387}
   m_Layer: 0
-  m_Name: Text Amount 1
+  m_Name: Text Amount 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1879,7 +1956,7 @@ GameObject:
   - component: {fileID: 5301410568904271164}
   - component: {fileID: 8085589584532028983}
   m_Layer: 0
-  m_Name: Text Amount 1
+  m_Name: Text Amount 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2033,7 +2110,7 @@ GameObject:
   - component: {fileID: 1200960198828900556}
   - component: {fileID: 2142570451295673708}
   m_Layer: 0
-  m_Name: Text Amount 1
+  m_Name: Text Amount 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2112,7 +2189,7 @@ GameObject:
   - component: {fileID: 4812188674784186805}
   - component: {fileID: 5544252309344271871}
   m_Layer: 0
-  m_Name: Text Amount 1
+  m_Name: Text Amount 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2191,7 +2268,7 @@ GameObject:
   - component: {fileID: 1355206006287377415}
   - component: {fileID: 870827269079405524}
   m_Layer: 0
-  m_Name: Panel
+  m_Name: Panel 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2268,7 +2345,7 @@ GameObject:
   - component: {fileID: 880796945158688369}
   - component: {fileID: 8761780535383870800}
   m_Layer: 0
-  m_Name: Image Resource 1
+  m_Name: Image Resource 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2343,7 +2420,7 @@ GameObject:
   - component: {fileID: 402026812435182648}
   - component: {fileID: 7510424613539011188}
   m_Layer: 0
-  m_Name: Panel (2)
+  m_Name: Panel 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

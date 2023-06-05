@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+namespace Lean.Gui{
 public class ProjectController : MonoBehaviour
 {
 
@@ -32,7 +32,22 @@ public class ProjectController : MonoBehaviour
 
     [SerializeField] GameObject contentProjects;
 
-    List<GameObject> cardsDisplay = new List<GameObject>();
+    [Space(10)]
+    [Header("paneles")]
+    [SerializeField] GameObject noSelectedCardAdvice;
+    [SerializeField] GameObject selectProjectInfo;
+
+    [Space(10)]
+    [Header("cards")]
+    [SerializeField] GameObject panelCard;
+    [SerializeField] GameObject cardPrefabSelect;
+    
+    
+    private GameObject selectedCardDisplayObject;
+    static List<GameObject> cardsDisplay = new List<GameObject>();
+    public static ProjectCard selectedCard;
+
+   
 
     void Start()
     {
@@ -84,5 +99,48 @@ public class ProjectController : MonoBehaviour
             extraCard.transform.localScale = new Vector3(1,1,1);
             cardsDisplay.Add(extraCard);
         }
+        ProjectController.checkSelectedCard();
     }
+
+
+    public static void checkSelectedCard(){
+        foreach(GameObject cardDisplayObject in cardsDisplay){
+            ProjectBigCardDisplay cardDisplay = cardDisplayObject.GetComponent<ProjectBigCardDisplay>();
+            if(cardDisplay.projectCard == selectedCard){
+                cardDisplay.selectCard();
+            }else{
+                cardDisplay.unselectCard();
+            }
+        }
+    }
+
+    public void confirmDecline(){
+        transform.parent.gameObject.GetComponent<LeanWindow>().TurnOff();
+        noSelectedCardAdvice.GetComponent<LeanWindow>().TurnOn();
+        selectedCard = null;
+    }
+
+    public void Decline(){
+        noSelectedCardAdvice.GetComponent<LeanWindow>().TurnOn();
+    }
+
+    public void select_button(){
+        if(ProjectController.selectedCard){
+
+            if(!selectedCardDisplayObject){
+                selectedCardDisplayObject = Instantiate(cardPrefabSelect) as GameObject;
+                selectedCardDisplayObject.transform.SetParent(panelCard.transform);
+                selectedCardDisplayObject.transform.localScale = new Vector3(1,1,1);
+                selectedCardDisplayObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
+            }
+
+            ProjectCardDisplay selectedCardDisplay = selectedCardDisplayObject.GetComponent<ProjectCardDisplay>();
+            selectedCardDisplay.projectCard = ProjectController.selectedCard;
+            selectedCardDisplay.Build();
+            selectProjectInfo.GetComponent<LeanWindow>().TurnOn();
+        }else{
+            Decline();
+        }
+    }
+}
 }
