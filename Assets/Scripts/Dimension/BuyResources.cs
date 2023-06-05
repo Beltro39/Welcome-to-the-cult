@@ -212,7 +212,7 @@ namespace Lean.Gui{
             
             foreach (KeyValuePair<string, Dictionary<string, Text>> outerPair in diccionarioText)
             {
-                int resourceQuantity = diccionarioResources[outerPair.Key].getAmount() + dictResourcesQuantityToBuy[outerPair.Key];
+                int resourceQuantity = dictResourcesQuantityToBuy[outerPair.Key];
                 if (typesEmployees.Contains(outerPair.Key)){
                      diccionarioText[outerPair.Key]["TextAvailable"].text = market.getResourceAvailability(outerPair.Key).ToString() + " APPLICANTS";
                      diccionarioText[outerPair.Key]["LevelsToBuy"].text = resourceQuantity.ToString();
@@ -278,7 +278,7 @@ namespace Lean.Gui{
                 }
                 dictResourcesQuantityToBuy[resource] -= 1;
             }
-            int resourceQuantity = diccionarioResources[resource].getAmount() + dictResourcesQuantityToBuy[resource];
+            int resourceQuantity =  dictResourcesQuantityToBuy[resource];
             diccionarioText[resource]["TextAvailable"].text = market.getResourceAvailability(resource).ToString() + units;
             diccionarioText[resource]["LevelsToBuy"].text = units2+resourceQuantity.ToString();
             DisableUIButtons();

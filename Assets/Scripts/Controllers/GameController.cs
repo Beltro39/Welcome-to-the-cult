@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
     SpawnCompany spawnCompanyComponent;
     BuyResources buyResourcesComponent;
     DisableButtons disableButtonsComponent;
+    DisableBoardItems disableBoardItemsComponent;
     SetResources setResourcesComponent;
     SetCircleCompany setCircleCompanyComponent;
     SelectPartnerAndSupplier selectPartnerAndSupplierComponent; 
@@ -39,6 +40,7 @@ public class GameController : MonoBehaviour
         spawnCompanyComponent = UIControllerGO.GetComponent<SpawnCompany>();
         buyResourcesComponent = gameObject.GetComponent<BuyResources>();
         disableButtonsComponent = UIControllerGO.GetComponent<DisableButtons>();
+        disableBoardItemsComponent = UIControllerGO.GetComponent<DisableBoardItems>();
         setResourcesComponent = UIControllerGO.GetComponent<SetResources>();
         selectPartnerAndSupplierComponent = gameObject.GetComponent<SelectPartnerAndSupplier>();
         setCircleCompanyComponent = UIControllerGO.GetComponent<SetCircleCompany>();
@@ -95,6 +97,7 @@ public class GameController : MonoBehaviour
                 yield return new WaitUntil(() => selectPartnerAndSupplierComponent.Run(currentPlayer));
                 // Disabling buttons (Gameboard images turn gray, or some buttons become not interactable)
                 yield return new WaitUntil(() => disableButtonsComponent.Run(currentPlayer));
+                yield return new WaitUntil(() => disableBoardItemsComponent.Run(currentPlayer));
                 yield return new WaitUntil(() => spawnCompanyComponent.Run(currentPlayer)); 
                 yield return new WaitUntil(() => currentPlayer.getIsActionComplete()); 
                 spawnCompanyComponent.destroyCompany();

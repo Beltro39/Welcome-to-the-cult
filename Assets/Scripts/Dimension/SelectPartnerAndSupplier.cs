@@ -42,6 +42,7 @@ public class SelectPartnerAndSupplier : MonoBehaviour
     int index;
 
     Colors colors;
+    DisableBoardItems disableBoardItemsComponent;
 
     private Player player;
     private Bargain bargain;
@@ -53,6 +54,7 @@ public class SelectPartnerAndSupplier : MonoBehaviour
     void Start() {
         GameObject UIControllerGO = GameObject.Find("UIController");
         colors = UIControllerGO.GetComponent<Colors>();
+        disableBoardItemsComponent = UIControllerGO.GetComponent<DisableBoardItems>();
         allies = new List<Ally>(); ;
     }
 
@@ -83,6 +85,7 @@ public class SelectPartnerAndSupplier : MonoBehaviour
         if(supplierLevel3.Count >0){
             allies.Add(GetRandomAlly(supplierLevel3));
         }
+        disableBoardItemsComponent.SetAlliesInBoard(allies);
         return true;
     }
 
@@ -146,7 +149,7 @@ public class SelectPartnerAndSupplier : MonoBehaviour
             validateExchangeResources.TakeResourcesFromPlayer("ITILIANOS", supplier.ResourceAmountsGivenExtra);
 
         }
-        
+        disableBoardItemsComponent.SetTransparencyToAlly(ally);
         allies.RemoveAt(index);
     }
 
