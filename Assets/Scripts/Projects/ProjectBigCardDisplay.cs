@@ -32,7 +32,7 @@ public class ProjectBigCardDisplay : MonoBehaviour
     {
         nameStakeholder.text = projectCard.NameStakeHolder;
         imageStakeholder.sprite = projectCard.ImageStakeHolder;
-        //projectDescription.text = projectCard.Title;
+        projectDescription.text = projectCard.Title;
 
         bool[] lista ={true, true, true, true, true};
         if(projectCard.Difficulty == 0){

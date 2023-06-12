@@ -60,6 +60,12 @@ public class ProjectController : MonoBehaviour
         DOTween.Init();
     } 
 
+    public bool Run(){
+        SetProjects(Difficulty.Easy);
+        transform.parent.gameObject.GetComponent<LeanWindow>().TurnOn();
+        return true;
+    }
+
     public void SetProjectsInt(int difficulty){
         SetProjects((Difficulty) difficulty);
     }
@@ -167,6 +173,7 @@ public class ProjectController : MonoBehaviour
     private void finalizeMovement(){
         panelProjectRigth.AddProject(selectedCard);
         cardSelect.SetActive(false);
+        StartCoroutine(panelProjectRigth.waitAnimation());
         confirmDecline();
     }
 

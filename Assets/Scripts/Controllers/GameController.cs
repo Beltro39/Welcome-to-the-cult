@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
     SetProperties setPropertiesComponent;
     TurnOrderController turnOrderControllerComponent;
     [SerializeField] ProjectPanelController projectPanelControllerComponent;
+    [SerializeField] ProjectController projectControllerComponent;
     ShowResources showResourcesComponent;
     SpawnCompany spawnCompanyComponent;
     BuyResources buyResourcesComponent;
@@ -98,12 +99,17 @@ public class GameController : MonoBehaviour
                 // Disabling buttons (Gameboard images turn gray, or some buttons become not interactable)
                 yield return new WaitUntil(() => disableButtonsComponent.Run(currentPlayer));
                 yield return new WaitUntil(() => spawnCompanyComponent.Run(currentPlayer)); 
-                yield return new WaitUntil(() => currentPlayer.getIsActionComplete()); 
-                spawnCompanyComponent.destroyCompany();
+                yield return new WaitUntil(() => currentPlayer.getIsActionComplete());
+                spawnCompanyComponent.destroyCompany(); 
+                currentPlayer.setIsActionComplete(false);
+                yield return new WaitForSeconds(1f);
+                yield return new WaitUntil(() => projectControllerComponent.Run());
+                yield return new WaitUntil(() => currentPlayer.getIsActionComplete());  
                 changePlayerPosition();
                 break;
             case Stage.ProjectRealization:
                 changeAllPlayerIsActionCompleteToFalse();
+                
                 break;
             
         }
