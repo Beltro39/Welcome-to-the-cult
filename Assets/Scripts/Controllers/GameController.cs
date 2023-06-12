@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
     
     SetProperties setPropertiesComponent;
     TurnOrderController turnOrderControllerComponent;
+    [SerializeField] ProjectPanelController projectPanelControllerComponent;
     ShowResources showResourcesComponent;
     SpawnCompany spawnCompanyComponent;
     BuyResources buyResourcesComponent;
@@ -82,7 +83,8 @@ public class GameController : MonoBehaviour
             
             case Stage.Planning:
                 currentTurn.text = $"{currentPlayer.getTurnOrder()}/3";
-                setCircleCompanyComponent.Run(currentPlayer.getCompanyDimension());
+                projectPanelControllerComponent.Run(currentPlayer);
+                setCircleCompanyComponent.Run(currentPlayer.getCompanyDimension());                
                 // Setting UI resources, the ones when you click in the top, left or right of the gameboard
                 yield return new WaitUntil(() => showResourcesComponent.Begin(queuePlayer));
                 // Setting UI resources, the ones from the top, left or right of the gameboard 

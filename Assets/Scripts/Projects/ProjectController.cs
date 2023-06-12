@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
+
 namespace Lean.Gui{
 public class ProjectController : MonoBehaviour
 {
@@ -36,14 +38,16 @@ public class ProjectController : MonoBehaviour
     [Header("paneles")]
     [SerializeField] GameObject noSelectedCardAdvice;
     [SerializeField] GameObject selectProjectInfo;
+    [SerializeField] GameObject projectPanelDestination;
+    
 
     [Space(10)]
     [Header("cards")]
-    [SerializeField] GameObject panelCard;
-    [SerializeField] GameObject cardPrefabSelect;
+    [SerializeField] GameObject cardSelect;
+
+    private ProjectPanelController panelProjectRigth;
+    private Difficulty actualDifficulty;
     
-    
-    private GameObject selectedCardDisplayObject;
     static List<GameObject> cardsDisplay = new List<GameObject>();
     public static ProjectCard selectedCard;
 
@@ -51,7 +55,9 @@ public class ProjectController : MonoBehaviour
 
     void Start()
     {
+        panelProjectRigth = projectPanelDestination.transform.parent.gameObject.GetComponent<ProjectPanelController>();
         SetProjects(Difficulty.Easy);
+        DOTween.Init();
     } 
 
     public void SetProjectsInt(int difficulty){
@@ -67,6 +73,7 @@ public class ProjectController : MonoBehaviour
             hardProjects
         };
         int intDifficulty = (int) difficulty;
+        actualDifficulty = difficulty;
         AssignProyectCards(projectLists[intDifficulty]);
         titleBackground.GetComponent<Image>().sprite = titleBackgroundArray[intDifficulty];
         infoTitle.GetComponent<Image>().sprite = infoTitleArray[intDifficulty];
@@ -116,8 +123,10 @@ public class ProjectController : MonoBehaviour
 
     public void confirmDecline(){
         transform.parent.gameObject.GetComponent<LeanWindow>().TurnOff();
-        noSelectedCardAdvice.GetComponent<LeanWindow>().TurnOn();
+        noSelectedCardAdvice.GetComponent<LeanWindow>().TurnOff();
+        selectProjectInfo.GetComponent<LeanWindow>().TurnOff();
         selectedCard = null;
+        ProjectController.checkSelectedCard();
     }
 
     public void Decline(){
@@ -127,19 +136,47 @@ public class ProjectController : MonoBehaviour
     public void select_button(){
         if(ProjectController.selectedCard){
 
-            if(!selectedCardDisplayObject){
-                selectedCardDisplayObject = Instantiate(cardPrefabSelect) as GameObject;
-                selectedCardDisplayObject.transform.SetParent(panelCard.transform);
-                selectedCardDisplayObject.transform.localScale = new Vector3(1,1,1);
-                selectedCardDisplayObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
-            }
-
-            ProjectCardDisplay selectedCardDisplay = selectedCardDisplayObject.GetComponent<ProjectCardDisplay>();
+            
+            cardSelect.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
+            ProjectCardDisplay selectedCardDisplay = cardSelect.GetComponent<ProjectCardDisplay>();
             selectedCardDisplay.projectCard = ProjectController.selectedCard;
             selectedCardDisplay.Build();
             selectProjectInfo.GetComponent<LeanWindow>().TurnOn();
+            selectProjectInfo.GetComponent<CanvasGroup>().interactable = true;
+            cardSelect.SetActive(true);
+
         }else{
             Decline();
+        }
+    }
+
+    public void confirm_select(){
+        bool cumpleRequisitos = panelProjectRigth.accomplishRequirements();
+        if(cumpleRequisitos){
+            selectProjectInfo.GetComponent<CanvasGroup>().interactable = false;
+            removeCard(selectedCard);
+            SetProjects(actualDifficulty);
+            cardSelect.transform.DOMove(projectPanelDestination.transform.position, 3)
+            .OnComplete(() => finalizeMovement());
+        }else{
+            //Se abre ventana de no tiene los suficientes recursos
+        }
+        
+    }
+
+    private void finalizeMovement(){
+        panelProjectRigth.AddProject(selectedCard);
+        cardSelect.SetActive(false);
+        confirmDecline();
+    }
+
+    private void removeCard(ProjectCard card){
+        if(card.Difficulty == (int) Difficulty.Easy){
+            easyProjects.Remove(card);
+        }else if(card.Difficulty == (int) Difficulty.Medium){
+            normalProjects.Remove(card);
+        }else{
+            hardProjects.Remove(card);
         }
     }
 }
