@@ -137,14 +137,6 @@ public class ProjectPanelController : MonoBehaviour
         indexesByPlayer[currentPlayer][difficultyCard] = newIndexDisplay;
         currentPlayer.addProject(card);
         DisplayProject();
-
-
-        
-    }
-
-    public IEnumerator waitAnimation(){
-        yield return new WaitForSeconds(3f);
-        currentPlayer.setIsActionComplete(true);
     }
 
     public void SetProjects(int difficulty){

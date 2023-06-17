@@ -61,11 +61,6 @@ public class ProjectController : MonoBehaviour
         DOTween.Init();
     } 
 
-    public bool Run(){
-        SetProjects(Difficulty.Easy);
-        transform.parent.gameObject.GetComponent<LeanWindow>().TurnOn();
-        return true;
-    }
     public bool showStartStage(){
         startProjectStage.GetComponent<LeanWindow>().TurnOn();
         return true;
@@ -132,23 +127,20 @@ public class ProjectController : MonoBehaviour
         }
     }
 
-    public void confirmDecline(){
+    public void ConfirmDecline(){
         selectedCard = null;
         ProjectController.checkSelectedCard();
         transform.parent.gameObject.GetComponent<LeanWindow>().TurnOff();
         noSelectedCardAdvice.GetComponent<LeanWindow>().TurnOff();
-        selectProjectInfo.GetComponent<LeanWindow>().TurnOff();
-        
+        selectProjectInfo.GetComponent<LeanWindow>().TurnOff();   
     }
 
     public void Decline(){
         noSelectedCardAdvice.GetComponent<LeanWindow>().TurnOn();
     }
 
-    public void select_button(){
+    public void SelectButton(){
         if(ProjectController.selectedCard){
-
-            
             cardSelect.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
             ProjectCardDisplay selectedCardDisplay = cardSelect.GetComponent<ProjectCardDisplay>();
             selectedCardDisplay.projectCard = ProjectController.selectedCard;
@@ -162,13 +154,13 @@ public class ProjectController : MonoBehaviour
         }
     }
 
-    public void confirm_select(){
+    public void ConfirmSelect(){
         bool cumpleRequisitos = panelProjectRigth.accomplishRequirements();
         if(cumpleRequisitos){
             selectProjectInfo.GetComponent<CanvasGroup>().interactable = false;
-            removeCard(selectedCard);
+            RemoveCard(selectedCard);
             SetProjects(actualDifficulty);
-            cardSelect.transform.DOMove(projectPanelDestination.transform.position, 3)
+            cardSelect.transform.DOMove(projectPanelDestination.transform.position, 3f)
             .OnComplete(() => finalizeMovement());
         }else{
             //Se abre ventana de no tiene los suficientes recursos
@@ -179,11 +171,10 @@ public class ProjectController : MonoBehaviour
     private void finalizeMovement(){
         panelProjectRigth.AddProject(selectedCard);
         cardSelect.SetActive(false);
-        StartCoroutine(panelProjectRigth.waitAnimation());
-        confirmDecline();
+        ConfirmDecline();
     }
 
-    private void removeCard(ProjectCard card){
+    private void RemoveCard(ProjectCard card){
         if(card.Difficulty == (int) Difficulty.Easy){
             easyProjects.Remove(card);
         }else if(card.Difficulty == (int) Difficulty.Medium){
