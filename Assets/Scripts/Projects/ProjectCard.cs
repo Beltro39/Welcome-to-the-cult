@@ -7,7 +7,7 @@ public class ProjectCard : ScriptableObject
 {
     [SerializeField] private string _nameStakeHolder;
     [SerializeField] private int _difficulty;
-    //[SerializeField] private string _title;
+    [SerializeField] private string _title;
     [SerializeField] private Sprite _imageStakeHolder;
     [SerializeField] private Sprite _descriptionSprite;
 
@@ -17,7 +17,7 @@ public class ProjectCard : ScriptableObject
 
 
     public string NameStakeHolder { get => _nameStakeHolder; set => _nameStakeHolder = value; }
-    //public string Title { get => _title; set => _title = value; }
+    public string Title { get => _title; set => _title = value; }
     public int Difficulty { get => _difficulty; set => _difficulty = value; }
     public Sprite ImageStakeHolder { get => _imageStakeHolder; set => _imageStakeHolder = value; }
     public Sprite DescriptionSprite { get => _descriptionSprite; set => _descriptionSprite = value; }

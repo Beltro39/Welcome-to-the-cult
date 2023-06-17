@@ -12,11 +12,13 @@ public class GameController : MonoBehaviour
     private Queue<Player> queuePlayer = new Queue<Player>();
     private Player currentPlayer;
     private int currentCycle = 1;
-    private enum Stage { CreatingPlayers, Initiative, Planning, ProjectRealization}
+    private enum Stage { CreatingPlayers, Initiative, Planning, ProjectRealization, ProjectAnimation}
     private Stage currentStage; 
     
     SetProperties setPropertiesComponent;
     TurnOrderController turnOrderControllerComponent;
+    [SerializeField] ProjectPanelController projectPanelControllerComponent;
+    [SerializeField] ProjectController projectControllerComponent;
     ShowResources showResourcesComponent;
     SpawnCompany spawnCompanyComponent;
     BuyResources buyResourcesComponent;
@@ -29,6 +31,8 @@ public class GameController : MonoBehaviour
     LeanWindow initiativeAssignmentModalLeanWindow;
 
     [SerializeField] Text currentTurn;
+    [SerializeField] Text currentTurnTitle;
+    [SerializeField] LeanWindow currentTurnPanel;
 
     void Start()
     {
@@ -75,7 +79,6 @@ public class GameController : MonoBehaviour
                 break;
             
             case Stage.Initiative:
-                changeAllPlayerIsActionCompleteToFalse();
                 yield return new WaitUntil(() => resetTurnOrder()); 
                 // Setting UI resources in the modal initiative
                 yield return new WaitUntil(() => turnOrderControllerComponent.Run(queuePlayer, currentCycle)); 
@@ -83,28 +86,33 @@ public class GameController : MonoBehaviour
                 break;
             
             case Stage.Planning:
-                currentTurn.text = $"{currentPlayer.getTurnOrder()}/3";
-                setCircleCompanyComponent.Run(currentPlayer.getCompanyDimension());
-                // Setting UI resources, the ones when you click in the top, left or right of the gameboard
-                yield return new WaitUntil(() => showResourcesComponent.Begin(queuePlayer));
-                // Setting UI resources, the ones from the top, left or right of the gameboard 
-                yield return new WaitUntil(() => setPropertiesComponent.Run(queuePlayer)); 
+                yield return StartCoroutine(SetBoardUI());
                 // Setting script with the player information for buying logic 
                 yield return new WaitUntil(() => buyResourcesComponent.Run(currentPlayer));
+                // Setting everything of the allies
                 if (currentCycle%2!=0 && currentPlayer.getTurnOrder() == "1"){
                     yield return new WaitUntil(() => selectPartnerAndSupplierComponent.PartnerSupplierRotation());
                 }
                 yield return new WaitUntil(() => selectPartnerAndSupplierComponent.Run(currentPlayer));
-                // Disabling buttons (Gameboard images turn gray, or some buttons become not interactable)
-                yield return new WaitUntil(() => disableButtonsComponent.Run(currentPlayer));
-                yield return new WaitUntil(() => disableBoardItemsComponent.Run(currentPlayer));
+                // Muestra de turno
+                currentTurnPanel.TurnOn();
+                currentTurnTitle.text = $"{currentPlayer.getNickname()}!";
+                //Inicia Planning
                 yield return new WaitUntil(() => spawnCompanyComponent.Run(currentPlayer)); 
-                yield return new WaitUntil(() => currentPlayer.getIsActionComplete()); 
-                spawnCompanyComponent.destroyCompany();
+                yield return new WaitUntil(() => currentPlayer.getIsActionComplete());
+                spawnCompanyComponent.destroyCompany(); 
                 changePlayerPosition();
                 break;
             case Stage.ProjectRealization:
-                changeAllPlayerIsActionCompleteToFalse();
+                yield return StartCoroutine(SetBoardUI());
+                yield return new WaitUntil(() => projectControllerComponent.showStartStage());
+                yield return new WaitUntil(() => currentPlayer.getIsActionComplete());
+                yield return new WaitForSeconds(3f);
+                changePlayerPosition();
+                break;
+            case Stage.ProjectAnimation:
+                projectPanelControllerComponent.Begin();
+                yield return new WaitUntil(() => currentPlayer.getIsActionComplete());  
                 break;
             
         }
@@ -114,7 +122,7 @@ public class GameController : MonoBehaviour
 
     public void AdvanceToNextPlayer()
     {
-        if((currentStage == Stage.CreatingPlayers)  || (currentStage == Stage.Initiative)  || (currentStage == Stage.ProjectRealization)){
+        if((currentStage == Stage.CreatingPlayers)  || (currentStage == Stage.Initiative) || (currentStage == Stage.ProjectAnimation)) {
             AdvanceToNextStage();
         }else{
             currentPlayer = queuePlayer.Dequeue(); 
@@ -134,8 +142,11 @@ public class GameController : MonoBehaviour
 
     void AdvanceToNextStage()
     {
+        if((currentStage == Stage.Planning) || (currentStage == Stage.ProjectRealization)){
+            changeAllPlayerIsActionCompleteToFalse();
+        }
         currentStage++;
-        if (currentStage > Stage.ProjectRealization)
+        if (currentStage > Stage.ProjectAnimation)
         {
             currentStage = Stage.Initiative;
             currentCycle++;
@@ -145,6 +156,18 @@ public class GameController : MonoBehaviour
     void EndGame()
     {
         // End game logic (display scores, declare winner, etc.)
+    }
+
+    IEnumerator SetBoardUI(){
+        currentTurn.text = $"{currentPlayer.getTurnOrder()}/3";
+        projectPanelControllerComponent.Run(currentPlayer);
+        setCircleCompanyComponent.Run(currentPlayer.getCompanyDimension());                
+        // Setting UI resources, the ones when you click in the top, left or right of the gameboard
+        yield return new WaitUntil(() => showResourcesComponent.Begin(queuePlayer));
+        // Setting UI resources, the ones from the top, left or right of the gameboard 
+        yield return new WaitUntil(() => setPropertiesComponent.Run(queuePlayer)); 
+        // Disabling buttons (Gameboard images turn gray, or some buttons become not interactable)
+        yield return new WaitUntil(() => disableButtonsComponent.Run(currentPlayer));
     }
 
     public Queue<Player> getQueuePlayer(){
@@ -176,6 +199,7 @@ public class GameController : MonoBehaviour
         foreach(Player player in queuePlayer){
             player.setIsActionComplete(false);
         }
+        Debug.Log("Ahora");
     }
 
     public void changePlayerPosition(){

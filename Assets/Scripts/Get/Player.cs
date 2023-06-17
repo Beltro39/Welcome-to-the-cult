@@ -17,6 +17,12 @@ public class Player
     private int avatar;
     private int position;
     private bool actionComplete;
+    private List<ProjectCard>[] projectLists = new List<ProjectCard>[]
+    {
+        new List<ProjectCard>(),
+        new List<ProjectCard>(),
+        new List<ProjectCard>()
+    };
 
     public Player(ListEmployees ListEmployees, ListTechnologies ListTechnologies, 
     ListAbilities ListAbilities, Itilianos Itilianos, string CompanyDimension, string Nickname, int avatar){
@@ -39,11 +45,13 @@ public class Player
     public Partner GetPartner(){return this.partner;}
     public int getPosition(){return position;}
     public Supplier GetSupplier(){return this.supplier;}
+    public List<ProjectCard> GetProjects(int difficult){return this.projectLists[difficult];}
     public void setPosition(int position){this.position = position;}
     public bool getIsActionComplete(){return actionComplete;}
     public void setIsActionComplete(bool v){this.actionComplete = v;}
     public void setTurnOrder(string TurnOrder){this.TurnOrder = TurnOrder;}
     public void SetPartner(Partner partner){this.partner = partner;}
     public void SetSupplier(Supplier supplier){this.supplier = supplier;}
+    public void addProject(ProjectCard card){this.projectLists[card.Difficulty].Add(card);}
     }
 }

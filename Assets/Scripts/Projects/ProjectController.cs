@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
+namespace Lean.Gui{
 public class ProjectController : MonoBehaviour
 {
 
@@ -32,12 +34,37 @@ public class ProjectController : MonoBehaviour
 
     [SerializeField] GameObject contentProjects;
 
-    List<GameObject> cardsDisplay = new List<GameObject>();
+    [Space(10)]
+    [Header("paneles")]
+    [SerializeField] GameObject noSelectedCardAdvice;
+    [SerializeField] GameObject selectProjectInfo;
+    [SerializeField] GameObject projectPanelDestination;
+    [SerializeField] GameObject startProjectStage;
+    
+
+    [Space(10)]
+    [Header("cards")]
+    [SerializeField] GameObject cardSelect;
+
+    private ProjectPanelController panelProjectRigth;
+    private Difficulty actualDifficulty;
+    
+    static List<GameObject> cardsDisplay = new List<GameObject>();
+    public static ProjectCard selectedCard;
+
+   
 
     void Start()
     {
+        panelProjectRigth = projectPanelDestination.transform.parent.gameObject.GetComponent<ProjectPanelController>();
         SetProjects(Difficulty.Easy);
+        DOTween.Init();
     } 
+
+    public bool showStartStage(){
+        startProjectStage.GetComponent<LeanWindow>().TurnOn();
+        return true;
+    }
 
     public void SetProjectsInt(int difficulty){
         SetProjects((Difficulty) difficulty);
@@ -52,6 +79,7 @@ public class ProjectController : MonoBehaviour
             hardProjects
         };
         int intDifficulty = (int) difficulty;
+        actualDifficulty = difficulty;
         AssignProyectCards(projectLists[intDifficulty]);
         titleBackground.GetComponent<Image>().sprite = titleBackgroundArray[intDifficulty];
         infoTitle.GetComponent<Image>().sprite = infoTitleArray[intDifficulty];
@@ -84,5 +112,76 @@ public class ProjectController : MonoBehaviour
             extraCard.transform.localScale = new Vector3(1,1,1);
             cardsDisplay.Add(extraCard);
         }
+        ProjectController.checkSelectedCard();
     }
+
+
+    public static void checkSelectedCard(){
+        foreach(GameObject cardDisplayObject in cardsDisplay){
+            ProjectBigCardDisplay cardDisplay = cardDisplayObject.GetComponent<ProjectBigCardDisplay>();
+            if(cardDisplay.projectCard == selectedCard){
+                cardDisplay.selectCard();
+            }else{
+                cardDisplay.unselectCard();
+            }
+        }
+    }
+
+    public void ConfirmDecline(){
+        selectedCard = null;
+        ProjectController.checkSelectedCard();
+        transform.parent.gameObject.GetComponent<LeanWindow>().TurnOff();
+        noSelectedCardAdvice.GetComponent<LeanWindow>().TurnOff();
+        selectProjectInfo.GetComponent<LeanWindow>().TurnOff();   
+    }
+
+    public void Decline(){
+        noSelectedCardAdvice.GetComponent<LeanWindow>().TurnOn();
+    }
+
+    public void SelectButton(){
+        if(ProjectController.selectedCard){
+            cardSelect.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
+            ProjectCardDisplay selectedCardDisplay = cardSelect.GetComponent<ProjectCardDisplay>();
+            selectedCardDisplay.projectCard = ProjectController.selectedCard;
+            selectedCardDisplay.Build();
+            selectProjectInfo.GetComponent<LeanWindow>().TurnOn();
+            selectProjectInfo.GetComponent<CanvasGroup>().interactable = true;
+            cardSelect.SetActive(true);
+
+        }else{
+            Decline();
+        }
+    }
+
+    public void ConfirmSelect(){
+        bool cumpleRequisitos = panelProjectRigth.accomplishRequirements();
+        if(cumpleRequisitos){
+            selectProjectInfo.GetComponent<CanvasGroup>().interactable = false;
+            RemoveCard(selectedCard);
+            SetProjects(actualDifficulty);
+            cardSelect.transform.DOMove(projectPanelDestination.transform.position, 3f)
+            .OnComplete(() => finalizeMovement());
+        }else{
+            //Se abre ventana de no tiene los suficientes recursos
+        }
+        
+    }
+
+    private void finalizeMovement(){
+        panelProjectRigth.AddProject(selectedCard);
+        cardSelect.SetActive(false);
+        ConfirmDecline();
+    }
+
+    private void RemoveCard(ProjectCard card){
+        if(card.Difficulty == (int) Difficulty.Easy){
+            easyProjects.Remove(card);
+        }else if(card.Difficulty == (int) Difficulty.Medium){
+            normalProjects.Remove(card);
+        }else{
+            hardProjects.Remove(card);
+        }
+    }
+}
 }
