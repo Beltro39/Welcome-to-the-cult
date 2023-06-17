@@ -19,17 +19,17 @@ public class DisableBoardItems : MonoBehaviour
     [SerializeField] private Image[] seniorRequirementsImages2;
     [SerializeField] private Image[] architectRequirementsImages2;
     
-    [SerializeField] private Image[] techonlogiesImages0;
-    [SerializeField] private Image[] techonlogiesImages1;
-    [SerializeField] private Image[] techonlogiesImages2;
-    [SerializeField] private Image[] techonlogiesImages3;
-    [SerializeField] private Image[] techonlogiesImages4;
+    [SerializeField] private Image[] technologiesImages0;
+    [SerializeField] private Image[] technologiesImages1;
+    [SerializeField] private Image[] technologiesImages2;
+    [SerializeField] private Image[] technologiesImages3;
+    [SerializeField] private Image[] technologiesImages4;
 
-    [SerializeField] private Text[] techonlogiesText0;
-    [SerializeField] private Text[] techonlogiesText1;
-    [SerializeField] private Text[] techonlogiesText2;
-    [SerializeField] private Text[] techonlogiesText3;
-    [SerializeField] private Text[] techonlogiesText4;
+    [SerializeField] private Text[] technologiesText0;
+    [SerializeField] private Text[] technologiesText1;
+    [SerializeField] private Text[] technologiesText2;
+    [SerializeField] private Text[] technologiesText3;
+    [SerializeField] private Text[] technologiesText4;
 
     [SerializeField] private Image[] abilitiesImages0;
     [SerializeField] private Image[] abilitiesImages1;
@@ -72,8 +72,10 @@ public class DisableBoardItems : MonoBehaviour
     private List<Image[]> allImages;
     private List<Text[]> allText;
     string[] resources = 
-        { "Juniors", "SemiSeniors", "Seniors", "Architects", "Technologies", "Abilities"
-        ,"Ally0","Ally1","Ally2","Ally3","Ally4","Ally5"
+        { "Juniors", "SemiSeniors", "Seniors", "Architects", 
+        "Technologies0", "Technologies1", "Technologies2", "Technologies3", "Technologies4",
+        "Abilities0", "Abilities1", "Abilities2", "Abilities3", "Abilities4",
+        "Ally0","Ally1","Ally2","Ally3","Ally4","Ally5"
     };
 
     List<Ally> alliesToTransparent;
@@ -86,8 +88,16 @@ public class DisableBoardItems : MonoBehaviour
                 { "SemiSeniors", new Dictionary<int, Image[]> { { 0, semiSeniorRequirementsImages1 }, { 1, semiSeniorRequirementsImages1}, {2, semiSeniorRequirementsImages1}, {3, semiSeniorRequirementsImages2}, {4, semiSeniorRequirementsImages2}} },
                 { "Seniors", new Dictionary<int, Image[]> { { 0, null }, { 1, seniorRequirementsImages1}, {2, seniorRequirementsImages1}, {3, seniorRequirementsImages1}, {4, seniorRequirementsImages2}} },
                 { "Architects", new Dictionary<int, Image[]> { { 0, null }, { 1, null}, {2, architectRequirementsImages1}, {3, architectRequirementsImages1}, {4, architectRequirementsImages2}} },
-                { "Technologies", new Dictionary<int, Image[]> { { 0, techonlogiesImages0 }, { 1, techonlogiesImages1}, {2, techonlogiesImages2}, {3, techonlogiesImages3}, {4, techonlogiesImages4}} },
-                { "Abilities", new Dictionary<int, Image[]> { { 0, abilitiesImages0 }, { 1, abilitiesImages1}, {2, abilitiesImages2}, {3, abilitiesImages3}, {4, abilitiesImages4}} },
+                { "Technologies0", new Dictionary<int, Image[]> { { 0, technologiesImages0 }, { 1, technologiesImages0}, {2, technologiesImages0}, {3, technologiesImages0}, {4, technologiesImages0}} },
+                { "Technologies1", new Dictionary<int, Image[]> { { 0, null }, { 1, technologiesImages1}, {2, technologiesImages1}, {3, null}, {4, null}} },
+                { "Technologies2", new Dictionary<int, Image[]> { { 0, null }, { 1, null}, {2, technologiesImages2}, {3, technologiesImages2}, {4, null}} },
+                { "Technologies3", new Dictionary<int, Image[]> { { 0, null }, { 1, null}, {2, null}, {3, technologiesImages3}, {4, technologiesImages3}} },
+                { "Technologies4", new Dictionary<int, Image[]> { { 0, null }, { 1, null}, {2, null}, {3, null}, {4, technologiesImages4}} },
+                { "Abilities0", new Dictionary<int, Image[]> { { 0, abilitiesImages0 }, { 1, abilitiesImages0}, {2, abilitiesImages0}, {3, abilitiesImages0}, {4, abilitiesImages0}} },
+                { "Abilities1", new Dictionary<int, Image[]> { { 0, null }, { 1, abilitiesImages1}, {2, abilitiesImages1}, {3, null}, {4, null}} },
+                { "Abilities2", new Dictionary<int, Image[]> { { 0, null }, { 1, null}, {2, abilitiesImages2}, {3, abilitiesImages2}, {4, null}} },
+                { "Abilities3", new Dictionary<int, Image[]> { { 0, null }, { 1, null}, {2, null}, {3, abilitiesImages3}, {4, abilitiesImages3}} },
+                { "Abilities4", new Dictionary<int, Image[]> { { 0, null }, { 1, null}, {2, null}, {3, null}, {4, abilitiesImages4}} },
                 { "Ally0", new Dictionary<int, Image[]> { { 0, alliesImages0 }, { 1, alliesImages0}, {2, alliesImages0}, {3, alliesImages0}, {4, alliesImages0}} },
                 { "Ally1", new Dictionary<int, Image[]> { { 0, alliesImages1 }, { 1, alliesImages1}, {2, alliesImages1}, {3, alliesImages1}, {4, alliesImages1}} },
                 { "Ally2", new Dictionary<int, Image[]> { { 0, null }, { 1, alliesImages2}, {2, alliesImages2}, {3, alliesImages2}, {4, alliesImages2}} },
@@ -102,8 +112,16 @@ public class DisableBoardItems : MonoBehaviour
                 { "SemiSeniors", new Dictionary<int, Text[]> { { 0, semiSeniorRequirementsText1 }, { 1, semiSeniorRequirementsText1}, {2, semiSeniorRequirementsText1}, {3, semiSeniorRequirementsText2}, {4, semiSeniorRequirementsText2}} },
                 { "Seniors", new Dictionary<int, Text[]> { { 0, null }, { 1, seniorRequirementsText1}, {2, seniorRequirementsText1}, {3, seniorRequirementsText1}, {4, seniorRequirementsText2}} },
                 { "Architects", new Dictionary<int, Text[]> { { 0, null }, { 1, null}, {2, architectRequirementsText1}, {3, architectRequirementsText1}, {4, architectRequirementsText2}} },
-                { "Technologies", new Dictionary<int, Text[]> { { 0, techonlogiesText0 }, { 1, techonlogiesText1}, {2, techonlogiesText2}, {3, techonlogiesText3}, {4, techonlogiesText4}} },
-                { "Abilities", new Dictionary<int, Text[]> { { 0, abilitiesText0 }, { 1, abilitiesText1}, {2, abilitiesText2}, {3, abilitiesText3}, {4, abilitiesText4}} },
+                { "Technologies0", new Dictionary<int, Text[]> { { 0, technologiesText0 }, { 1, technologiesText0}, {2, technologiesText0}, {3, technologiesText0}, {4, technologiesText0}} },
+                { "Technologies1", new Dictionary<int, Text[]> { { 0, null }, { 1, technologiesText1}, {2, technologiesText1}, {3, null}, {4, null}} },
+                { "Technologies2", new Dictionary<int, Text[]> { { 0, null }, { 1, null}, {2, technologiesText2}, {3, technologiesText2}, {4, null}} },
+                { "Technologies3", new Dictionary<int, Text[]> { { 0, null }, { 1, null}, {2, null}, {3, technologiesText3}, {4, technologiesText3}} },
+                { "Technologies4", new Dictionary<int, Text[]> { { 0, null }, { 1, null}, {2, null}, {3, null}, {4, technologiesText4}} },
+                { "Abilities0", new Dictionary<int, Text[]> { { 0, abilitiesText0 }, { 1, abilitiesText0}, {2, abilitiesText0}, {3, abilitiesText0}, {4, abilitiesText0}} },
+                { "Abilities1", new Dictionary<int, Text[]> { { 0, null }, { 1, abilitiesText1}, {2, abilitiesText1}, {3, null}, {4, null}} },
+                { "Abilities2", new Dictionary<int, Text[]> { { 0, null }, { 1, null}, {2, abilitiesText2}, {3, abilitiesText2}, {4, null}} },
+                { "Abilities3", new Dictionary<int, Text[]> { { 0, null }, { 1, null}, {2, null}, {3, abilitiesText3}, {4, abilitiesText3}} },
+                { "Abilities4", new Dictionary<int, Text[]> { { 0, null }, { 1, null}, {2, null}, {3, null}, {4, abilitiesText4}} },
                 { "Ally0", new Dictionary<int, Text[]> { { 0, alliesText0 }, { 1, alliesText0}, {2, alliesText0}, {3, alliesText0}, {4, alliesText0}} },
                 { "Ally1", new Dictionary<int, Text[]> { { 0, alliesText1 }, { 1, alliesText1}, {2, alliesText1}, {3, alliesText1}, {4, alliesText1}} },
                 { "Ally2", new Dictionary<int, Text[]> { { 0, null }, { 1, alliesText2}, {2, alliesText2}, {3, alliesText2}, {4, alliesText2}} },
@@ -121,11 +139,11 @@ public class DisableBoardItems : MonoBehaviour
             semiSeniorRequirementsImages2,
             seniorRequirementsImages2,
             architectRequirementsImages2,
-            techonlogiesImages0,
-            techonlogiesImages1,
-            techonlogiesImages2,
-            techonlogiesImages3,
-            techonlogiesImages4,
+            technologiesImages0,
+            technologiesImages1,
+            technologiesImages2,
+            technologiesImages3,
+            technologiesImages4,
             abilitiesImages0,
             abilitiesImages1,
             abilitiesImages2,
@@ -148,11 +166,11 @@ public class DisableBoardItems : MonoBehaviour
             semiSeniorRequirementsText2,
             seniorRequirementsText2,
             architectRequirementsText2,
-            techonlogiesText0,
-            techonlogiesText1,
-            techonlogiesText2,
-            techonlogiesText3,
-            techonlogiesText4,
+            technologiesText0,
+            technologiesText1,
+            technologiesText2,
+            technologiesText3,
+            technologiesText4,
             abilitiesText0,
             abilitiesText1,
             abilitiesText2,
@@ -200,9 +218,9 @@ public class DisableBoardItems : MonoBehaviour
 
         foreach(string resource in resources){
             int resourceLVL;
-            if(resource == "Technologies"){
+            if(resource.StartsWith("Technologies")){
                 resourceLVL = skillfulLVL;
-            }else if(resource == "Abilities"){
+            }else if(resource.StartsWith("Abilities")){
                 resourceLVL = researchLVL;
             }else if(resource.StartsWith("Ally")){
                 resourceLVL = bargainLVL;
