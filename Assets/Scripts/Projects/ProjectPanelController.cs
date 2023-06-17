@@ -7,8 +7,19 @@ namespace Lean.Gui{
 public class ProjectPanelController : MonoBehaviour
 {
     [SerializeField] GameObject cardObject;
+
+
+    //Animation
+    [SerializeField] GameObject modalProjectAnimation;
+    [SerializeField] GameObject tokenPrefab;
+    [SerializeField] GameObject tokenParent;
+    [SerializeField] List<Transform> pointsWay = new List<Transform>();
     
     private Player currentPlayer;
+ 
+    
+
+    private List<ProjectToken> initialProjects;
 
     public enum Difficulty { Easy, Medium, Hard, Difficulty};
 
@@ -102,6 +113,18 @@ public class ProjectPanelController : MonoBehaviour
         
     }
 
+    public void Begin()
+    {
+        
+        
+    }
+
+    public void RunAnimation()
+    {
+        
+        
+    }
+
     public bool accomplishRequirements(){
         // Mi idea es que aqui pregunten por si cumple con los requisitos
         return true;
@@ -114,6 +137,8 @@ public class ProjectPanelController : MonoBehaviour
         indexesByPlayer[currentPlayer][difficultyCard] = newIndexDisplay;
         currentPlayer.addProject(card);
         DisplayProject();
+
+
         
     }
 

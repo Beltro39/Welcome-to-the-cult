@@ -39,6 +39,7 @@ public class ProjectController : MonoBehaviour
     [SerializeField] GameObject noSelectedCardAdvice;
     [SerializeField] GameObject selectProjectInfo;
     [SerializeField] GameObject projectPanelDestination;
+    [SerializeField] GameObject startProjectStage;
     
 
     [Space(10)]
@@ -63,6 +64,10 @@ public class ProjectController : MonoBehaviour
     public bool Run(){
         SetProjects(Difficulty.Easy);
         transform.parent.gameObject.GetComponent<LeanWindow>().TurnOn();
+        return true;
+    }
+    public bool showStartStage(){
+        startProjectStage.GetComponent<LeanWindow>().TurnOn();
         return true;
     }
 
@@ -128,11 +133,12 @@ public class ProjectController : MonoBehaviour
     }
 
     public void confirmDecline(){
+        selectedCard = null;
+        ProjectController.checkSelectedCard();
         transform.parent.gameObject.GetComponent<LeanWindow>().TurnOff();
         noSelectedCardAdvice.GetComponent<LeanWindow>().TurnOff();
         selectProjectInfo.GetComponent<LeanWindow>().TurnOff();
-        selectedCard = null;
-        ProjectController.checkSelectedCard();
+        
     }
 
     public void Decline(){
