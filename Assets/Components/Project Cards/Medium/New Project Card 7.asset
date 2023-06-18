@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3357c70e95393b488d777d890426a60, type: 3}
-  m_Name: New Project Card
+  m_Name: New Project Card 7
   m_EditorClassIdentifier: 
-  _nameStakeHolder: DONNA
-  _difficulty: 1
-  _title: ARTIFICIAL INTELLIGENCE TO CLASSIFY COURT CASES
-  _imageStakeHolder: {fileID: 21300000, guid: 0355a232d5f292d4b853ddaf3244887e, type: 3}
-  _descriptionSprite: {fileID: 21300000, guid: d4178c4e10f9d4f40a7fea37dcda2bc9, type: 3}
+  _nameStakeHolder: MALALA
+  _difficulty: 0
+  _title: VIRTUAL REALITY SYSTEM FOR RELIGIOUS CEREMONIES
+  _imageStakeHolder: {fileID: 21300000, guid: 19325a00845689d4985c00bdc9e79da8, type: 3}
+  _descriptionSprite: {fileID: 21300000, guid: 1d7fedd027c2b2045b90f7a17a403df2, type: 3}
   _resourcesSprite:
   - {fileID: 21300000, guid: 7c6aae8534ffd4347900c7a7c8fc5de7, type: 3}
-  - {fileID: 21300000, guid: 46a787088f1cd604fb3cb3e07c4e3b52, type: 3}
+  - {fileID: 21300000, guid: 8cbb680fd8cf9d042814572481136977, type: 3}
+  - {fileID: 21300000, guid: b1476337da44bcd43954db3ebd8ebde6, type: 3}
   - {fileID: 21300000, guid: bf81f3fd5cfad204184e793f324df8db, type: 3}
-  - {fileID: 21300000, guid: 3277ae1a78d3d0e45bf8358e7683d468, type: 3}
   _resourcesType:
   - PARNERT
-  - RESEARCH AND PROJECTS
+  - SKILLFUL IN TECHNOLOGY
+  - BARGANING POWER
   - SUPPLIER
-  - SATELLITES
-  _resourcesAmount: 01000000020000000100000006000000
+  _resourcesAmount: 01000000030000000300000001000000

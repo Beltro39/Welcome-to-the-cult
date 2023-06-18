@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3357c70e95393b488d777d890426a60, type: 3}
-  m_Name: New Project Card
+  m_Name: New Project Card 3
   m_EditorClassIdentifier: 
   _nameStakeHolder: BEYONCE
   _difficulty: 2
-  _title: DEVELOP MY OWN GLOBAL STREAMING MUSIC APP
+  _title: APPLICATION TO MANAGE ALL MY RECORDS
   _imageStakeHolder: {fileID: 21300000, guid: 582cb02cd7158994298e66958bff1b7a, type: 3}
-  _descriptionSprite: {fileID: 21300000, guid: 66bb586fab205934c89ff56a65e982d2, type: 3}
+  _descriptionSprite: {fileID: 21300000, guid: e789e02a5b215c5488da552f88051c4d, type: 3}
   _resourcesSprite:
   - {fileID: 21300000, guid: 3990fb3b21ad3c84d90c12ac73aef71e, type: 3}
-  - {fileID: 21300000, guid: b1476337da44bcd43954db3ebd8ebde6, type: 3}
-  - {fileID: 21300000, guid: 3277ae1a78d3d0e45bf8358e7683d468, type: 3}
-  - {fileID: 21300000, guid: 46a787088f1cd604fb3cb3e07c4e3b52, type: 3}
+  - {fileID: 21300000, guid: 7c6aae8534ffd4347900c7a7c8fc5de7, type: 3}
+  - {fileID: 21300000, guid: 879d70ed52d7a85448e6837982e8b4aa, type: 3}
   - {fileID: 21300000, guid: bf81f3fd5cfad204184e793f324df8db, type: 3}
+  - {fileID: 21300000, guid: d82097b395c5b5848a11b070d43c2fb7, type: 3}
   _resourcesType:
   - I.A
-  - BARGANING POWER
-  - SATELLITES
-  - RESEARCH AND PROJECTS
+  - PARNERT
+  - HOSTING
   - SUPPLIER
-  _resourcesAmount: 07000000040000000a0000000200000002000000
+  - SENIOR
+  _resourcesAmount: 0a000000010000000a000000010000000d000000

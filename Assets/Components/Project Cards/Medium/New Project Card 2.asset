@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3357c70e95393b488d777d890426a60, type: 3}
+  m_Name: New Project Card 2
+  m_EditorClassIdentifier: 
+  _nameStakeHolder: HAWKING
+  _difficulty: 1
+  _title: REAL-TIME SMALL-SCALE UNIVERSE SIMULATOR
+  _imageStakeHolder: {fileID: 21300000, guid: a5e2cd56dd0a0b74b81e538884e627c9, type: 3}
+  _descriptionSprite: {fileID: 21300000, guid: 6b9f883c9cf1bfc42b19c00a3a343bb1, type: 3}
+  _resourcesSprite:
+  - {fileID: 21300000, guid: 879d70ed52d7a85448e6837982e8b4aa, type: 3}
+  - {fileID: 21300000, guid: 79f376bb736d6aa47a7af8e247f9279f, type: 3}
+  - {fileID: 21300000, guid: 3990fb3b21ad3c84d90c12ac73aef71e, type: 3}
+  - {fileID: 21300000, guid: af9e6fc04a4d1504890dafc182993c2d, type: 3}
+  _resourcesType:
+  - HOSTING
+  - SEMI SENIOR
+  - I.A
+  - EMPLOYEE RECRUITMENT
+  _resourcesAmount: 07000000080000000700000002000000
