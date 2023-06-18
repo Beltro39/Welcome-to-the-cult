@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3357c70e95393b488d777d890426a60, type: 3}
-  m_Name: New Project Card - copia
+  m_Name: New Project Card 6
   m_EditorClassIdentifier: 
-  _nameStakeHolder: AMY LEE
+  _nameStakeHolder: KIM JONG UN
   _difficulty: 0
-  _imageStakeHolder: {fileID: 21300000, guid: 8e47a9ba0ad2c0a4ba274ae4d750bbf2, type: 3}
-  _descriptionSprite: {fileID: 21300000, guid: 780cad0ab965f9d4080b23ff920f7a74, type: 3}
+  _title: WEBPAGE FOR DEMOCRATIC VIRTUAL ELECTIONS
+  _imageStakeHolder: {fileID: 21300000, guid: d29b60aa4eca5704d90a61abb11544cc, type: 3}
+  _descriptionSprite: {fileID: 21300000, guid: a5d5f2f4471d38742b81822e2fc57ec9, type: 3}
   _resourcesSprite:
-  - {fileID: 21300000, guid: 879d70ed52d7a85448e6837982e8b4aa, type: 3}
   - {fileID: 21300000, guid: b1476337da44bcd43954db3ebd8ebde6, type: 3}
-  - {fileID: 21300000, guid: 46a787088f1cd604fb3cb3e07c4e3b52, type: 3}
+  - {fileID: 21300000, guid: 3990fb3b21ad3c84d90c12ac73aef71e, type: 3}
+  - {fileID: 21300000, guid: 8cbb680fd8cf9d042814572481136977, type: 3}
   _resourcesType:
-  - HOSTING
   - BARGANING POWER
-  - RESERCH AND PROJECTS
-  _resourcesAmount: 010000000100000001000000
+  - I.A
+  - SKILLFUL IN TECHNOLOGY
+  _resourcesAmount: 010000000200000001000000

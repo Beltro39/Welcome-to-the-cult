@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3357c70e95393b488d777d890426a60, type: 3}
-  m_Name: New Project Card 1
+  m_Name: New Project Card 8
   m_EditorClassIdentifier: 
-  _nameStakeHolder: INDIRA GANDHI
+  _nameStakeHolder: "SALVADOR DAL\xCD"
   _difficulty: 0
-  _title: WEB APPLICATION FOR DEMOGRAPHIC DATA
-  _imageStakeHolder: {fileID: 21300000, guid: 73f80fe1d05a8404b8d92ae454ccf07f, type: 3}
-  _descriptionSprite: {fileID: 21300000, guid: 8f9df822ae9d1804596908c5213f0643, type: 3}
+  _title: VIRTUAL MUSEUM OPEN TO INTERNET
+  _imageStakeHolder: {fileID: 21300000, guid: bc15157f84028b741a74950800f02201, type: 3}
+  _descriptionSprite: {fileID: 21300000, guid: 099a558dcdf14f14cbefe993042ac86d, type: 3}
   _resourcesSprite:
   - {fileID: 21300000, guid: 3990fb3b21ad3c84d90c12ac73aef71e, type: 3}
-  - {fileID: 21300000, guid: 79f376bb736d6aa47a7af8e247f9279f, type: 3}
+  - {fileID: 21300000, guid: e66de0e425806b742a5714cd2b65505e, type: 3}
   - {fileID: 21300000, guid: 7543a0502f5ea584ab08ff391c19a522, type: 3}
   _resourcesType:
   - I.A
-  - SEMI SENIOR
+  - JUNIOR
   - SERVERS
-  _resourcesAmount: 020000000200000002000000
+  _resourcesAmount: 020000000500000002000000

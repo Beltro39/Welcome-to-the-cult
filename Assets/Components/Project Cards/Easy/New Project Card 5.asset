@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3357c70e95393b488d777d890426a60, type: 3}
-  m_Name: New Project Card - copia (3)
+  m_Name: New Project Card 5
   m_EditorClassIdentifier: 
-  _nameStakeHolder: AMY LEE
+  _nameStakeHolder: MOANA
   _difficulty: 0
-  _imageStakeHolder: {fileID: 21300000, guid: 8e47a9ba0ad2c0a4ba274ae4d750bbf2, type: 3}
-  _descriptionSprite: {fileID: 21300000, guid: 780cad0ab965f9d4080b23ff920f7a74, type: 3}
+  _title: APPLICATION TO RECORD VOLCANIC ACTIVITY
+  _imageStakeHolder: {fileID: 21300000, guid: f70d59b3b9a74ed479bae448115cb2b7, type: 3}
+  _descriptionSprite: {fileID: 21300000, guid: 05fbd3f88a7df534da6af3bb34e645be, type: 3}
   _resourcesSprite:
-  - {fileID: 21300000, guid: 879d70ed52d7a85448e6837982e8b4aa, type: 3}
+  - {fileID: 21300000, guid: e66de0e425806b742a5714cd2b65505e, type: 3}
   - {fileID: 21300000, guid: b1476337da44bcd43954db3ebd8ebde6, type: 3}
-  - {fileID: 21300000, guid: 46a787088f1cd604fb3cb3e07c4e3b52, type: 3}
+  - {fileID: 21300000, guid: 79f376bb736d6aa47a7af8e247f9279f, type: 3}
   _resourcesType:
-  - HOSTING
+  - JUNIOR
   - BARGANING POWER
-  - RESERCH AND PROJECTS
-  _resourcesAmount: 010000000100000001000000
+  - SEMI SENIOR
+  _resourcesAmount: 070000000100000002000000

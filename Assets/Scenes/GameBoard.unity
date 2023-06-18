@@ -9212,11 +9212,15 @@ MonoBehaviour:
   cardPrefab: {fileID: 4775304400603702003, guid: 07150c574e575d94d8ddfd2cb8f8606d, type: 3}
   easyProjects:
   - {fileID: 11400000, guid: 09c033812b5e7a186a9996df3c50bef0, type: 2}
-  - {fileID: 11400000, guid: 296f7505b15228c4ebc076a501bb1f8a, type: 2}
-  - {fileID: 11400000, guid: cad6bde226abf2549b5c2b114fdfd8c7, type: 2}
-  - {fileID: 11400000, guid: e8f476ca691f7be42862b0dc37a4f99f, type: 2}
-  - {fileID: 11400000, guid: e87a6779e526e12498990dd888e8165c, type: 2}
-  - {fileID: 11400000, guid: 1f484d477dc002b408ec61ca1c506d21, type: 2}
+  - {fileID: 11400000, guid: c83d258d553d7b94c9625f2c9989bc30, type: 2}
+  - {fileID: 11400000, guid: c9ca8e25e6a859d448dcb59b99ed84de, type: 2}
+  - {fileID: 11400000, guid: d35c8997c148ecb4ba25959d4e963028, type: 2}
+  - {fileID: 11400000, guid: d0006422ad30b814b87c18bf7bb34ba1, type: 2}
+  - {fileID: 11400000, guid: 4e195162ed8460e43989ef3cbcefe23b, type: 2}
+  - {fileID: 11400000, guid: 91e74828754a40d48be11dc1ec261816, type: 2}
+  - {fileID: 11400000, guid: 69e1c76b64e369347b4552b63a376d1b, type: 2}
+  - {fileID: 11400000, guid: 4b8db98891c981a4b9204660ea94be4f, type: 2}
+  - {fileID: 11400000, guid: 591b54fe988068f458b76ead9b22fa4f, type: 2}
   normalProjects:
   - {fileID: 11400000, guid: c3f5af6fc6a00a24d8fa2d38067ef887, type: 2}
   - {fileID: 11400000, guid: 4c42a64b21d87694c94831d5f955d199, type: 2}
@@ -66518,9 +66522,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4232eeebd7d0862d386468d2408b0dc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  childTransform: {fileID: 0}
-  buttonSelect: {fileID: 893578691}
-  buttonFinalize: {fileID: 1878696889}
 --- !u!114 &1781671670
 MonoBehaviour:
   m_ObjectHideFlags: 0
