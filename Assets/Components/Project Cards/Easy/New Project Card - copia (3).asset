@@ -14,14 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nameStakeHolder: AMY LEE
   _difficulty: 0
+  _title: 
   _imageStakeHolder: {fileID: 21300000, guid: 8e47a9ba0ad2c0a4ba274ae4d750bbf2, type: 3}
   _descriptionSprite: {fileID: 21300000, guid: 780cad0ab965f9d4080b23ff920f7a74, type: 3}
   _resourcesSprite:
   - {fileID: 21300000, guid: 879d70ed52d7a85448e6837982e8b4aa, type: 3}
   - {fileID: 21300000, guid: b1476337da44bcd43954db3ebd8ebde6, type: 3}
-  - {fileID: 21300000, guid: 46a787088f1cd604fb3cb3e07c4e3b52, type: 3}
+  - {fileID: 21300000, guid: e66de0e425806b742a5714cd2b65505e, type: 3}
   _resourcesType:
   - HOSTING
   - BARGANING POWER
-  - RESERCH AND PROJECTS
-  _resourcesAmount: 010000000100000001000000
+  - JUNIOR
+  _resourcesAmount: 010000000100000004000000

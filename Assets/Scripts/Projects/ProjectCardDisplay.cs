@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class ProjectCardDisplay : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class ProjectCardDisplay : MonoBehaviour
 
     public Sprite[] titles;
     public Sprite[] Backgrounds;
+    string[] typesEmployees = { "JUNIOR", "SEMI SENIOR", "SENIOR", "ARCHITECT"};
 
 
     // Start is called before the first frame update
@@ -27,6 +29,7 @@ public class ProjectCardDisplay : MonoBehaviour
         nameStakeholder.text = projectCard.NameStakeHolder;
         imageStakeholder.sprite = projectCard.ImageStakeHolder;
         projectDescription.sprite = projectCard.DescriptionSprite;
+
 
         bool[] lista ={true, true, true, true, true};
         if(projectCard.Difficulty == 0){
@@ -41,7 +44,15 @@ public class ProjectCardDisplay : MonoBehaviour
                 resources[i].gameObject.SetActive(true);
                 amounts[i].gameObject.SetActive(true);
                 resources[i].sprite = projectCard.ResourcesSprite[j];
-                amounts[i].text =$"LVL {projectCard.ResourcesAmount[j].ToString()}";
+                string units="";
+                if (typesEmployees.Contains(projectCard.ResourceType[j])){
+                   units = "HAS";
+                
+                }else{
+                    units = "LVL";
+                    
+                }
+                amounts[i].text =$"{units} {projectCard.ResourcesAmount[j].ToString()}";
                 j++;
             }else{
                 circulos[i].SetActive(false);

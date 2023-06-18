@@ -10,16 +10,15 @@ public class ProjectPanelController : MonoBehaviour
 
 
     //Animation
-    [SerializeField] GameObject modalProjectAnimation;
+    [SerializeField] LeanWindow modalProjectAnimation;
     [SerializeField] GameObject tokenPrefab;
     [SerializeField] GameObject tokenParent;
     [SerializeField] List<Transform> pointsWay = new List<Transform>();
+    [SerializeField] ProjectToken generalProjectToken;
     
     private Player currentPlayer;
  
     
-
-    private List<ProjectToken> initialProjects;
 
     public enum Difficulty { Easy, Medium, Hard, Difficulty};
 
@@ -113,15 +112,12 @@ public class ProjectPanelController : MonoBehaviour
         
     }
 
+
     public void Begin()
     {
         
-        
-    }
-
-    public void RunAnimation()
-    {
-        
+        modalProjectAnimation.TurnOn();
+        generalProjectToken.RunAnimation();
         
     }
 
@@ -136,12 +132,21 @@ public class ProjectPanelController : MonoBehaviour
         indexesByPlayer[currentPlayer][(int) Difficulty.Difficulty] = difficultyCard;
         indexesByPlayer[currentPlayer][difficultyCard] = newIndexDisplay;
         currentPlayer.addProject(card);
+        CreateToken(card);  
         DisplayProject();
     }
 
     public void SetProjects(int difficulty){
         indexesByPlayer[currentPlayer][(int) Difficulty.Difficulty] = difficulty;
         DisplayProject();
+    }
+
+    public void CreateToken(ProjectCard card){
+        GameObject extraToken = Instantiate(tokenPrefab) as GameObject;
+        extraToken.GetComponent<ProjectToken>().Create(card, currentPlayer, pointsWay);
+        extraToken.transform.SetParent(tokenParent.transform);
+        extraToken.transform.localScale = new Vector3(1,1,1);
+                
     }
 
     
