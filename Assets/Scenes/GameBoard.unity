@@ -9224,12 +9224,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4b8db98891c981a4b9204660ea94be4f, type: 2}
   - {fileID: 11400000, guid: 591b54fe988068f458b76ead9b22fa4f, type: 2}
   normalProjects:
-  - {fileID: 11400000, guid: 798fa69c74ae8b857a4565ed3a7c5703, type: 2}
-  - {fileID: 11400000, guid: 26afb5013074f8949ab1c59f4aa40f48, type: 2}
-  - {fileID: 11400000, guid: 47764a345e09f8246bd8c10bcbe3e907, type: 2}
-  - {fileID: 11400000, guid: f47789ea49a7f6642acf16d6c1dd116d, type: 2}
-  - {fileID: 11400000, guid: 75289831b8da1124bb6c2a2740336b4a, type: 2}
   - {fileID: 11400000, guid: ca8d0ca086d3a894e809304d7c55d6bd, type: 2}
+  - {fileID: 11400000, guid: 75289831b8da1124bb6c2a2740336b4a, type: 2}
+  - {fileID: 11400000, guid: f47789ea49a7f6642acf16d6c1dd116d, type: 2}
+  - {fileID: 11400000, guid: 47764a345e09f8246bd8c10bcbe3e907, type: 2}
+  - {fileID: 11400000, guid: 26afb5013074f8949ab1c59f4aa40f48, type: 2}
+  - {fileID: 11400000, guid: 267808ec400c44044ab8af079cebc648, type: 2}
+  - {fileID: 11400000, guid: c964310cf61c5494797904532ffc182c, type: 2}
+  - {fileID: 11400000, guid: 798fa69c74ae8b857a4565ed3a7c5703, type: 2}
   hardProjects:
   - {fileID: 11400000, guid: cbef1cb540f1b127a983d8683a7e88e5, type: 2}
   - {fileID: 11400000, guid: 79a6b88978e9f924fbcb744474441d21, type: 2}
