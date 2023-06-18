@@ -1003,7 +1003,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0.029999733, y: -0.05000305}
   m_SizeDelta: {x: 22.17, y: 20.08}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3324,7 +3324,7 @@ MonoBehaviour:
   onNonInteractable:
     m_PersistentCalls:
       m_Calls: []
-  expectedInteractable: 1
+  expectedInteractable: 0
   requiredButtons: -1
   multiDown: 0
   dragThreshold: 10
@@ -16999,7 +16999,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0.000015258789}
-  m_SizeDelta: {x: -28.9, y: -385.02}
+  m_SizeDelta: {x: -28.9, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &457193163
 GameObject:
@@ -33347,7 +33347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4fd146527b61614a96da3a84e74ad78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  on: 1
+  on: 0
   turnOffSiblings: 0
   onTransitions:
     speed: 5
@@ -33395,9 +33395,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 891974093}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!224 &891974096
 RectTransform:
@@ -45487,7 +45487,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1221917397
 RectTransform:
   m_ObjectHideFlags: 0
@@ -55539,9 +55539,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1781671668}
-        m_TargetAssemblyTypeName: PanelDimensionVisibility, Assembly-CSharp
-        m_MethodName: Run
+      - m_Target: {fileID: 1781671661}
+        m_TargetAssemblyTypeName: Lean.Gui.ModalEnteringDimensionController, Assembly-CSharp
+        m_MethodName: DimensionModal
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -66020,6 +66020,8 @@ MonoBehaviour:
   ButtonSkipTechnologies: {fileID: 2016795743}
   ButtonSkipPartnersSuppliers: {fileID: 2016795743}
   ButtonSkipAbilities: {fileID: 1527907328}
+  ButtonProjects: {fileID: 1993163131}
+  ButtonDimension: {fileID: 1514043003}
 --- !u!114 &1781671658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66086,6 +66088,7 @@ MonoBehaviour:
   modalInformationAndTechnology: {fileID: 1078789199}
   modalPartnersAndSuppliers: {fileID: 478952904}
   modalValueStreamsAndProcesses: {fileID: 1090761811}
+  modalProjects: {fileID: 891974093}
 --- !u!114 &1781671662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66515,6 +66518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4232eeebd7d0862d386468d2408b0dc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  childTransform: {fileID: 0}
   buttonSelect: {fileID: 893578691}
   buttonFinalize: {fileID: 1878696889}
 --- !u!114 &1781671670
@@ -75344,9 +75348,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1781671670}
-        m_TargetAssemblyTypeName: ModalsVisibility, Assembly-CSharp
-        m_MethodName: ProjectVisibility
+      - m_Target: {fileID: 1781671661}
+        m_TargetAssemblyTypeName: Lean.Gui.ModalEnteringDimensionController, Assembly-CSharp
+        m_MethodName: ProjectModal
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -17,6 +17,7 @@ public class Player
     private int avatar;
     private int position;
     private bool actionComplete;
+    private int value;
     private List<ProjectCard>[] projectLists = new List<ProjectCard>[]
     {
         new List<ProjectCard>(),
