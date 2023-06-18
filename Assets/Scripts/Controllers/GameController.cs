@@ -86,6 +86,8 @@ public class GameController : MonoBehaviour
                 break;
             
             case Stage.Planning:
+                disableButtonsComponent.ButtonDimensionDisable();
+                disableButtonsComponent.ButtonProjectsEnable();
                 yield return StartCoroutine(SetBoardUI());
                 // Setting script with the player information for buying logic 
                 yield return new WaitUntil(() => buyResourcesComponent.Run(currentPlayer));
@@ -100,10 +102,10 @@ public class GameController : MonoBehaviour
                 //Inicia Planning
                 yield return new WaitUntil(() => spawnCompanyComponent.Run(currentPlayer)); 
                 yield return new WaitUntil(() => currentPlayer.getIsActionComplete());
-                spawnCompanyComponent.destroyCompany(); 
                 changePlayerPosition();
                 break;
             case Stage.ProjectRealization:
+                disableButtonsComponent.ButtonDimensionDisable();
                 yield return StartCoroutine(SetBoardUI());
                 yield return new WaitUntil(() => projectControllerComponent.showStartStage());
                 yield return new WaitUntil(() => currentPlayer.getIsActionComplete());
@@ -168,6 +170,8 @@ public class GameController : MonoBehaviour
         yield return new WaitUntil(() => setPropertiesComponent.Run(queuePlayer)); 
         // Disabling buttons (Gameboard images turn gray, or some buttons become not interactable)
         yield return new WaitUntil(() => disableButtonsComponent.Run(currentPlayer));
+        yield return new WaitUntil(() => disableBoardItemsComponent.Run(currentPlayer));
+
     }
 
     public Queue<Player> getQueuePlayer(){
@@ -199,7 +203,6 @@ public class GameController : MonoBehaviour
         foreach(Player player in queuePlayer){
             player.setIsActionComplete(false);
         }
-        Debug.Log("Ahora");
     }
 
     public void changePlayerPosition(){

@@ -43,6 +43,9 @@ public class DisableButtons : MonoBehaviour
     [SerializeField] Button ButtonSkipTechnologies;
     [SerializeField] Button ButtonSkipPartnersSuppliers;
     [SerializeField] Button ButtonSkipAbilities;
+
+    [SerializeField] Button ButtonProjects;
+    [SerializeField] Button ButtonDimension;
     
     private Dictionary<string, Dictionary<string, Button>> diccionarioButtons = new Dictionary<string, Dictionary<string, Button>>();
 
@@ -180,6 +183,21 @@ public class DisableButtons : MonoBehaviour
         diccionarioButtons[resource][property].interactable = enable;
     }
 
+    public void ButtonProjectsEnable(){
+        ButtonProjects.interactable = true;
+    }
+
+    public void ButtonProjectsDisable(){
+        ButtonProjects.interactable = false;
+    }
+
+    public void ButtonDimensionEnable(){
+        ButtonDimension.interactable = true;
+    }
+
+    public void ButtonDimensionDisable(){
+        ButtonDimension.interactable = false;
+    }
     
 }
 }

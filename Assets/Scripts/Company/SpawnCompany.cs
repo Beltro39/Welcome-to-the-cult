@@ -38,6 +38,10 @@ public class SpawnCompany : MonoBehaviour
 
      public void changeCompanyParent(){
         company.transform.parent = panel.transform;
+        Transform companyTransform = panel.transform.Find("Company(Clone)");
+        int childCount = panel.transform.childCount;
+        companyTransform.SetSiblingIndex(0);
+
         LeanWindow companyModalLean= companyModal.GetComponent<LeanWindow>();
         companyModalLean.TurnOff();
     }
@@ -50,6 +54,7 @@ public class SpawnCompany : MonoBehaviour
 
     public void destroyCompany(){
         Destroy(company);
+        Debug.Log("Destroy");
         LeanWindow confirmModalLeanWindow= confirmModal.GetComponent<LeanWindow>();
         confirmModalLeanWindow.TurnOff();
     }

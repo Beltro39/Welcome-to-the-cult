@@ -9,14 +9,17 @@ public class ModalEnteringDimensionController : MonoBehaviour
     [SerializeField] GameObject modalInformationAndTechnology;
     [SerializeField] GameObject modalPartnersAndSuppliers;
     [SerializeField] GameObject modalValueStreamsAndProcesses;
+    [SerializeField] GameObject modalProjects;
     private string myDimensionSelected;
     LeanWindow confirmModalLeanWindow;
     LeanWindow modalOrganizationAndPeopleLeanWindow;
     LeanWindow modalInformationAndTechnologyLeanWindow;
     LeanWindow modalPartnersAndSuppliersLeanWindow;
     LeanWindow modalValueStreamsAndProcessesLeanWindow;
+    LeanWindow modalProjectsLeanWindow;
+    SpawnCompany spawnCompanyComponent;
+    DisableButtons disableButtonsComponent;
 
-   
     void Start()
     {
         confirmModalLeanWindow= modalConfirmDimensional.GetComponent<LeanWindow>();
@@ -24,8 +27,10 @@ public class ModalEnteringDimensionController : MonoBehaviour
         modalInformationAndTechnologyLeanWindow= modalInformationAndTechnology.GetComponent<LeanWindow>();
         modalValueStreamsAndProcessesLeanWindow= modalValueStreamsAndProcesses.GetComponent<LeanWindow>();
         modalPartnersAndSuppliersLeanWindow= modalPartnersAndSuppliers.GetComponent<LeanWindow>();
-       
-        
+        modalProjectsLeanWindow = modalProjects.GetComponent<LeanWindow>();
+        GameObject UIControllerGO = GameObject.Find("UIController");
+        spawnCompanyComponent = UIControllerGO.GetComponent<SpawnCompany>();
+        disableButtonsComponent = UIControllerGO.GetComponent<DisableButtons>();
     }
      
     public void setMyDimensionSelected(string myDimensionSelected){
@@ -47,6 +52,8 @@ public class ModalEnteringDimensionController : MonoBehaviour
         if(myDimensionSelected== "Value streams and processes"){
           modalValueStreamsAndProcessesLeanWindow.TurnOn(); 
         }
+         spawnCompanyComponent.destroyCompany();
+         disableButtonsComponent.ButtonDimensionEnable();
     }
 
     public void TurnOff(){
@@ -64,6 +71,37 @@ public class ModalEnteringDimensionController : MonoBehaviour
         if(myDimensionSelected== "Value streams and processes"){
           modalValueStreamsAndProcessesLeanWindow.TurnOff(); 
         }
+    }
+
+    public void ProjectModal(){
+        if(modalProjectsLeanWindow.On){
+          modalProjectsLeanWindow.TurnOff();
+        }else{
+          modalProjectsLeanWindow.TurnOn();
+        }
+        TurnOff();
+    }
+
+    public void DimensionModal(){
+      if( modalOrganizationAndPeopleLeanWindow.On || modalInformationAndTechnologyLeanWindow.On || modalPartnersAndSuppliersLeanWindow.On || modalValueStreamsAndProcessesLeanWindow.On){
+        TurnOff();
+      }else{
+        if(myDimensionSelected== "Organization and people"){
+           modalOrganizationAndPeopleLeanWindow.TurnOn();
+        }
+        if(myDimensionSelected== "Information and technology"){
+          modalInformationAndTechnologyLeanWindow.TurnOn();
+        }
+        
+        if(myDimensionSelected== "Partners and suppliers"){
+          modalPartnersAndSuppliersLeanWindow.TurnOn();  
+        }
+      
+        if(myDimensionSelected== "Value streams and processes"){
+          modalValueStreamsAndProcessesLeanWindow.TurnOn(); 
+        }
+      }
+       modalProjectsLeanWindow.TurnOff();
     }
     
 }
