@@ -10,6 +10,7 @@ public class Supplier : Ally
     [SerializeField] private string[] _resourceTypesReceived;
     [SerializeField] private int[] _resourceAmountsReceived;
     [SerializeField] private int _resourceAmountsGivenExtra;
+    private bool _free = true;
 
     public Sprite[] ResourceImagesReceived { get => _resourceImagesReceived; set => _resourceImagesReceived = value; }
     public string[] ResourceTypesReceived { get => _resourceTypesReceived; set => _resourceTypesReceived = value; }
@@ -17,6 +18,8 @@ public class Supplier : Ally
     
     public int ResourceAmountsGivenExtra { get => _resourceAmountsGivenExtra; set => _resourceAmountsGivenExtra = value; }
 
-    
+    public bool Free{ get => _free; set => _free = value; }
+    public void Occupy(){ _free=false;}
+    public void Vacate(){ _free=true;}
 }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 namespace Lean.Gui{
 public class ProjectPanelController : MonoBehaviour
@@ -17,6 +18,7 @@ public class ProjectPanelController : MonoBehaviour
     [SerializeField] ProjectToken generalProjectToken;
     
     private Player currentPlayer;
+    ValidateExchangeResources validateExchangeResources;
  
     
 
@@ -96,6 +98,7 @@ public class ProjectPanelController : MonoBehaviour
     public void Run(Player currentPlayer)
     {
         this.currentPlayer = currentPlayer;
+        validateExchangeResources = new ValidateExchangeResources(currentPlayer);
 
         if(!indexesByPlayer.ContainsKey(currentPlayer))
         {
@@ -121,12 +124,28 @@ public class ProjectPanelController : MonoBehaviour
         
     }
 
-    public bool accomplishRequirements(){
-        // Mi idea es que aqui pregunten por si cumple con los requisitos
-        return true;
+    public bool accomplishRequirements(ProjectCard projectEvaluate){
+        // Mi idea es que aqui pregunten por si cumple con los requisitos;
+        string[] requirementList = projectEvaluate.ResourceType;
+        int[] amountList = projectEvaluate.ResourcesAmount;
+        bool cumpleUno = true;
+        int acum = 0;
+        while (acum < requirementList.Length && cumpleUno)
+        {
+            cumpleUno =  validateExchangeResources.ValidatePlayerHasResources(
+                requirementList[acum], amountList[acum]
+            );
+            acum++;
+        }
+
+        return cumpleUno;
     }
 
     public void AddProject(ProjectCard card){
+
+        PayResources(card);
+
+
         int difficultyCard = card.Difficulty;
         int newIndexDisplay = currentPlayer.GetProjects(difficultyCard).Count;
         indexesByPlayer[currentPlayer][(int) Difficulty.Difficulty] = difficultyCard;
@@ -134,6 +153,19 @@ public class ProjectPanelController : MonoBehaviour
         currentPlayer.addProject(card);
         CreateToken(card);  
         DisplayProject();
+    }
+
+    private void PayResources(ProjectCard projectEvaluate){
+        string[] requirementList = projectEvaluate.ResourceType;
+        int[] amountList = projectEvaluate.ResourcesAmount;
+        int acum = 0;
+        while (acum < requirementList.Length )
+        {
+            validateExchangeResources.TakeResourcesFromPlayer(
+                requirementList[acum], amountList[acum]
+            );
+            acum++;
+        }
     }
 
     public void SetProjects(int difficulty){

@@ -12,9 +12,12 @@ public class ValidateExchangeResources
         ListEmployees listEmployees; 
         ListTechnologies listTechnologies;
         ListAbilities listAbilities;
+        
+        
         listEmployees = player.getListEmployees();
         listTechnologies = player.getListTechnologies();
         listAbilities = player.getListAbilities();
+
 
         diccionarioResources = new Dictionary<string, Resources>{
                 { "JUNIOR", listEmployees.getJuniors()},
@@ -29,6 +32,7 @@ public class ValidateExchangeResources
                 { "SKILLFUL IN TECHNOLOGY", listAbilities.getSkillful()},
                 { "BARGANING POWER", listAbilities.getBargain()},
                 { "RESEARCH AND PROJECTS",  listAbilities.getResearch()},
+                
         };
     }
 
@@ -37,8 +41,22 @@ public class ValidateExchangeResources
         int playerResourceAmount;
         if (className == "ITILIANOS"){
             playerResourceAmount = player.getItilianos().getAmount();
-        }else{
+            
+        }else if(className == "SUPPLIER" && player.GetSupplier()){
+            playerResourceAmount = player.GetSupplier().Difficulty;
+
+        }else if(className == "PARNERT" && player.GetPartner()){
+            playerResourceAmount = player.GetPartner().Difficulty;
+        }else if((className == "SUPPLIER" || className == "PARNERT") &&  !player.GetSupplier())
+            return false;
+        else{
             playerResourceAmount = diccionarioResources[className].getAmount();
+        }
+
+        if (className == "SUPPLIER" && !player.GetSupplier().Free){
+            return false;
+        }else if (className == "PARNERT" && !player.GetPartner().Free){
+            return false;
         }
         if (playerResourceAmount >= amount){
             return true;
@@ -51,6 +69,12 @@ public class ValidateExchangeResources
         if(ValidatePlayerHasResources(className, amount)){
             if (className == "ITILIANOS"){
                  player.getItilianos().RemoveAmount(amount); 
+            
+            }else if(className == "SUPPLIER"){
+                player.GetSupplier().Occupy();
+
+            }else if(className == "PARNERT"){
+                player.GetPartner().Occupy();
             }else{
                 diccionarioResources[className].RemoveAmount(amount);   
             }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               

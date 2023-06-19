@@ -22,7 +22,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 79f376bb736d6aa47a7af8e247f9279f, type: 3}
   - {fileID: 21300000, guid: 7543a0502f5ea584ab08ff391c19a522, type: 3}
   _resourcesType:
-  - I.A
+  - IA
   - SEMI SENIOR
-  - SERVERS
+  - SERVER
   _resourcesAmount: 020000000200000002000000

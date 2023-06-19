@@ -23,6 +23,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 3277ae1a78d3d0e45bf8358e7683d468, type: 3}
   _resourcesType:
   - SUPPLIER
-  - I.A
-  - SATELLITES
+  - IA
+  - SATELLITE
   _resourcesAmount: 020000000400000001000000

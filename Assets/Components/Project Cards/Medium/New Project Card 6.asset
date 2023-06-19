@@ -23,7 +23,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7c6aae8534ffd4347900c7a7c8fc5de7, type: 3}
   - {fileID: 21300000, guid: 879d70ed52d7a85448e6837982e8b4aa, type: 3}
   _resourcesType:
-  - SERVERS
+  - SERVER
   - SUPPLIER
   - PARNERT
   - HOSTING

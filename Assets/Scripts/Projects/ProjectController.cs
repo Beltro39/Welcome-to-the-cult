@@ -38,6 +38,7 @@ public class ProjectController : MonoBehaviour
     [Header("paneles")]
     [SerializeField] GameObject noSelectedCardAdvice;
     [SerializeField] GameObject selectProjectInfo;
+    [SerializeField] GameObject noEnoughResources;
     [SerializeField] GameObject projectPanelDestination;
     [SerializeField] GameObject startProjectStage;
     
@@ -141,17 +142,24 @@ public class ProjectController : MonoBehaviour
 
     public void Decline(){
         noSelectedCardAdvice.GetComponent<LeanWindow>().TurnOn();
+        
     }
 
     public void SelectButton(){
         if(ProjectController.selectedCard){
-            cardSelect.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
-            ProjectCardDisplay selectedCardDisplay = cardSelect.GetComponent<ProjectCardDisplay>();
-            selectedCardDisplay.projectCard = ProjectController.selectedCard;
-            selectedCardDisplay.Build();
-            selectProjectInfo.GetComponent<LeanWindow>().TurnOn();
-            selectProjectInfo.GetComponent<CanvasGroup>().interactable = true;
-            cardSelect.SetActive(true);
+            bool cumpleRequisitos = panelProjectRigth.accomplishRequirements(selectedCard);
+            if(cumpleRequisitos){
+                cardSelect.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
+                ProjectCardDisplay selectedCardDisplay = cardSelect.GetComponent<ProjectCardDisplay>();
+                selectedCardDisplay.projectCard = ProjectController.selectedCard;
+                selectedCardDisplay.Build();
+                selectProjectInfo.GetComponent<LeanWindow>().TurnOn();
+                selectProjectInfo.GetComponent<CanvasGroup>().interactable = true;
+                cardSelect.SetActive(true);
+            }else{
+                //Se abre ventana de no tiene los suficientes recursos
+                noEnoughResources.GetComponent<LeanWindow>().TurnOn();
+            }
 
         }else{
             Decline();
@@ -159,17 +167,13 @@ public class ProjectController : MonoBehaviour
     }
 
     public void ConfirmSelect(){
-        bool cumpleRequisitos = panelProjectRigth.accomplishRequirements();
-        if(cumpleRequisitos){
+    
             selectProjectInfo.GetComponent<CanvasGroup>().interactable = false;
             RemoveCard(selectedCard);
             SetProjects(actualDifficulty);
             cardSelect.transform.DOMove(projectPanelDestination.transform.position, 3f)
             .OnComplete(() => finalizeMovement());
-        }else{
-            //Se abre ventana de no tiene los suficientes recursos
-        }
-        
+            
     }
 
     private void finalizeMovement(){

@@ -22,6 +22,8 @@ public class PartnersAndSuppliers : ScriptableObject
     [SerializeField] private int _resourceAmountsGivenExtra;
     [SerializeField] private int _resourceAmountsReceivedExtra;
 
+     
+
     public string StakeHolderType { get => _stakeHolderType; set => _stakeHolderType = value; }
     public string NameStakeholder { get => _nameStakeholder; set => _nameStakeholder = value; }
     public int Difficulty { get => _difficulty; set => _difficulty = value; }
@@ -37,5 +39,7 @@ public class PartnersAndSuppliers : ScriptableObject
 
     public int ResourceAmountsGivenExtra { get => _resourceAmountsGivenExtra; set => _resourceAmountsGivenExtra = value; }
     public int ResourceAmountsReceivedExtra { get => _resourceAmountsReceivedExtra; set => _resourceAmountsReceivedExtra = value; }
+
+    
 }
 

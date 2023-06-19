@@ -24,9 +24,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 46a787088f1cd604fb3cb3e07c4e3b52, type: 3}
   - {fileID: 21300000, guid: bf81f3fd5cfad204184e793f324df8db, type: 3}
   _resourcesType:
-  - I.A
+  - IA
   - BARGANING POWER
-  - SATELLITES
+  - SATELLITE
   - RESEARCH AND PROJECTS
   - SUPPLIER
   _resourcesAmount: 07000000040000000a0000000200000002000000

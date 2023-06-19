@@ -12,7 +12,10 @@ public class ProjectToken : MonoBehaviour
     [SerializeField] Sprite[] imagesToken;
     private List<Transform> pointsWay = new List<Transform>();
     [SerializeField] GameObject imageToken;
+    [SerializeField] GameObject imageFlower;
+    [SerializeField] int[] rewards;
     [SerializeField] LeanWindow modalAnim;
+    [SerializeField] LeanWindow modalReward;
 
     private ProjectCard project;
     private Player playerCompany;
@@ -59,8 +62,10 @@ public class ProjectToken : MonoBehaviour
     {
         this.pointsWay = pointsWay;
         this.project = project;
+        playerCompany = company;
         Difficulty projectDifficulty = (Difficulty) project.Difficulty;
         initialProjects.Enqueue(this);
+        setColor();
         imageToken.GetComponent<Image>().sprite = imagesToken[(int) projectDifficulty];
         foreach (Transform point in pointsWay){
             tokenWay.Enqueue(point);
@@ -77,12 +82,29 @@ public class ProjectToken : MonoBehaviour
         }
         tokenStations.Enqueue(Station.finalStation);   
 
-        imageToken.SetActive(false);     
+        imageToken.SetActive(false);  
+        imageFlower.SetActive(false);   
     }
 
     public void advance(){
         imageToken.SetActive(true);
+        imageFlower.SetActive(true);
         StartCoroutine(DoMovement());
+    }
+
+    public void setColor(){
+       if(playerCompany.getCompanyDimension()=="Organization and people"){
+          imageFlower.GetComponent<Image>().color = imageFlower.GetComponent<Colors>().naranja;
+       }
+       if(playerCompany.getCompanyDimension()=="Information and technology"){
+         imageFlower.GetComponent<Image>().color = imageFlower.GetComponent<Colors>().azul;
+       }
+       if(playerCompany.getCompanyDimension()=="Partners and suppliers"){
+         imageFlower.GetComponent<Image>().color = imageFlower.GetComponent<Colors>().verde;
+       }
+       if(playerCompany.getCompanyDimension()=="Value streams and processes"){
+          imageFlower.GetComponent<Image>().color = imageFlower.GetComponent<Colors>().morado;
+       }
     }
 
     IEnumerator DoMovement(){
@@ -99,11 +121,47 @@ public class ProjectToken : MonoBehaviour
             yield return new WaitUntil(() => getMovement());
             nextPoint = tokenWay.Dequeue();
         }
-        movement = false;
+        
+        if(projectByStation[nextStation].Count>0){
+            int numTokens = projectByStation[nextStation].Count + 1;
+            
+            float radius = 0.3f;
+            int acum = 0;
+            Vector3 newPos;
+            float angle; 
+
+
+            foreach(ProjectToken tokenInvade in projectByStation[nextStation])
+            {
+                angle = acum * Mathf.PI*2f / numTokens;
+                newPos = new Vector3(Mathf.Cos(angle)*radius, Mathf.Sin(angle)*radius,0);
+                movement = false;
+                tokenInvade.transform.DOMove(nextPoint.position + newPos, 0.5f)
+                .OnComplete(() => finalizeMovement());
+                yield return new WaitUntil(() => getMovement());
+                acum++;
+            }
+            angle = acum * Mathf.PI*2f / numTokens;
+            newPos = new Vector3(Mathf.Cos(angle)*radius, Mathf.Sin(angle)*radius,0);
+            movement = false;
             transform.DOMove(nextPoint.position, 1f)
             .OnComplete(() => finalizeMovement());
             yield return new WaitUntil(() => getMovement());
-            ProjectToken.individualMovement = true;
+            movement = false;
+            transform.DOMove(nextPoint.position + newPos, 0.5f)
+            .OnComplete(() => finalizeMovement());
+            yield return new WaitUntil(() => getMovement());
+
+
+
+        }else{
+            movement = false;
+            transform.DOMove(nextPoint.position, 1f)
+            .OnComplete(() => finalizeMovement());
+            yield return new WaitUntil(() => getMovement());
+        }
+        
+        ProjectToken.individualMovement = true;
         projectByStation[nextStation].Enqueue(this);
     }
 
@@ -116,6 +174,7 @@ public class ProjectToken : MonoBehaviour
     }
 
     IEnumerator StartAnimation(){
+        ProjectToken.finalizeAnim = false;
         actualIterateQueue = projectByStation[Station.thirdStation];
         StartCoroutine(iterateQueue());
         yield return new WaitUntil(() => getDificcultyMovement());
@@ -133,7 +192,24 @@ public class ProjectToken : MonoBehaviour
         yield return new WaitUntil(() => getDificcultyMovement());
         yield return new WaitForSeconds(3f);
         modalAnim.TurnOff();
-        ProjectToken.finalizeAnim=true;
+        if(projectByStation[Station.finalStation].Count>0){
+            //Dar premio no sé si lo alcance hacer
+            
+            while(projectByStation[Station.finalStation].Count > 0)
+            {
+                ProjectToken tokenFinish = projectByStation[Station.finalStation].Dequeue();
+                int projectFinishDifficulty = tokenFinish.Project.Difficulty;
+                tokenFinish.Company.getItilianos().AddAmount(rewards[projectFinishDifficulty]);
+                Destroy(tokenFinish.gameObject);
+            }
+
+            modalReward.TurnOn();
+
+
+
+        }else{
+            AnimationFinish();
+        }
     }
 
     IEnumerator iterateQueue(){
@@ -154,5 +230,9 @@ public class ProjectToken : MonoBehaviour
     static public bool getFinalizeAnim(){return ProjectToken.finalizeAnim;}
     private bool getDificcultyMovement(){return dificcultyMovement;}
     private bool getMovement(){return movement;}
+
+    public void AnimationFinish(){
+        ProjectToken.finalizeAnim = true;
+    }
 }
 }

@@ -24,7 +24,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: bf81f3fd5cfad204184e793f324df8db, type: 3}
   - {fileID: 21300000, guid: d82097b395c5b5848a11b070d43c2fb7, type: 3}
   _resourcesType:
-  - I.A
+  - IA
   - PARNERT
   - HOSTING
   - SUPPLIER

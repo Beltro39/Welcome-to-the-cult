@@ -107,6 +107,9 @@ public class GameController : MonoBehaviour
                 yield return new WaitUntil(() => spawnCompanyComponent.Run(currentPlayer)); 
                 yield return new WaitUntil(() => currentPlayer.getIsActionComplete());
                 changePlayerPosition();
+                //Codigo para saltaerme lo de planning para pruebas de proyectos, se comenta lo de arrriba
+                /*changeCurrentPlayerIsActionComplete();
+                changePlayerPosition();*/
                 break;
             case Stage.ProjectRealization:
                 disableButtonsComponent.ButtonDimensionDisable();
