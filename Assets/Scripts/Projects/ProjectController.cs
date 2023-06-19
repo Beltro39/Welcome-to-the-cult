@@ -127,6 +127,10 @@ public class ProjectController : MonoBehaviour
         }
     }
 
+    public void Run(){
+        transform.parent.gameObject.GetComponent<LeanWindow>().TurnOn();
+    }
+
     public void ConfirmDecline(){
         selectedCard = null;
         ProjectController.checkSelectedCard();

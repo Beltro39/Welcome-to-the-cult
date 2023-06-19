@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Linq;
 
 namespace Lean.Gui{
 public class ProjectBigCardDisplay : MonoBehaviour
@@ -24,7 +25,7 @@ public class ProjectBigCardDisplay : MonoBehaviour
     public Color[] colorSelect;
 
      // Start is called before the first frame updat
-
+    string[] typesEmployees = { "JUNIOR", "SEMI SENIOR", "SENIOR", "ARCHITECT"};
 
  
     
@@ -49,7 +50,15 @@ public class ProjectBigCardDisplay : MonoBehaviour
                 resources[i].gameObject.SetActive(true);
                 amounts[i].gameObject.SetActive(true);
                 resources[i].sprite = projectCard.ResourcesSprite[j];
-                amounts[i].text =$"LVL {projectCard.ResourcesAmount[j].ToString()}";
+                string units="";
+                if (typesEmployees.Contains(projectCard.ResourceType[j])){
+                   units = "HAS";
+                
+                }else{
+                    units = "LVL";
+                    
+                }
+                amounts[i].text =$"{units} {projectCard.ResourcesAmount[j].ToString()}";
                 j++;
             }else{
                 circulos[i].SetActive(false);
