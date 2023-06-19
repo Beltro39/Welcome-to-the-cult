@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
     private Queue<Player> queuePlayer = new Queue<Player>();
     private Player currentPlayer;
     private int currentCycle = 1;
-    private enum Stage { CreatingPlayers, Initiative, Planning, ProjectRealization, ProjectAnimation}
+    private enum Stage { CreatingPlayers, Initiative, Planning, ProjectRealization, ProjectAnimation, InvestorScore}
     private Stage currentStage; 
     
     SetProperties setPropertiesComponent;
@@ -113,8 +113,13 @@ public class GameController : MonoBehaviour
                 changePlayerPosition();
                 break;
             case Stage.ProjectAnimation:
-                projectPanelControllerComponent.Begin();
-                yield return new WaitUntil(() => currentPlayer.getIsActionComplete());  
+                //projectPanelControllerComponent.Begin();
+                //yield return new WaitUntil(() => currentPlayer.getIsActionComplete());  
+                break;
+            case Stage.InvestorScore:
+                if (currentPlayer.getTurnOrder() == "1"){
+                    InvestorScore.Run(queuePlayer, currentCycle);
+                }
                 break;
             
         }
@@ -124,7 +129,7 @@ public class GameController : MonoBehaviour
 
     public void AdvanceToNextPlayer()
     {
-        if((currentStage == Stage.CreatingPlayers)  || (currentStage == Stage.Initiative) || (currentStage == Stage.ProjectAnimation)) {
+        if((currentStage == Stage.CreatingPlayers)  || (currentStage == Stage.Initiative) || (currentStage == Stage.ProjectAnimation || (currentStage == Stage.InvestorScore))) {
             AdvanceToNextStage();
         }else{
             currentPlayer = queuePlayer.Dequeue(); 
@@ -148,7 +153,7 @@ public class GameController : MonoBehaviour
             changeAllPlayerIsActionCompleteToFalse();
         }
         currentStage++;
-        if (currentStage > Stage.ProjectAnimation)
+        if (currentStage > Stage.InvestorScore)
         {
             currentStage = Stage.Initiative;
             currentCycle++;

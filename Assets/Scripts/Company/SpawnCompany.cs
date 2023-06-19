@@ -54,7 +54,6 @@ public class SpawnCompany : MonoBehaviour
 
     public void destroyCompany(){
         Destroy(company);
-        Debug.Log("Destroy");
         LeanWindow confirmModalLeanWindow= confirmModal.GetComponent<LeanWindow>();
         confirmModalLeanWindow.TurnOff();
     }
