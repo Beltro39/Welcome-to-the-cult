@@ -79,6 +79,9 @@ public class ModalEnteringDimensionController : MonoBehaviour
         }else{
           modalProjectsLeanWindow.TurnOn();
         }
+        disableButtonsComponent.ButtonSelectInProjectModalDisable();
+        disableButtonsComponent.ButtonFinalizeInProjectModalDisable();
+
         TurnOff();
     }
 

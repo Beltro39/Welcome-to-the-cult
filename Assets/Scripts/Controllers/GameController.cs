@@ -106,6 +106,9 @@ public class GameController : MonoBehaviour
                 break;
             case Stage.ProjectRealization:
                 disableButtonsComponent.ButtonDimensionDisable();
+                disableButtonsComponent.ButtonSelectInProjectModalEnable();
+                disableButtonsComponent.ButtonFinalizeInProjectModalEnable();
+
                 yield return StartCoroutine(SetBoardUI());
                 yield return new WaitUntil(() => projectControllerComponent.showStartStage());
                 yield return new WaitUntil(() => currentPlayer.getIsActionComplete());

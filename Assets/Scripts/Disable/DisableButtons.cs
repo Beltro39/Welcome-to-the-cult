@@ -46,6 +46,9 @@ public class DisableButtons : MonoBehaviour
 
     [SerializeField] Button ButtonProjects;
     [SerializeField] Button ButtonDimension;
+
+    [SerializeField] Button ButtonSelectInProjectModal;
+    [SerializeField] Button ButtonFinalizeInProjectModal;
     
     private Dictionary<string, Dictionary<string, Button>> diccionarioButtons = new Dictionary<string, Dictionary<string, Button>>();
 
@@ -197,6 +200,22 @@ public class DisableButtons : MonoBehaviour
 
     public void ButtonDimensionDisable(){
         ButtonDimension.interactable = false;
+    }
+
+    public void ButtonSelectInProjectModalEnable(){
+        ButtonSelectInProjectModal.interactable = true;
+    }
+
+    public void ButtonSelectInProjectModalDisable(){
+        ButtonSelectInProjectModal.interactable = false;
+    }
+
+    public void ButtonFinalizeInProjectModalEnable(){
+        ButtonFinalizeInProjectModal.interactable = true;
+    }
+
+    public void ButtonFinalizeInProjectModalDisable(){
+        ButtonFinalizeInProjectModal.interactable = false;
     }
     
 }

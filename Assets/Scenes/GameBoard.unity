@@ -14039,7 +14039,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 589575492}
         m_TargetAssemblyTypeName: Lean.Gui.GameController, Assembly-CSharp
         m_MethodName: changeCurrentPlayerIsActionComplete
         m_Mode: 1
@@ -66034,6 +66034,8 @@ MonoBehaviour:
   ButtonSkipAbilities: {fileID: 1527907328}
   ButtonProjects: {fileID: 1993163131}
   ButtonDimension: {fileID: 1514043003}
+  ButtonSelectInProjectModal: {fileID: 383241913}
+  ButtonFinalizeInProjectModal: {fileID: 66477507}
 --- !u!114 &1781671658
 MonoBehaviour:
   m_ObjectHideFlags: 0
