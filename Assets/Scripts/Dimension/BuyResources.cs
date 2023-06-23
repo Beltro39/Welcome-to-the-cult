@@ -132,8 +132,9 @@ namespace Lean.Gui{
             DisableButtons= UIControllerGO.GetComponent<DisableButtons>();
         }
 
-        public void ReturnMarketsToOriginal(){
+        public bool ReturnMarketToOriginalAvailability(){
             market.ResetToOriginalValues();
+            return true;
         }
 
         public bool Run(Player player){
@@ -143,9 +144,9 @@ namespace Lean.Gui{
             TotalTechnologiesCost= 0;
             TotalAbilitiesCost = 0;
 
-            EmployeesTotal.text= "$"+TotalEmployeesCost.ToString();
-            TechnologiesTotal.text= "$"+TotalTechnologiesCost.ToString();
-            AbilitiesTotal.text= "$"+TotalAbilitiesCost.ToString();
+            EmployeesTotal.text= TotalEmployeesCost.ToString();
+            TechnologiesTotal.text= TotalTechnologiesCost.ToString();
+            AbilitiesTotal.text= TotalAbilitiesCost.ToString();
 
             Itilianos= player.getItilianos();
             Juniors= player.getListEmployees().getJuniors();
@@ -251,13 +252,13 @@ namespace Lean.Gui{
                 market.addResource(resource);
                 if(typesEmployees.Contains(resource)){
                     TotalEmployeesCost += cost;
-                    EmployeesTotal.text= "$"+TotalEmployeesCost.ToString();
+                    EmployeesTotal.text= TotalEmployeesCost.ToString();
                 }else if(typesTechnologies.Contains(resource)){
                     TotalTechnologiesCost += cost;
-                    TechnologiesTotal.text= "$"+TotalTechnologiesCost.ToString();
+                    TechnologiesTotal.text= TotalTechnologiesCost.ToString();
                 }else if(typesAbilities.Contains(resource)){
                     TotalAbilitiesCost += cost;
-                    AbilitiesTotal.text= "$"+TotalAbilitiesCost.ToString();
+                    AbilitiesTotal.text= TotalAbilitiesCost.ToString();
                 }
                 dictResourcesQuantityToBuy[resource] += 1;
             }
@@ -268,13 +269,13 @@ namespace Lean.Gui{
                 market.removeResource(resource);
                 if(typesEmployees.Contains(resource)){
                     TotalEmployeesCost -= cost;
-                    EmployeesTotal.text = "$"+TotalEmployeesCost.ToString();
+                    EmployeesTotal.text = TotalEmployeesCost.ToString();
                 }else if(typesTechnologies.Contains(resource)){
                     TotalTechnologiesCost -= cost;
-                    TechnologiesTotal.text = "$"+TotalTechnologiesCost.ToString();
+                    TechnologiesTotal.text = TotalTechnologiesCost.ToString();
                 }else if(typesAbilities.Contains(resource)){
                     TotalAbilitiesCost -= cost;
-                    AbilitiesTotal.text = "$"+TotalAbilitiesCost.ToString();
+                    AbilitiesTotal.text = TotalAbilitiesCost.ToString();
                 }
                 dictResourcesQuantityToBuy[resource] -= 1;
             }
@@ -328,10 +329,6 @@ namespace Lean.Gui{
                 }else{
                     DisableButtons.InteractButton(resource, "Minus", true);
                 }
-
-                if (resource == "Juniors" || resource == "SemiSeniors"){
-                    continue;
-                }
                 int resourceQuantity = diccionarioResources[resource].getAmount() + dictResourcesQuantityToBuy[resource];
                 switch (recruitmentAmount)
                 {
@@ -339,6 +336,9 @@ namespace Lean.Gui{
                         DisableButtons.InteractButton(resource, "Plus", false);
                         break;
                     case int amount when amount < 2 && resource == "Architects":
+                        DisableButtons.InteractButton(resource, "Plus", false);
+                        break;
+                    case int amount when market.getResourceAvailability(resource) <= 0:
                         DisableButtons.InteractButton(resource, "Plus", false);
                         break;
                     default:
@@ -392,6 +392,9 @@ namespace Lean.Gui{
                         DisableButtons.InteractButton(resource, "Plus", false);
                         break;
                     case int amount when resourceQuantity >= 4:
+                        DisableButtons.InteractButton(resource, "Plus", false);
+                        break;
+                    case int amount when market.getResourceAvailability(resource) <= 0:
                         DisableButtons.InteractButton(resource, "Plus", false);
                         break;
                     default:

@@ -16,18 +16,18 @@ namespace Lean.Gui
         
         Dictionary<string, int[]> costos = new Dictionary<string, int[]>
         {
-            { "Juniors", new int[] { 3, 2, 1 }},
-            { "SemiSeniors",  new int[] { 5, 4, 3 }},
-            { "Seniors", new int[] { 7, 6, 5 }},
-            { "Architects", new int[] { 10, 9, 8 }},
-            { "Servers", new int[] { 1, 7, 10 }},
-            { "Satellites",  new int[] { 1, 7, 10 }},
-            { "IA", new int[] { 1, 7, 10 }},
-            { "Hosting", new int[] { 1, 7, 5 }},
-            { "Recruitment", new int[] { 9, 7, 5, 1 }},
-            { "Skillful",  new int[] { 9, 7, 5 }},
-            { "Bargain", new int[] { 9, 7, 5 }},
-            { "Research", new int[] { 9, 7, 5 }},
+            { "Juniors", new int[] { 1, 1, 1 }},
+            { "SemiSeniors",  new int[] { 1, 1, 1 }},
+            { "Seniors", new int[] { 1, 1, 1 }},
+            { "Architects", new int[] { 1, 1, 1 }},
+            { "Servers", new int[] { 1, 1, 1 }},
+            { "Satellites",  new int[] { 1, 1, 1 }},
+            { "IA", new int[] { 1, 1, 1 }},
+            { "Hosting", new int[] { 1, 1, 1 }},
+            { "Recruitment", new int[] { 1, 1, 1, 1 }},
+            { "Skillful",  new int[] { 1, 1, 1 }},
+            { "Bargain", new int[] { 1, 1, 1 }},
+            { "Research", new int[] { 1, 1, 1 }},
         };
 
         Dictionary<string, int> resourcesPerRoundOriginal = new Dictionary<string, int>
@@ -49,7 +49,6 @@ namespace Lean.Gui
         public Market()
         {
             resourcesPerRound = DeepCopy(resourcesPerRoundOriginal);
-            resourcesPerRoundCopy = DeepCopy(resourcesPerRoundOriginal);
         }
 
         private Dictionary<string, int>  DeepCopy(Dictionary<string, int>  original)
@@ -61,11 +60,6 @@ namespace Lean.Gui
         public void ResetToOriginalValues()
         {
             resourcesPerRound = DeepCopy(resourcesPerRoundOriginal);
-        }
-
-        public void ResetCopy()
-        {
-            resourcesPerRoundCopy = DeepCopy(resourcesPerRound);
         }
 
         public int getIndexDiscount(string resource, Player player){
@@ -99,31 +93,15 @@ namespace Lean.Gui
             return lista[index];
         }
 
-        public int getResourceAvailabilityCopy(string resource){
-            return resourcesPerRoundCopy[resource];
-        }
-
         public int getResourceAvailability(string resource){
             return resourcesPerRound[resource];
         }
 
-        public void addResourceCopy(string resource){
-            resourcesPerRoundCopy[resource]--;
-            if(getResourceAvailabilityCopy(resource) < 0){
-                resourcesPerRoundCopy[resource] = 0;
-            }
-        }
-
-
-        public void removeResourceCopy(string resource){
-            resourcesPerRoundCopy[resource]++;
-            if(getResourceAvailabilityCopy(resource) > getResourceAvailability(resource)){
-                resourcesPerRoundCopy[resource] = getResourceAvailability(resource);
-            }
-        }
-
         public void addResource(string resource){
             resourcesPerRound[resource]--;
+            if(getResourceAvailability(resource) < 0){
+                resourcesPerRound[resource] = 0;
+            }
             
         }
 

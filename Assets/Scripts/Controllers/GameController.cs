@@ -91,6 +91,9 @@ public class GameController : MonoBehaviour
                 yield return StartCoroutine(SetBoardUI());
                 // Setting script with the player information for buying logic 
                 yield return new WaitUntil(() => buyResourcesComponent.Run(currentPlayer));
+                if (currentPlayer.getTurnOrder() == "1"){
+                    yield return new WaitUntil(() => buyResourcesComponent.ReturnMarketToOriginalAvailability());
+                }
                 // Setting everything of the allies
                 if (currentCycle%2!=0 && currentPlayer.getTurnOrder() == "1"){
                     yield return new WaitUntil(() => selectPartnerAndSupplierComponent.PartnerSupplierRotation());
