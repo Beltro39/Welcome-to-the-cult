@@ -254,29 +254,30 @@ namespace Lean.Gui{
             return listPlayer;
         }
 
-        public void StartExchange()
+        public void StartExchange(int idPlayer2)
         {
             createPlayers();
             Debug.Log("Se crearon "+ queuePlayer.Count);
-            Debug.Log("La lista es de: " + listPlayer.Count);
+            Debug.Log("El usuario escogido es " + idPlayer2);
             leftUserExchange = GameObject.Find("LeftResource").GetComponent<UserExchange>();
             rightUserExchange = GameObject.Find("RightResource").GetComponent<UserExchange>();
-            leftUserExchange.Run(listPlayer[0]);
-            rightUserExchange.Run(listPlayer[1]);
+            //Mandar el usuario principal
+            //mandar el usuario escogido
+            leftUserExchange.Run(listPlayer[0]); 
+            rightUserExchange.Run(listPlayer[idPlayer2]);
         }
-        public void EndExchange()
+
+        public void AcceptExchange()
         {
-            if (leftUserExchange.GetIsAcceptExchange() && rightUserExchange.GetIsAcceptExchange())
-            {
-                Dictionary<string, int> leftResource = leftUserExchange.TransferResourceExchenge();
-                Dictionary<string, int> rightResource = rightUserExchange.TransferResourceExchenge();
-                leftUserExchange.SetResourceExchange(rightResource);
-                rightUserExchange.SetResourceExchange(leftResource);
-                Debug.Log("Los dos han aceptado el intercambio");
-            }else if(leftUserExchange.GetIscancell() || rightUserExchange.GetIscancell())
-            {
-                Debug.Log("Uno de los usuarios no quiso seguir con el intercambio");
-            }
+            Dictionary<string, int> leftResource = leftUserExchange.TransferResourceExchenge();
+            Dictionary<string, int> rightResource = rightUserExchange.TransferResourceExchenge();
+            leftUserExchange.SetResourceExchange(rightResource);
+            rightUserExchange.SetResourceExchange(leftResource);
+            Debug.Log("Los dos han aceptado el intercambio");
+        }
+        public void CancelExchange()
+        {
+           
         }
 
     }
