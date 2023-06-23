@@ -115,6 +115,12 @@ public class ProjectController : MonoBehaviour
         ProjectController.checkSelectedCard();
     }
 
+    public bool CloseModal(){
+        selectProjectInfo.GetComponent<LeanWindow>().TurnOff();
+        transform.parent.gameObject.GetComponent<LeanWindow>().TurnOff();
+        return true;
+    }
+
 
     public static void checkSelectedCard(){
         foreach(GameObject cardDisplayObject in cardsDisplay){
@@ -127,8 +133,9 @@ public class ProjectController : MonoBehaviour
         }
     }
 
-    public void Run(){
+    public bool Run(){
         transform.parent.gameObject.GetComponent<LeanWindow>().TurnOn();
+        return true;
     }
 
     public void ConfirmDecline(){
@@ -166,6 +173,7 @@ public class ProjectController : MonoBehaviour
             SetProjects(actualDifficulty);
             cardSelect.transform.DOMove(projectPanelDestination.transform.position, 3f)
             .OnComplete(() => finalizeMovement());
+
         }else{
             //Se abre ventana de no tiene los suficientes recursos
         }
