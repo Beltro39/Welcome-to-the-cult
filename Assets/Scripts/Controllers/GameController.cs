@@ -100,9 +100,13 @@ public class GameController : MonoBehaviour
                 }
                 yield return new WaitUntil(() => selectPartnerAndSupplierComponent.Run(currentPlayer));
                 // Muestra de turno
+                
                 currentTurnPanel.TurnOn();
                 currentTurnTitle.text = $"{currentPlayer.getNickname()}!";
+                currentPlayer.setIsActionComplete(false);
                 //Inicia Planning
+                yield return new WaitUntil(() => currentPlayer.getIsActionComplete());
+                currentPlayer.setIsActionComplete(false);
                 yield return new WaitUntil(() => spawnCompanyComponent.Run(currentPlayer)); 
                 yield return new WaitUntil(() => currentPlayer.getIsActionComplete());
                 changePlayerPosition();
@@ -112,20 +116,33 @@ public class GameController : MonoBehaviour
                 disableButtonsComponent.ButtonSelectInProjectModalEnable();
                 disableButtonsComponent.ButtonFinalizeInProjectModalEnable();
 
+                if (currentPlayer.getTurnOrder() == "1"){
+                    yield return new WaitUntil(() => projectControllerComponent.showStartStage());
+                }
                 yield return StartCoroutine(SetBoardUI());
-                yield return new WaitUntil(() => projectControllerComponent.showStartStage());
+                // Muestra de turno
+                currentTurnPanel.TurnOn();
+                currentTurnTitle.text = $"{currentPlayer.getNickname()}!";
+                currentPlayer.setIsActionComplete(false);
+                yield return new WaitUntil(() => currentPlayer.getIsActionComplete());
+                projectControllerComponent.Run();
+                currentPlayer.setIsActionComplete(false);
                 yield return new WaitUntil(() => currentPlayer.getIsActionComplete());
                 yield return new WaitForSeconds(3f);
                 changePlayerPosition();
                 break;
             case Stage.ProjectAnimation:
-                //projectPanelControllerComponent.Begin();
-                //yield return new WaitUntil(() => currentPlayer.getIsActionComplete());  
+                
+                
+                projectPanelControllerComponent.Begin();
+                
+                yield return new WaitUntil(() => ProjectToken.getFinalizeAnim());  
                 break;
             case Stage.InvestorScore:
                 if (currentPlayer.getTurnOrder() == "1"){
                     InvestorScore.Run(queuePlayer, currentCycle);
                 }
+                ProjectToken.finalizeAnim = false;
                 break;
             
         }
