@@ -179,6 +179,14 @@ namespace Lean.Gui
             // Itilianos
             ItilianosTotal.text = "$ " + Itilianos.getAmount();
         }
+        public void RestartValues()
+        {
+            for (int i = 0; i<6; i++)
+            {
+                cants[i].text = "0";
+                image[i].sprite = null;
+            }
+        }
         public void Run(Player player)
         {
             this.player = player;
@@ -187,7 +195,9 @@ namespace Lean.Gui
             //Restart Variables
             nameResourceSelected = new string[6]; // Restart nameResourceSelected
             isAcceptExchange = false; // Restart isAcceptExchange
-            isAcceptExchange = false;
+            isCancelExchange = false;
+            imageAcceptExchange.enabled = false;
+            RestartValues();
             // Configuration varibles owner
             Juniors = player.getListEmployees().getJuniors();
             SemiSeniors = player.getListEmployees().getSemiSeniors();
