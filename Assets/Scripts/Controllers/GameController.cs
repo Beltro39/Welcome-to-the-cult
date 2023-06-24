@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
     private Queue<Player> queuePlayer = new Queue<Player>();
     private Player currentPlayer;
     private int currentCycle = 1;
-    private enum Stage { CreatingPlayers, Initiative, Planning, ProjectRealization, ProjectAnimation, InvestorScore}
+    private enum Stage { CreatingPlayers, Initiative, Planning, ProjectRealization, ProjectAnimation, Exchange, InvestorScore}
     private Stage currentStage; 
     
     SetProperties setPropertiesComponent;
@@ -34,6 +34,18 @@ public class GameController : MonoBehaviour
     [SerializeField] Text currentTurnTitle;
     [SerializeField] LeanWindow currentTurnPanel;
 
+    [SerializeField] LeanWindow modalExchangeLeanWindow;
+    [SerializeField] LeanWindow modalExchange2LeanWindow;
+    [SerializeField] Text playerTextIZQ;
+    [SerializeField] Text playerTextDER;
+    [SerializeField] Image playerImageIZQ;
+    [SerializeField] Image playerImageDER;
+
+    private UserExchange leftUserExchange;
+    private UserExchange rightUserExchange;
+
+    SetAvatarSprite setAvatarSprite;
+
     void Start()
     {
         GameObject UIControllerGO = GameObject.Find("UIController");
@@ -49,6 +61,7 @@ public class GameController : MonoBehaviour
         selectPartnerAndSupplierComponent = gameObject.GetComponent<SelectPartnerAndSupplier>();
         setCircleCompanyComponent = UIControllerGO.GetComponent<SetCircleCompany>();
         initiativeAssignmentModalLeanWindow = initiativeAssignmentGO.GetComponent<LeanWindow>();
+        setAvatarSprite = UIControllerGO.GetComponent<SetAvatarSprite>();
 
         currentStage = Stage.CreatingPlayers;
         StartCoroutine(GameLoop());
@@ -130,6 +143,14 @@ public class GameController : MonoBehaviour
                 yield return new WaitUntil(() => ProjectToken.getFinalizeAnim());  
                 ProjectToken.finalizeAnim = false; 
                 break;
+            case Stage.Exchange:
+                //Buscar modal donde estan los jugadores para intercambiar
+                
+                yield return StartCoroutine(SetBoardUI());
+                yield return new WaitUntil(() => SetModalForExchange());
+                yield return new WaitUntil(() => currentPlayer.getIsActionComplete());
+                changePlayerPosition();
+                break;
             case Stage.InvestorScore:
                 if (currentPlayer.getTurnOrder() == "1"){
                     InvestorScore.Run(queuePlayer, currentCycle);
@@ -163,7 +184,7 @@ public class GameController : MonoBehaviour
 
     void AdvanceToNextStage()
     {
-        if((currentStage == Stage.Planning) || (currentStage == Stage.ProjectRealization)){
+        if((currentStage == Stage.Planning) || (currentStage == Stage.ProjectRealization || (currentStage == Stage.Exchange))){
             changeAllPlayerIsActionCompleteToFalse();
         }
         currentStage++;
@@ -294,6 +315,66 @@ public class GameController : MonoBehaviour
         }
         return true;
     }
+
+    public bool SetModalForExchange(){
+        bool v= true;
+        foreach (Player player in queuePlayer){
+            if(currentPlayer != player){
+                if(v){
+                    v =  false;
+                    setAvatarSprite.setImage(playerImageIZQ, player.getAvatar());
+                }else{
+                     setAvatarSprite.setImage(playerImageDER, player.getAvatar());
+                }
+
+            }
+        }
+        modalExchangeLeanWindow.TurnOn();
+        return true;
+
+    }
+
+    public void StartExchange(int i)
+        {
+            leftUserExchange = GameObject.Find("LeftResource").GetComponent<UserExchange>();
+            rightUserExchange = GameObject.Find("RightResource").GetComponent<UserExchange>(); 
+            Player playerToExchange = currentPlayer;
+            bool v= false;
+            foreach (Player player in queuePlayer){
+                if(currentPlayer != player){
+                    if(i == 1){
+                        rightUserExchange.Run(player); 
+                        break;
+                    }
+                    if (v){
+                       rightUserExchange.Run(player); 
+                       break; 
+                    }
+                    v = true;
+                }
+            }
+             
+            
+            leftUserExchange.Run(currentPlayer);
+        }
+
+        public void AcceptExchange()
+        {
+            if(leftUserExchange.GetIsAcceptExchange() && rightUserExchange.GetIsAcceptExchange()){ 
+            Dictionary<string, int> leftResource = leftUserExchange.TransferResourceExchenge();
+            Dictionary<string, int> rightResource = rightUserExchange.TransferResourceExchenge();
+            leftUserExchange.SetResourceExchange(rightResource);
+            rightUserExchange.SetResourceExchange(leftResource);
+            Debug.Log("Los dos han aceptado el intercambio");
+            changeCurrentPlayerIsActionComplete();
+            modalExchange2LeanWindow.TurnOff();
+            modalExchangeLeanWindow.TurnOff();
+            }
+        }
+        public void CancelExchange()
+        {
+           
+        }
     
 
 }
