@@ -9,7 +9,7 @@ using System.ComponentModel;
 using UnityEditor.SceneManagement;
 using System;
 
-namespace Get
+namespace Lean.Gui
 {
     public enum PositionUser {Left, Right}
     public class UserExchange : MonoBehaviour
@@ -90,7 +90,7 @@ namespace Get
 
 
         private StringResouceToSprite stringResouceToSprite;
-       //Código que se ejecuta con el start
+       //Cï¿½digo que se ejecuta con el start
        private Dictionary<string, Button> GetDictionaryNameToButton()
         {
 
@@ -131,7 +131,7 @@ namespace Get
             };
         }
 
-        // Código que ejecuta el run
+        // Cï¿½digo que ejecuta el run
         private void SetInfoUser()
         {
             Debug.Log(player.getNickname());
@@ -179,6 +179,14 @@ namespace Get
             // Itilianos
             ItilianosTotal.text = "$ " + Itilianos.getAmount();
         }
+        public void RestartValues()
+        {
+            for (int i = 0; i<6; i++)
+            {
+                cants[i].text = "0";
+                image[i].sprite = null;
+            }
+        }
         public void Run(Player player)
         {
             this.player = player;
@@ -187,7 +195,9 @@ namespace Get
             //Restart Variables
             nameResourceSelected = new string[6]; // Restart nameResourceSelected
             isAcceptExchange = false; // Restart isAcceptExchange
-            isAcceptExchange = false;
+            isCancelExchange = false;
+            imageAcceptExchange.enabled = false;
+            RestartValues();
             // Configuration varibles owner
             Juniors = player.getListEmployees().getJuniors();
             SemiSeniors = player.getListEmployees().getSemiSeniors();
@@ -264,7 +274,7 @@ namespace Get
         public void AddCantResource(int id_cell)
         {
             string resourceString = nameResourceSelected[id_cell];
-            if (resourceString != null && !isAcceptExchange) // Para que se suman recursos no se debe aceptar la transacción
+            if (resourceString != null && !isAcceptExchange) // Para que se suman recursos no se debe aceptar la transacciï¿½n
             {
                 string textTotal = cants[id_cell].text;
                 int total = int.Parse(textTotal);
@@ -279,7 +289,7 @@ namespace Get
         public void MinusCantResource(int id_cell)
         {
             string resourceString = nameResourceSelected[id_cell];
-            if (resourceString != null && !isAcceptExchange) //  Para que se resten recursos no se debe aceptar la transacción
+            if (resourceString != null && !isAcceptExchange) //  Para que se resten recursos no se debe aceptar la transacciï¿½n
             {
                 string textTotal = cants[id_cell].text;
                 int total = int.Parse(textTotal);
@@ -308,7 +318,7 @@ namespace Get
 
         public void AcceptExchange()
         {
-            // Esta es la lógica cuando se da aceptar
+            // Esta es la lï¿½gica cuando se da aceptar
             isAcceptExchange = true;
             imageAcceptExchange.enabled = true;
         }
@@ -321,7 +331,7 @@ namespace Get
             }
             else
             {
-                Debug.Log("Transacción Cancelada");
+                Debug.Log("Transacciï¿½n Cancelada");
                 isCancelExchange= true;
             }
         }
